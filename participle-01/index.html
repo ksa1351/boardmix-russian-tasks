@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Причастие — распределение по группам</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="exercise">
+    <header class="top">
+      <div class="number">Задание 1</div>
+      <h1>Распредели причастия по группам</h1>
+      <p>Перетащи каждое слово в подходящую группу. На планшете можно нажать на карточку, а затем — на нужное поле.</p>
+    </header>
+
+    <div class="hint">
+      Сначала определи: <b>действительное или страдательное</b>, затем — <b>настоящее или прошедшее время</b>.
+    </div>
+
+    <div id="bank" class="bank"></div>
+
+    <div class="grid">
+      <section class="zone" data-zone="act-pres">
+        <div class="zone-title"><strong>Действительное</strong><span>настоящего времени</span></div>
+        <div class="drop"></div>
+      </section>
+      <section class="zone" data-zone="act-past">
+        <div class="zone-title"><strong>Действительное</strong><span>прошедшего времени</span></div>
+        <div class="drop"></div>
+      </section>
+      <section class="zone" data-zone="pass-pres">
+        <div class="zone-title"><strong>Страдательное</strong><span>настоящего времени</span></div>
+        <div class="drop"></div>
+      </section>
+      <section class="zone" data-zone="pass-past">
+        <div class="zone-title"><strong>Страдательное</strong><span>прошедшего времени</span></div>
+        <div class="drop"></div>
+      </section>
+    </div>
+
+    <div class="controls">
+      <button id="checkBtn" class="check">Проверить</button>
+      <button id="resetBtn" class="reset">Начать заново</button>
+    </div>
+
+    <div id="result" class="result" aria-live="polite"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
