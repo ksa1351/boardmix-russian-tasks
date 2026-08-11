@@ -1,15 +1,61 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Славный мастер — орфография и пунктуация</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Славный мастер — орфография и пунктуация</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--text:#243044;--muted:#6f7c8f;--line:#dce3ed;--accent:#5271ff;--accent-soft:#eef2ff;--good:#29965e;--good-bg:#ebfff4;--bad:#d55454;--bad-bg:#fff0f0}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Arial,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+.app{max-width:980px;margin:0 auto;padding:16px}.screen{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 5px 18px rgba(30,45,70,.06)}
+.kicker{display:inline-block;padding:5px 10px;border-radius:16px;background:var(--accent-soft);color:var(--accent);font-size:13px;font-weight:700;margin-bottom:8px}
+h1{font-size:25px;margin:4px 0 10px;line-height:1.2}.lead,.instruction{color:var(--muted);line-height:1.45;margin:0 0 14px}.text-card,.task-card{border:1px solid var(--line);border-radius:14px;padding:16px;background:#fff}.text-card p{margin:0 0 11px;line-height:1.55}.text-card p:last-child{margin-bottom:0}.task-title{font-size:21px}
+.sentence{font-size:20px;line-height:2.05;padding:8px 0}.choice{display:inline-block;margin:0 2px}select{font:inherit;font-weight:700;color:var(--text);border:1px solid #cbd5e1;border-radius:8px;background:#fff;padding:4px 6px;min-width:46px;cursor:pointer}select.correct{border-color:var(--good);background:var(--good-bg);color:var(--good)}select.wrong{border-color:var(--bad);background:var(--bad-bg);color:var(--bad)}
+.progress-wrap{margin-bottom:14px}.progress-row{display:flex;justify-content:space-between;align-items:center;gap:12px}.progress-label{font-size:13px;color:var(--muted);font-weight:700}.progress{height:6px;background:#e7ebf2;border-radius:99px;overflow:hidden}.progress span{display:block;height:100%;background:var(--accent)}
+.nav{display:flex;align-items:center;gap:9px;margin-top:16px}.spacer{flex:1}.btn{border:0;border-radius:10px;padding:10px 14px;font-size:14px;font-weight:700;cursor:pointer}.btn-primary{background:var(--accent);color:#fff}.btn-secondary{background:#e8edf4;color:var(--text)}.result{min-height:22px;margin-top:12px;font-weight:700;font-size:14px}.result.good{color:var(--good)}.result.bad{color:var(--bad)}
+.summary{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}.summary-card{border:1px solid var(--line);border-radius:14px;padding:18px;text-align:center}.summary-num{font-size:28px;font-weight:800}.summary-label{color:var(--muted);margin-top:4px}.mistakes{background:#f8fafc;border-radius:12px;padding:14px;line-height:1.45}.mistakes ul{margin:8px 0 0;padding-left:20px}
+@media(max-width:620px){.app{padding:8px}.screen{padding:14px;border-radius:14px}h1{font-size:22px}.sentence{font-size:17px;line-height:2.15}.summary{grid-template-columns:1fr}.nav{flex-wrap:wrap}.spacer{display:none}.btn{flex:1}.progress-row{align-items:flex-end}}
+</style>
 </head>
 <body>
-  <main class="app">
-    <section id="screen" class="screen" aria-live="polite"></section>
-  </main>
-  <script src="script.js"></script>
+<main class="app"><section id="screen" class="screen" aria-live="polite"></section></main>
+<script>
+const fullText=[
+'Иван Кулибин — талантливый русский изобретатель, воплотивший свои самые смелые мечты.',
+'Широко известны такие его изобретения, как первый в России телеграф, самодвижущиеся экипажи, приводимые в действие педалями.',
+'Гениальны проекты деревянных мостов, разработанные Кулибиным.',
+'Русских часовщиков в России тогда почти не было.',
+'Часами занимались немцы, и они распространяли мнение, что русский человек не сможет постигнуть сложность часового механизма.',
+'Любовь к часам, беспристрастно выстукивающим время, появилась у Кулибина с детства и осталась навсегда.',
+'Что бы он ни делал, что бы ни изобретал, мысли его неумолимо возвращались к часам.',
+'Поражают часы, сделанные мастером в виде яйца, в которых каждый час раскрывались золоченые двери, а под музыку разыгрывалось представление.',
+'Часы Кулибина, раскрывая дарование мастера, являли собой чудо русской техники.'
+];
+const S=(answer,options)=>({type:'spell',answer,options});
+const P=(answer,options=['none',',','—'])=>({type:'punct',answer,options});
+const tasks=[
+['Иван Кулибин ',P('—',['none','—',',']),' талантл',S('и',['и','е']),'вый русский изобр',S('е',['е','и']),'татель',P(','),' воплотивший свои самые смелые мечты.'],
+['Широко извес',S('т',['т','д']),'ны такие его изобретения, как первый в России телеграф',P(',',['none',',',';']),' самодвиж',S('у',['у','ю','а']),'щиеся экипажи',P(','),' пр',S('и',['и','е']),'водимые в действие п',S('е',['е','и']),'далями.'],
+['Г',S('е',['е','и']),'ниальны проекты деревя',S('нн',['н','нн']),'ых мостов',P(','),' разработа',S('нн',['н','нн']),'ые Кулибиным.'],
+['Русских часов',S('щ',['щ','ч','ш']),'иков в России тогда почти не было.'],
+['Часами зан',S('и',['и','е']),'мались немцы',P(',',['none',',',';']),' и они ра',S('с',['с','з','сс']),'пространяли мнение',P(',',['none',',','—']),' что русский человек не сможет постигнуть сложность часового механизма.'],
+['Любовь к часам',P(','),' беспр',S('и',['и','е']),'страстно выстукивающим время',P(','),' появилась у Кулибина с детства и осталась навсегда.'],
+['Что ',S('бы',['бы','б']),' он ',S('ни',['не','ни']),' делал',P(',',['none',',',';']),' что ',S('бы',['бы','б']),' ',S('ни',['не','ни']),' изобретал',P(',',['none',',',';']),' мысли его ',S('не',['не','ни']),'умолимо возвр',S('а',['а','о']),'щались к часам.'],
+['Пор',S('а',['а','о']),'жают часы',P(','),' сдела',S('нн',['н','нн']),'ые мастером в виде яйца',P(','),' в которых каждый час раскрывались золоче',S('н',['н','нн']),'ые двери',P(',',['none',',',';']),' а под музыку раз',S('ы',['ы','и']),'грывалось представление.'],
+['Часы Кулибина',P(','),' раскрывая д',S('а',['а','о']),'рование мастера',P(','),' являли собой чудо русской техники.']
+];
+let page=0;
+const answers=tasks.map(t=>Array(t.filter(x=>typeof x==='object').length).fill(null));
+const checked=tasks.map(()=>false);
+const screen=document.getElementById('screen');
+function label(v,type){if(v==='none')return '∅';return v}
+function esc(v){return String(v).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function render(){if(page===0)return renderReading();if(page===tasks.length+1)return renderSummary();renderTask(page-1)}
+function renderReading(){screen.innerHTML=`<div class="kicker">Работа с текстом</div><h1>Славный мастер</h1><p class="lead">Прочитай текст целиком. Затем восстанови орфографию и пунктуацию в каждом предложении.</p><div class="text-card"><p>${fullText.slice(0,3).map((t,i)=>`<b>(${i+1})</b> ${t}`).join(' ')}</p><p>${fullText.slice(3,7).map((t,i)=>`<b>(${i+4})</b> ${t}`).join(' ')}</p><p>${fullText.slice(7).map((t,i)=>`<b>(${i+8})</b> ${t}`).join(' ')}</p><p><i>(По Г. Богдановой)</i></p></div><div class="nav"><span class="spacer"></span><button class="btn btn-primary" id="start">Начать работу →</button></div>`;document.getElementById('start').onclick=()=>{page=1;render()}}
+function renderTask(idx){let c=0;const sentence=tasks[idx].map(part=>{if(typeof part==='string')return part;const n=c++;const saved=answers[idx][n];const options=['<option value="" disabled '+(saved===null?'selected':'')+'>?</option>'].concat(part.options.map(v=>`<option value="${esc(v)}" ${saved===v?'selected':''}>${label(v,part.type)}</option>`));return `<span class="choice"><select data-n="${n}">${options.join('')}</select></span>`}).join('');screen.innerHTML=`<div class="progress-wrap"><div class="progress-row"><span class="kicker">Орфография + пунктуация</span><span class="progress-label">Предложение ${idx+1} из ${tasks.length}</span></div><div class="progress"><span style="width:${((idx+1)/tasks.length)*100}%"></span></div></div><div class="task-card"><h1 class="task-title">Восстанови предложение</h1><p class="instruction">Выбери нужные буквы, написания и знаки. ∅ — знак не нужен.</p><div class="sentence">${sentence}</div><div id="result" class="result"></div></div><div class="nav"><button class="btn btn-secondary" id="prev">← Назад</button><span class="spacer"></span><button class="btn btn-primary" id="check">Проверить</button><button class="btn btn-secondary" id="next">${idx===tasks.length-1?'Завершить →':'Дальше →'}</button></div>`;document.querySelectorAll('select[data-n]').forEach(el=>el.onchange=()=>{answers[idx][+el.dataset.n]=el.value;checked[idx]=false;el.classList.remove('correct','wrong');const r=document.getElementById('result');r.textContent='';r.className='result'});document.getElementById('prev').onclick=()=>{page--;render()};document.getElementById('next').onclick=()=>{page++;render()};document.getElementById('check').onclick=()=>checkTask(idx);if(checked[idx])checkTask(idx)}
+function checkTask(idx){const expected=tasks[idx].filter(x=>typeof x==='object');const selects=[...document.querySelectorAll('select[data-n]')];let filled=0,correct=0;selects.forEach((el,i)=>{el.classList.remove('correct','wrong');const v=answers[idx][i];if(v!==null){filled++;if(v===expected[i].answer){correct++;el.classList.add('correct')}else el.classList.add('wrong')}});checked[idx]=true;const r=document.getElementById('result');if(filled<expected.length){r.textContent=`Заполнено ${filled} из ${expected.length}. Можно продолжить и вернуться позже.`;r.className='result bad'}else if(correct===expected.length){r.textContent='Всё верно.';r.className='result good'}else{r.textContent=`Верно ${correct} из ${expected.length}. Исправь подсвеченные места или переходи дальше.`;r.className='result bad'}}
+function renderSummary(){let st=0,sc=0,pt=0,pc=0;const trouble=[];tasks.forEach((task,idx)=>{let i=0,w=0;task.forEach(part=>{if(typeof part==='string')return;const v=answers[idx][i++];if(part.type==='spell'){st++;if(v===part.answer)sc++;else w++}else{pt++;if(v===part.answer)pc++;else w++}});if(w)trouble.push(idx+1)});screen.innerHTML=`<div class="kicker">Готово</div><h1>Результат работы</h1><p class="lead">Диагностический итог показывает, к каким предложениям стоит вернуться.</p><div class="summary"><div class="summary-card"><div class="summary-num">${sc} / ${st}</div><div class="summary-label">Орфография</div></div><div class="summary-card"><div class="summary-num">${pc} / ${pt}</div><div class="summary-label">Пунктуация</div></div></div><div class="mistakes"><b>${trouble.length?'Стоит ещё посмотреть предложения:':'Все предложения выполнены без ошибок.'}</b>${trouble.length?`<ul>${trouble.map(n=>`<li>Предложение ${n}</li>`).join('')}</ul>`:''}</div><div class="nav"><button class="btn btn-secondary" id="back">← Назад</button><span class="spacer"></span><button class="btn btn-primary" id="again">Пройти заново</button></div>`;document.getElementById('back').onclick=()=>{page=tasks.length;render()};document.getElementById('again').onclick=()=>{answers.forEach(a=>a.fill(null));checked.fill(false);page=0;render()}}
+render();
+</script>
 </body>
 </html>
