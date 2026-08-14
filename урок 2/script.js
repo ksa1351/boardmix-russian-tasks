@@ -1,6 +1,6 @@
 (() => {
   const base = document.createElement('script');
-  base.src = 'script-base.js?v=20260814c';
+  base.src = 'script-base.js?v=20260814d';
   base.onload = () => {
     const classify = document.getElementById('voiceClassify');
     const form = document.getElementById('voiceForm');
@@ -16,9 +16,9 @@
       <div class="voice-row" data-answer="intr"><span>улыбаться</span><button class="choice" data-value="tr">переходный</button><button class="choice" data-value="intr">непереходный</button></div>`;
 
     form.innerHTML = `
-      <b>2. Образуй возможные страдательные причастия. Запиши формы через точку с запятой и пробел.</b>
-      <div class="voice-form-row"><span>читать / прочитать книгу →</span><input id="voiceInput1" placeholder="...; ..."><span>книга</span></div>
-      <div class="voice-form-row"><span>решать / решить задачу →</span><input id="voiceInput2" placeholder="...; ..."><span>задача</span></div>
+      <b>2. Образуй возможные страдательные причастия. Запиши обе формы через точку с запятой и пробел.</b>
+      <div class="voice-form-row"><span>читать / прочитать книгу →</span><input id="voiceInput1" placeholder="форма 1; форма 2"><span>книга</span></div>
+      <div class="voice-form-row"><span>решать / решить задачу →</span><input id="voiceInput2" placeholder="форма 1; форма 2"><span>задача</span></div>
       <div class="voice-form-row"><span>лететь →</span><span></span><button class="no-form" data-noform="fly">Не образуется</button></div>
       <div class="voice-form-row"><span>улыбаться →</span><span></span><button class="no-form" data-noform="smile">Не образуется</button></div>
       <div class="actions"><button class="secondary" id="checkVoiceForms">Проверить</button><div class="status" id="voiceFormStatus"></div></div>`;
@@ -66,7 +66,7 @@
         status.className = 'status good';
         final.classList.remove('hidden');
       } else {
-        status.textContent = 'Проверь формы. Записывай две формы через «; » — точку с запятой и пробел.';
+        status.textContent = 'Проверь формы. Формат ответа: первая форма; вторая форма.';
         status.className = 'status bad';
         final.classList.add('hidden');
         rule.classList.add('hidden');
