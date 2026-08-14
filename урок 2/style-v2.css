@@ -1,19 +1,95 @@
 @import url("style-base.css");
 
-/* Карточка 13: сохраняем кнопки проверки в видимой области */
-.morph-panel{display:flex;flex-direction:column;overflow:hidden}
-.morph-panel>.panel-title{flex:0 0 auto;margin-bottom:6px}
+/* Общая страховка: содержимое карточек не должно вытеснять кнопки за пределы окна */
+.scheme-panel,.sort-panel,.transition-panel,.voice-panel,.algorithm-panel,.morph-panel,.self-panel,.formation-panel{display:flex;flex-direction:column;overflow:hidden}
+.scheme-panel>.panel-title,.sort-panel>.panel-title,.transition-panel>.panel-title,.voice-panel>.panel-title,.algorithm-panel>.panel-title,.morph-panel>.panel-title,.self-panel>.panel-title,.formation-panel>.panel-title{flex:0 0 auto}
+.scheme-panel>.actions,.sort-panel>.actions,.transition-panel>.actions,.algorithm-panel>.actions,.morph-panel>.actions,.self-panel>.actions{flex:0 0 auto;margin-top:7px}
+
+/* Карточка 4 */
+.scheme-wrap{flex:1 1 auto;min-height:0}
+.scheme-zone{min-height:150px}
+.feature-bank{flex:0 0 auto;min-height:58px;margin-top:7px;padding:7px}
+.feature-card{padding:6px 8px;font-size:12px}
+
+/* Карточка 6 */
+.sort-zones{flex:1 1 auto;min-height:0}
+.drop-zone{min-height:110px}
+.card-bank{flex:0 0 auto;min-height:58px;margin-top:7px;padding:7px}
+.phrase-card{padding:6px 8px;font-size:12px}
+
+/* Карточка 7 */
+.formation-grid{flex:1 1 auto;min-height:0}
+.formation-panel>.status{flex:0 0 auto;margin-top:7px!important}
+.match-list{grid-template-rows:repeat(4,36px);gap:6px}
+.match-item{height:36px;font-size:13px}
+.match-arrow{min-height:162px}
+
+/* Карточки 9–10: переходность */
+.transition-zones,.trans-zones{flex:0 0 auto}
+.transition-zone,.trans-zone{min-height:105px}
+.drag-bank{flex:0 0 auto;min-height:52px;margin-top:7px;padding:7px}
+.drag-chip{padding:6px 8px;font-size:12px}
+.discovery-box{flex:0 0 auto;margin-top:6px;padding:7px 9px;gap:7px}
+.discovery-box .prompt,.term-block{font-size:12px}
+.rule-box,.reflexive-note{flex:0 0 auto;margin-top:5px;padding:6px 8px;font-size:12px}
+
+/* Карточка 11: все этапы должны помещаться после раскрытия */
+.voice-steps{flex:1 1 auto;min-height:0;gap:9px}
+.voice-classify,.voice-form{padding:8px}
+.voice-row{padding:5px 0;font-size:12px;gap:5px}
+.voice-form-row{grid-template-columns:145px 1fr auto;gap:6px;margin-bottom:5px;font-size:12px}
+.voice-form-row input{padding:5px 6px}
+.voice-final{flex:0 0 auto;margin-top:5px;padding:6px 8px;font-size:12px}
+.voice-panel>.rule-box{flex:0 0 auto}
+
+/* Карточка 12 */
+.algorithm-layout{flex:1 1 auto;min-height:0;gap:9px}
+.algorithm-bank{padding:7px;gap:5px;overflow:hidden}
+.algorithm-card{padding:6px 7px;font-size:12px}
+.algorithm-slots{gap:5px}
+.algorithm-slot{min-height:38px;padding:4px 6px}
+
+/* Карточка 13 */
 .morph-layout{flex:1 1 auto;min-height:0;height:auto;max-height:none;overflow:hidden}
-.morph-panel>.actions{flex:0 0 auto;margin-top:8px;padding-top:2px}
 .morph-bank,.morph-zones{min-height:0}
-.morph-zones{grid-template-rows:42px 42px 76px 68px 42px 48px;gap:5px}
-.morph-zone{padding:4px 6px;gap:4px}
-.morph-chip{font-size:11px;padding:5px 7px}
-.morph-zone .morph-chip{font-size:10px;padding:4px 6px}
+.morph-bank{padding:7px;gap:5px}
+.morph-zones{grid-template-rows:40px 40px 72px 64px 40px 44px;gap:4px}
+.morph-zone{padding:4px 6px;gap:3px}
+.morph-chip{font-size:10.5px;padding:4px 6px}
+.morph-zone .morph-chip{font-size:9.5px;padding:3px 5px}
+
+/* Карточка 14 */
+.self-grid{flex:1 1 auto;min-height:0;gap:6px}
+.self-field{padding:6px}
+.self-field label{font-size:12px;margin-bottom:3px}
+.self-field textarea{height:40px;padding:5px 6px;font-size:11.5px}
+.selfcheck-overlay{overflow:hidden;padding:10px}
+.sample-grid{gap:5px}
+.sample-item{padding:5px;font-size:11px}
+
+/* Исследовательские карточки 2–3: запас места для появляющихся выводов */
+.verb-panel,.adj-panel{overflow:hidden}
+.research-grid{gap:8px}
+.research-card{min-height:0;padding:8px}
+.research-card h3{font-size:clamp(13px,1.5vw,16px);margin-bottom:5px}
+.research-question{font-size:12px;margin:4px 0}
+.mini-inputs{margin:4px 0;gap:5px}
+.mini-inputs input{padding:5px 6px;font-size:12px}
+.choice-row{margin-top:5px;gap:5px}
+.choice{padding:5px 7px;font-size:12px}
+.research-summary{margin-top:6px;padding:7px 9px;font-size:12px}
+
+/* Длинный заголовок карточки 4 */
+.lesson-screen:nth-of-type(4) .lesson-header h1{font-size:clamp(25px,3vw,35px);line-height:1.02;white-space:nowrap;margin-bottom:2px}
+.lesson-screen:nth-of-type(4) .lesson-header p{font-size:clamp(13px,1.4vw,16px)}
 
 @media(max-width:760px){
-  .morph-panel>.actions{margin-top:6px}
-  .morph-zones{grid-template-rows:38px 38px 68px 60px 38px 44px}
-  .morph-chip{font-size:10px;padding:4px 6px}
-  .morph-zone .morph-chip{font-size:9px;padding:3px 5px}
+  .scheme-zone{min-height:125px}
+  .drop-zone,.transition-zone,.trans-zone{min-height:90px}
+  .morph-zones{grid-template-rows:36px 36px 62px 56px 36px 40px}
+  .morph-chip{font-size:9.5px;padding:3px 5px}
+  .morph-zone .morph-chip{font-size:8.5px;padding:2px 4px}
+  .self-field textarea{height:36px}
+  .voice-form-row{grid-template-columns:120px 1fr auto}
+  .lesson-screen:nth-of-type(4) .lesson-header h1{font-size:23px;white-space:normal}
 }
