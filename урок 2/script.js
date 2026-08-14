@@ -1,6 +1,6 @@
 (() => {
   const base = document.createElement('script');
-  base.src = 'script-base.js?v=20260814d';
+  base.src = 'script-base.js?v=20260814f';
   base.onload = () => {
     const classify = document.getElementById('voiceClassify');
     const form = document.getElementById('voiceForm');
@@ -47,26 +47,36 @@
       };
     });
 
+    const normalizePart = (text, noun) => norm(text)
+      .replace(new RegExp(`\\b${noun}\\b`, 'g'), '')
+      .trim();
+
+    const formSetMatches = (value, expected, noun) => {
+      const actual = value.split(';').map(x => normalizePart(x, noun)).filter(Boolean).sort();
+      const target = expected.map(x => norm(x)).sort();
+      return actual.length === target.length && actual.every((x, i) => x === target[i]);
+    };
+
     document.getElementById('checkVoiceForms').onclick = () => {
-      const raw1 = document.getElementById('voiceInput1').value.trim();
-      const raw2 = document.getElementById('voiceInput2').value.trim();
-      const a = norm(raw1);
-      const b = norm(raw2);
-      const ok1 = a === 'читаемая; прочитанная';
-      const ok2 = b === 'решаемая; решенная';
+      const raw1 = document.getElementById('voiceInput1').value;
+      const raw2 = document.getElementById('voiceInput2').value;
+      const ok1 = formSetMatches(raw1, ['читаемая', 'прочитанная'], 'книга');
+      const ok2 = formSetMatches(raw2, ['решаемая', 'решённая'], 'задача');
       const status = document.getElementById('voiceFormStatus');
       const i1 = document.getElementById('voiceInput1');
       const i2 = document.getElementById('voiceInput2');
+
       i1.style.borderColor = ok1 ? '#2c9d62' : '#d96767';
       i2.style.borderColor = ok2 ? '#2c9d62' : '#d96767';
       form.querySelector('[data-noform="fly"]').classList.toggle('good', noFly);
       form.querySelector('[data-noform="smile"]').classList.toggle('good', noSmile);
+
       if (ok1 && ok2 && noFly && noSmile) {
         status.textContent = 'Верно. Теперь сравни глаголы, от которых образовались формы.';
         status.className = 'status good';
         final.classList.remove('hidden');
       } else {
-        status.textContent = 'Проверь формы. Формат ответа: первая форма; вторая форма.';
+        status.textContent = 'Проверь формы. Порядок форм может быть любым; разделяй их точкой с запятой.';
         status.className = 'status bad';
         final.classList.add('hidden');
         rule.classList.add('hidden');
