@@ -1,6 +1,6 @@
 (() => {
   const base = document.createElement('script');
-  base.src = 'script-base.js?v=20260814b';
+  base.src = 'script-base.js?v=20260814c';
   base.onload = () => {
     const classify = document.getElementById('voiceClassify');
     const form = document.getElementById('voiceForm');
@@ -10,15 +10,15 @@
 
     classify.innerHTML = `
       <b>1. Определи переходность исходных глаголов.</b>
-      <div class="voice-row" data-answer="tr"><span>читать книгу</span><button class="choice" data-value="tr">переходный</button><button class="choice" data-value="intr">непереходный</button></div>
-      <div class="voice-row" data-answer="tr"><span>решать задачу</span><button class="choice" data-value="tr">переходный</button><button class="choice" data-value="intr">непереходный</button></div>
+      <div class="voice-row" data-answer="tr"><span>читать / прочитать книгу</span><button class="choice" data-value="tr">переходный</button><button class="choice" data-value="intr">непереходный</button></div>
+      <div class="voice-row" data-answer="tr"><span>решать / решить задачу</span><button class="choice" data-value="tr">переходный</button><button class="choice" data-value="intr">непереходный</button></div>
       <div class="voice-row" data-answer="intr"><span>лететь</span><button class="choice" data-value="tr">переходный</button><button class="choice" data-value="intr">непереходный</button></div>
       <div class="voice-row" data-answer="intr"><span>улыбаться</span><button class="choice" data-value="tr">переходный</button><button class="choice" data-value="intr">непереходный</button></div>`;
 
     form.innerHTML = `
-      <b>2. Образуй страдательное причастие настоящего времени.</b>
-      <div class="voice-form-row"><span>читать книгу →</span><input id="voiceInput1" placeholder="... книга"><span>книга</span></div>
-      <div class="voice-form-row"><span>решать задачу →</span><input id="voiceInput2" placeholder="... задача"><span>задача</span></div>
+      <b>2. Образуй возможные страдательные причастия. Запиши формы через точку с запятой и пробел.</b>
+      <div class="voice-form-row"><span>читать / прочитать книгу →</span><input id="voiceInput1" placeholder="...; ..."><span>книга</span></div>
+      <div class="voice-form-row"><span>решать / решить задачу →</span><input id="voiceInput2" placeholder="...; ..."><span>задача</span></div>
       <div class="voice-form-row"><span>лететь →</span><span></span><button class="no-form" data-noform="fly">Не образуется</button></div>
       <div class="voice-form-row"><span>улыбаться →</span><span></span><button class="no-form" data-noform="smile">Не образуется</button></div>
       <div class="actions"><button class="secondary" id="checkVoiceForms">Проверить</button><div class="status" id="voiceFormStatus"></div></div>`;
@@ -48,10 +48,12 @@
     });
 
     document.getElementById('checkVoiceForms').onclick = () => {
-      const a = norm(document.getElementById('voiceInput1').value);
-      const b = norm(document.getElementById('voiceInput2').value);
-      const ok1 = ['читаемая','читаемая книга'].includes(a);
-      const ok2 = ['решаемая','решаемая задача'].includes(b);
+      const raw1 = document.getElementById('voiceInput1').value.trim();
+      const raw2 = document.getElementById('voiceInput2').value.trim();
+      const a = norm(raw1);
+      const b = norm(raw2);
+      const ok1 = a === 'читаемая; прочитанная';
+      const ok2 = b === 'решаемая; решенная';
       const status = document.getElementById('voiceFormStatus');
       const i1 = document.getElementById('voiceInput1');
       const i2 = document.getElementById('voiceInput2');
@@ -64,7 +66,7 @@
         status.className = 'status good';
         final.classList.remove('hidden');
       } else {
-        status.textContent = 'Проверь формы и отметь случаи, где страдательное причастие не образуется.';
+        status.textContent = 'Проверь формы. Записывай две формы через «; » — точку с запятой и пробел.';
         status.className = 'status bad';
         final.classList.add('hidden');
         rule.classList.add('hidden');
