@@ -427,3 +427,38 @@
 .compress-grid .slot .token{
   max-width:100%;
 }
+
+/* Экран 1: вопрос после проверки должен быть полностью виден над статусом */
+#ws1 .pair-grid{
+  width:min(100%,900px);
+  gap:8px 18px;
+  margin:2px auto 10px;
+}
+
+#ws1 .pair-label,
+#ws1 .slot{
+  height:48px;
+  min-height:48px;
+}
+
+#ws1 .pair-label{
+  font-size:18px;
+}
+
+#ws1 .token-bank{
+  min-height:56px;
+  padding:8px 10px;
+}
+
+#ws1 .token-bank .token{
+  padding:9px 16px;
+  font-size:17px;
+}
+
+#s1Question{
+  width:min(100%,900px);
+  margin:10px auto 0;
+  padding:10px 16px;
+  font-size:17px;
+  line-height:1.2;
+}
