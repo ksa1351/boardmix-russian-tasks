@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Урок 3. Образование и правописание причастий</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="viewport">
+  <div id="scaled-wrap"><main id="app" aria-label="Тренажёр по образованию и правописанию причастий">
+    <header class="topbar">
+      <div class="title-wrap">
+        <div class="eyebrow" id="eyebrow">Урок 3 · Причастие</div>
+        <h1 id="screenTitle">Из чего сделано причастие?</h1>
+      </div>
+      <div class="progress"><span id="progressText">1 / 10</span><div class="progress-line"><div id="progressFill" class="progress-fill" style="width:10%"></div></div></div>
+    </header>
+
+    <section class="screen active" data-index="0" data-title="Из чего сделано причастие?">
+      <div class="instruction">Подбери исходный глагол к каждому причастию.</div>
+      <div class="workspace" id="ws1">
+        <div class="pair-grid">
+          <div class="pair-label">ЧИТАЮЩИЙ</div><div class="slot" data-key="s1-read">Перетащи сюда</div>
+          <div class="pair-label">ПРОВЕРЯЕМЫЙ</div><div class="slot" data-key="s1-check">Перетащи сюда</div>
+          <div class="pair-label">РЕШИВШИЙ</div><div class="slot" data-key="s1-solve">Перетащи сюда</div>
+          <div class="pair-label">ПОСТРОЕННЫЙ</div><div class="slot" data-key="s1-build">Перетащи сюда</div>
+        </div>
+        <div class="token-bank" data-bank="s1">
+          <div class="token" draggable="true" data-answer="s1-build">построить</div>
+          <div class="token" draggable="true" data-answer="s1-read">читать</div>
+          <div class="token" draggable="true" data-answer="s1-solve">решить</div>
+          <div class="token" draggable="true" data-answer="s1-check">проверять</div>
+        </div>
+        <div id="s1Question" class="question-card hidden">Что нужно знать об исходном глаголе, чтобы правильно образовать причастие?</div>
+        <div class="status hidden" data-status></div>
+      </div>
+    </section>
+
+    <section class="screen" data-index="1" data-title="Что мы знаем о глаголе?">
+      <div class="instruction">Заполни паспорт каждого глагола. Эти признаки скоро понадобятся.</div>
+      <div class="workspace" id="ws2">
+        <div class="choice-table">
+          <div></div><div class="th">Вид</div><div class="th">Переходность</div><div class="th">Спряжение</div>
+          <div class="word-cell">читать</div>
+          <div class="choice-group" data-answer="НСВ"><button class="choice" data-value="НСВ">НСВ</button><button class="choice" data-value="СВ">СВ</button></div>
+          <div class="choice-group" data-answer="перех."><button class="choice" data-value="перех.">перех.</button><button class="choice" data-value="неперех.">неперех.</button></div>
+          <div class="choice-group" data-answer="I"><button class="choice" data-value="I">I</button><button class="choice" data-value="II">II</button></div>
+          <div class="word-cell">строить</div>
+          <div class="choice-group" data-answer="НСВ"><button class="choice" data-value="НСВ">НСВ</button><button class="choice" data-value="СВ">СВ</button></div>
+          <div class="choice-group" data-answer="перех."><button class="choice" data-value="перех.">перех.</button><button class="choice" data-value="неперех.">неперех.</button></div>
+          <div class="choice-group" data-answer="II"><button class="choice" data-value="I">I</button><button class="choice" data-value="II">II</button></div>
+          <div class="word-cell">решить</div>
+          <div class="choice-group" data-answer="СВ"><button class="choice" data-value="НСВ">НСВ</button><button class="choice" data-value="СВ">СВ</button></div>
+          <div class="choice-group" data-answer="перех."><button class="choice" data-value="перех.">перех.</button><button class="choice" data-value="неперех.">неперех.</button></div>
+          <div class="choice-group" data-answer="II"><button class="choice" data-value="I">I</button><button class="choice" data-value="II">II</button></div>
+          <div class="word-cell">улыбаться</div>
+          <div class="choice-group" data-answer="НСВ"><button class="choice" data-value="НСВ">НСВ</button><button class="choice" data-value="СВ">СВ</button></div>
+          <div class="choice-group" data-answer="неперех."><button class="choice" data-value="перех.">перех.</button><button class="choice" data-value="неперех.">неперех.</button></div>
+          <div class="choice-group" data-answer="I"><button class="choice" data-value="I">I</button><button class="choice" data-value="II">II</button></div>
+          <div class="word-cell">открыть</div>
+          <div class="choice-group" data-answer="СВ"><button class="choice" data-value="НСВ">НСВ</button><button class="choice" data-value="СВ">СВ</button></div>
+          <div class="choice-group" data-answer="перех."><button class="choice" data-value="перех.">перех.</button><button class="choice" data-value="неперех.">неперех.</button></div>
+          <div class="choice-group" data-answer="I"><button class="choice" data-value="I">I</button><button class="choice" data-value="II">II</button></div>
+        </div>
+        <div id="s2Conclusion" class="question-card hidden">Какие из этих признаков действительно будут влиять на образование причастия? Проверим дальше.</div>
+        <div class="status hidden" data-status></div>
+      </div>
+    </section>
+
+    <section class="screen" data-index="2" data-title="Любое ли причастие можно образовать?">
+      <div class="instruction">Распредели карточки: форму можно образовать или не получится.</div>
+      <div class="workspace" id="ws3">
+        <div id="s3Step1">
+          <div class="zones-2">
+            <div class="drop-zone good-zone" data-zone="can"><h3>МОЖНО</h3></div>
+            <div class="drop-zone bad-zone" data-zone="cannot"><h3>НЕ ПОЛУЧИТСЯ</h3></div>
+          </div>
+          <div class="token-bank" data-bank="s3">
+            <div class="token wide" draggable="true" data-answer="cannot">решить → действ. настоящее</div>
+            <div class="token wide" draggable="true" data-answer="can">строить → действ. настоящее</div>
+            <div class="token wide" draggable="true" data-answer="can">читать → страдат. настоящее</div>
+            <div class="token wide" draggable="true" data-answer="cannot">улыбаться → страдательное</div>
+            <div class="token wide" draggable="true" data-answer="can">открыть → страдат. прошедшее</div>
+            <div class="token wide" draggable="true" data-answer="can">улыбаться → действ. прошедшее</div>
+          </div>
+        </div>
+        <div id="s3Step2" class="hidden fadein">
+          <div class="reason-panel">
+            <div class="reason-card">
+              <div class="reason-title">решить → действительное причастие настоящего времени</div>
+              <div class="mini-choice" data-answer="вид"><button data-value="вид">вид</button><button data-value="переходность">переходность</button><button data-value="спряжение">спряжение</button></div>
+            </div>
+            <div class="reason-card">
+              <div class="reason-title">улыбаться → страдательное причастие</div>
+              <div class="mini-choice" data-answer="переходность"><button data-value="вид">вид</button><button data-value="переходность">переходность</button><button data-value="спряжение">спряжение</button></div>
+            </div>
+          </div>
+          <div id="s3Rules" class="rule-box hidden">
+            <div class="rule-item">СВ → нет формы настоящего времени</div>
+            <div class="rule-item">Непереходный глагол → страдательное причастие не образуется</div>
+          </div>
+        </div>
+        <div class="status hidden" data-status></div>
+      </div>
+    </section>
+
+    <section class="screen" data-index="3" data-title="Суффикс спрятан в глаголе">
+      <div class="instruction">Перетащи суффикс. Подсказку ищи в форме глагола.</div>
+      <div class="workspace" id="ws4">
+        <div id="s4Step1">
+          <div class="build-list">
+            <div class="build-row"><div class="source-form">нести</div><div class="middle-form">несут</div><div class="word-builder">нес <div class="slot suffix-slot" data-key="s4-ущ">?</div> ий</div></div>
+            <div class="build-row"><div class="source-form">читать</div><div class="middle-form">читают</div><div class="word-builder">чита <div class="slot suffix-slot" data-key="s4-ющ">?</div> ий</div></div>
+            <div class="build-row"><div class="source-form">дышать</div><div class="middle-form">дышат</div><div class="word-builder">дыш <div class="slot suffix-slot" data-key="s4-ащ">?</div> ий</div></div>
+            <div class="build-row"><div class="source-form">строить</div><div class="middle-form">строят</div><div class="word-builder">стро <div class="slot suffix-slot" data-key="s4-ящ">?</div> ий</div></div>
+          </div>
+          <div class="token-bank suffix-bank" data-bank="s4">
+            <div class="token" draggable="true" data-answer="s4-ущ">УЩ</div>
+            <div class="token" draggable="true" data-answer="s4-ющ">ЮЩ</div>
+            <div class="token" draggable="true" data-answer="s4-ащ">АЩ</div>
+            <div class="token" draggable="true" data-answer="s4-ящ">ЯЩ</div>
+          </div>
+        </div>
+        <div id="s4Step2" class="hidden fadein">
+          <div class="reason-panel">
+            <div class="reason-card"><div class="reason-title">-ут / -ют →</div><div class="mini-choice" data-answer="-ущ-/-ющ-"><button data-value="-ущ-/-ющ-">-ущ-/-ющ-</button><button data-value="-ащ-/-ящ-">-ащ-/-ящ-</button></div></div>
+            <div class="reason-card"><div class="reason-title">-ат / -ят →</div><div class="mini-choice" data-answer="-ащ-/-ящ-"><button data-value="-ущ-/-ющ-">-ущ-/-ющ-</button><button data-value="-ащ-/-ящ-">-ащ-/-ящ-</button></div></div>
+          </div>
+          <div id="s4Rules" class="rule-box hidden"><div class="rule-item">I спр. → -ущ- / -ющ-</div><div class="rule-item">II спр. → -ащ- / -ящ-</div></div>
+        </div>
+        <div class="status hidden" data-status></div>
+      </div>
+    </section>
+
+    <section class="screen" data-index="4" data-title="Предмет испытывает действие">
+      <div class="instruction">Сравни форму глагола и собери страдательное причастие настоящего времени.</div>
+      <div class="workspace" id="ws5">
+        <div id="s5Step1">
+          <div class="build-list">
+            <div class="build-row"><div class="source-form">проверять</div><div class="middle-form">проверяем</div><div class="word-builder">проверя <div class="slot suffix-slot" data-key="s5-em1" data-accept="ЕМ">?</div> ый</div></div>
+            <div class="build-row"><div class="source-form">уважать</div><div class="middle-form">уважаем</div><div class="word-builder">уважа <div class="slot suffix-slot" data-key="s5-em2" data-accept="ЕМ">?</div> ый</div></div>
+            <div class="build-row"><div class="source-form">видеть</div><div class="middle-form">видим</div><div class="word-builder">вид <div class="slot suffix-slot" data-key="s5-im1" data-accept="ИМ">?</div> ый</div></div>
+            <div class="build-row"><div class="source-form">хранить</div><div class="middle-form">храним</div><div class="word-builder">хран <div class="slot suffix-slot" data-key="s5-im2" data-accept="ИМ">?</div> ый</div></div>
+          </div>
+          <div class="token-bank suffix-bank" data-bank="s5">
+            <div class="token" draggable="true" data-answer="s5-em1" data-value="ЕМ">ЕМ</div>
+            <div class="token" draggable="true" data-answer="s5-em2" data-value="ЕМ">ЕМ</div>
+            <div class="token" draggable="true" data-answer="s5-im1" data-value="ИМ">ИМ</div>
+            <div class="token" draggable="true" data-answer="s5-im2" data-value="ИМ">ИМ</div>
+          </div>
+        </div>
+        <div id="s5Step2" class="hidden fadein">
+          <div class="reason-panel">
+            <div class="reason-card"><div class="reason-title">проверять, уважать</div><div class="mini-choice" data-answer="I"><button data-value="I">I спряжение</button><button data-value="II">II спряжение</button></div></div>
+            <div class="reason-card"><div class="reason-title">видеть, хранить</div><div class="mini-choice" data-answer="II"><button data-value="I">I спряжение</button><button data-value="II">II спряжение</button></div></div>
+          </div>
+          <div id="s5Rules" class="rule-box hidden"><div class="rule-item">I спр. → -ем-</div><div class="rule-item">II спр. → -им-</div></div>
+        </div>
+        <div class="status hidden" data-status></div>
+      </div>
+    </section>
+
+    <section class="screen" data-index="5" data-title="Что меняется в прошедшем времени?">
+      <div class="instruction">Собери действительные причастия прошедшего времени.</div>
+      <div class="workspace" id="ws6">
+        <div id="s6Step1">
+          <div class="build-list">
+            <div class="build-row"><div class="source-form">прочитать</div><div class="middle-form">прочита-</div><div class="word-builder">прочита <div class="slot suffix-slot" data-key="s6-vsh1" data-accept="ВШ">?</div> ий</div></div>
+            <div class="build-row"><div class="source-form">увидеть</div><div class="middle-form">увиде-</div><div class="word-builder">увиде <div class="slot suffix-slot" data-key="s6-vsh2" data-accept="ВШ">?</div> ий</div></div>
+            <div class="build-row"><div class="source-form">нести</div><div class="middle-form">нёс-</div><div class="word-builder">нёс <div class="slot suffix-slot" data-key="s6-sh1" data-accept="Ш">?</div> ий</div></div>
+            <div class="build-row"><div class="source-form">вырасти</div><div class="middle-form">вырос-</div><div class="word-builder">вырос <div class="slot suffix-slot" data-key="s6-sh2" data-accept="Ш">?</div> ий</div></div>
+          </div>
+          <div class="token-bank suffix-bank" data-bank="s6">
+            <div class="token" draggable="true" data-answer="s6-vsh1" data-value="ВШ">ВШ</div><div class="token" draggable="true" data-answer="s6-vsh2" data-value="ВШ">ВШ</div>
+            <div class="token" draggable="true" data-answer="s6-sh1" data-value="Ш">Ш</div><div class="token" draggable="true" data-answer="s6-sh2" data-value="Ш">Ш</div>
+          </div>
+        </div>
+        <div id="s6Step2" class="hidden fadein">
+          <div class="classification-mini">
+            <div class="class-card" data-answer="гласный"><b>прочита-</b><button data-value="гласный">гласный</button><button data-value="согласный">согласный</button></div>
+            <div class="class-card" data-answer="гласный"><b>увиде-</b><button data-value="гласный">гласный</button><button data-value="согласный">согласный</button></div>
+            <div class="class-card" data-answer="согласный"><b>нёс-</b><button data-value="гласный">гласный</button><button data-value="согласный">согласный</button></div>
+            <div class="class-card" data-answer="согласный"><b>вырос-</b><button data-value="гласный">гласный</button><button data-value="согласный">согласный</button></div>
+          </div>
+          <div id="s6Rules" class="rule-box hidden"><div class="rule-item">основа на гласный → -вш-</div><div class="rule-item">основа на согласный → -ш-</div></div>
+        </div>
+        <div class="status hidden" data-status></div>
+      </div>
+    </section>
+
+    <section class="screen" data-index="6" data-title="Три мастерские">
+      <div class="instruction">Сначала распредели глаголы по суффиксам, затем собери формы.</div>
+      <div class="workspace" id="ws7">
+        <div id="s7Step1" class="workshop-stage">
+          <div class="zones-3">
+            <div class="drop-zone" data-zone="nn"><h3>-НН-</h3></div>
+            <div class="drop-zone" data-zone="enn"><h3>-ЕНН- / -ЁНН-</h3></div>
+            <div class="drop-zone" data-zone="t"><h3>-Т-</h3></div>
+          </div>
+          <div class="token-bank" data-bank="s7" style="min-height:135px">
+            <div class="token" draggable="true" data-answer="nn">прочитать</div>
+            <div class="token" draggable="true" data-answer="nn">посеять</div>
+            <div class="token" draggable="true" data-answer="enn">решить</div>
+            <div class="token" draggable="true" data-answer="enn">построить</div>
+            <div class="token" draggable="true" data-answer="enn">принести</div>
+            <div class="token" draggable="true" data-answer="t">закрыть</div>
+            <div class="token" draggable="true" data-answer="t">сжать</div>
+          </div>
+        </div>
+        <div id="s7Step2" class="hidden fadein">
+          <div class="word-option-grid">
+            <div class="word-option" data-answer="НН"><div class="wo-title">прочитать → прочита…ый</div><div class="wo-buttons"><button data-value="НН">НН</button><button data-value="ЕНН">ЕНН</button><button data-value="Т">Т</button></div></div>
+            <div class="word-option" data-answer="НН"><div class="wo-title">посеять → посея…ый</div><div class="wo-buttons"><button data-value="НН">НН</button><button data-value="ЕНН">ЕНН</button><button data-value="Т">Т</button></div></div>
+            <div class="word-option" data-answer="ЁНН"><div class="wo-title">решить → реш…ый</div><div class="wo-buttons"><button data-value="ЕНН">ЕНН</button><button data-value="ЁНН">ЁНН</button><button data-value="Т">Т</button></div></div>
+            <div class="word-option" data-answer="ЕНН"><div class="wo-title">построить → постро…ый</div><div class="wo-buttons"><button data-value="ЕНН">ЕНН</button><button data-value="ЁНН">ЁНН</button><button data-value="Т">Т</button></div></div>
+            <div class="word-option" data-answer="ЁНН"><div class="wo-title">принести → принес…ый</div><div class="wo-buttons"><button data-value="ЕНН">ЕНН</button><button data-value="ЁНН">ЁНН</button><button data-value="Т">Т</button></div></div>
+            <div class="word-option" data-answer="Т"><div class="wo-title">закрыть → закры…ый</div><div class="wo-buttons"><button data-value="НН">НН</button><button data-value="ЕНН">ЕНН</button><button data-value="Т">Т</button></div></div>
+            <div class="word-option" data-answer="Т"><div class="wo-title">сжать → сжа…ый</div><div class="wo-buttons"><button data-value="НН">НН</button><button data-value="ЕНН">ЕНН</button><button data-value="Т">Т</button></div></div>
+          </div>
+          <div id="s7Observation" class="question-card hidden" style="margin-top:10px;width:980px">прочитать → прочитанный · посеять → посеянный. Что произошло с А / Я перед -ть? <span style="color:#2856a3">Они сохранились.</span></div>
+        </div>
+        <div class="status hidden" data-status></div>
+      </div>
+    </section>
+
+    <section class="screen" data-index="7" data-title="Что произойдёт с НН?">
+      <div class="instruction">Преобразуй полные страдательные причастия в краткие.</div>
+      <div class="workspace" id="ws8">
+        <div class="compress-grid">
+          <div class="pair-label">прочитанный рассказ</div><div class="slot" data-key="s8-1">Перетащи краткую форму</div>
+          <div class="pair-label">решённая задача</div><div class="slot" data-key="s8-2">Перетащи краткую форму</div>
+          <div class="pair-label">проверенная работа</div><div class="slot" data-key="s8-3">Перетащи краткую форму</div>
+        </div>
+        <div class="token-bank" data-bank="s8">
+          <div class="token" draggable="true" data-answer="s8-3">проверена</div>
+          <div class="token" draggable="true" data-answer="s8-1">прочитан</div>
+          <div class="token" draggable="true" data-answer="s8-2">решена</div>
+        </div>
+        <div id="s8Note" class="nn-note hidden">прочитаННый → прочитаН · решёННая → решеНа · провереННая → провереНа</div>
+        <div class="status hidden" data-status></div>
+      </div>
+    </section>
+
+    <section class="screen" data-index="8" data-title="Ремонтная мастерская">
+      <div class="instruction">Сначала реши: форму можно исправить или она вообще не образуется.</div>
+      <div class="workspace repair-stage" id="ws9">
+        <div id="s9Step1">
+          <div class="zones-2">
+            <div class="drop-zone good-zone" data-zone="fix"><h3>МОЖНО ИСПРАВИТЬ</h3></div>
+            <div class="drop-zone bad-zone" data-zone="no"><h3>ФОРМА НЕ ОБРАЗУЕТСЯ</h3></div>
+          </div>
+          <div class="token-bank" data-bank="s9">
+            <div class="token" draggable="true" data-answer="fix">строить → строющий</div>
+            <div class="token" draggable="true" data-answer="fix">видеть → видемый</div>
+            <div class="token" draggable="true" data-answer="no">решить → решающий</div>
+            <div class="token" draggable="true" data-answer="fix">посеять → посеенный</div>
+            <div class="token" draggable="true" data-answer="fix">открыть → открыенный</div>
+            <div class="token" draggable="true" data-answer="fix">прочитать → прочитаный</div>
+            <div class="token" draggable="true" data-answer="no">улыбаться → улыбаемый</div>
+          </div>
+        </div>
+        <div id="s9Step2" class="hidden fadein">
+          <div class="repair-fixes">
+            <div class="repair-fix word-option" data-answer="ящ"><b>строить → стро…ий</b><div class="wo-buttons"><button data-value="ющ">ющ</button><button data-value="ящ">ящ</button></div></div>
+            <div class="repair-fix word-option" data-answer="им"><b>видеть → вид…ый</b><div class="wo-buttons"><button data-value="ем">ем</button><button data-value="им">им</button></div></div>
+            <div class="repair-fix word-option" data-answer="янн"><b>посеять → посе…ый</b><div class="wo-buttons"><button data-value="енн">енн</button><button data-value="янн">янн</button></div></div>
+            <div class="repair-fix word-option" data-answer="т"><b>открыть → откры…ый</b><div class="wo-buttons"><button data-value="енн">енн</button><button data-value="т">т</button></div></div>
+            <div class="repair-fix word-option" data-answer="нн"><b>прочитать → прочита…ый</b><div class="wo-buttons"><button data-value="н">н</button><button data-value="нн">нн</button></div></div>
+          </div>
+          <div id="s9Reasons" class="rule-box hidden" style="width:970px;margin-top:10px"><div class="rule-item">решить — СВ → нет действительного причастия настоящего времени</div><div class="rule-item">улыбаться — непереходный → нет страдательного причастия</div></div>
+        </div>
+        <div class="status hidden" data-status></div>
+      </div>
+    </section>
+
+    <section class="screen" data-index="9" data-title="Маршрут без подсказок">
+      <div class="instruction">Пройди весь маршрут сам. Правила на этом экране не показываются.</div>
+      <div class="workspace" id="ws10">
+        <div class="ticket-grid">
+          <div class="ticket word-option" data-answer="ящ">
+            <h3>Карточка А</h3><div class="prompt">клеить → действительное причастие настоящего времени</div>
+            <div class="wo-buttons"><button data-value="ущ">-ущ-</button><button data-value="ющ">-ющ-</button><button data-value="ащ">-ащ-</button><button data-value="ящ">-ящ-</button></div>
+            <div class="ticket-result">кле…ий</div>
+          </div>
+          <div class="ticket word-option" data-answer="ем">
+            <h3>Карточка Б</h3><div class="prompt">проверять → страдательное причастие настоящего времени</div>
+            <div class="wo-buttons"><button data-value="ем">-ем-</button><button data-value="им">-им-</button></div>
+            <div class="ticket-result">проверя…ый</div>
+          </div>
+          <div class="ticket" id="ticketC">
+            <h3>Карточка В</h3><div class="prompt">решить → страдательное причастие прошедшего времени → краткая форма</div>
+            <div class="word-option" data-answer="ённ" style="padding:0;border:0;background:transparent;display:block"><div class="wo-buttons"><button data-value="енн">-енн-</button><button data-value="ённ">-ённ-</button><button data-value="т">-т-</button></div></div>
+            <div class="word-option" data-answer="решён" style="padding:0;border:0;background:transparent;display:block;margin-top:9px"><div class="wo-buttons"><button data-value="решён">решён</button><button data-value="решённ">решённ</button></div></div>
+            <div class="ticket-result">реш…ый → ?</div>
+          </div>
+        </div>
+        <div class="self-eval" id="selfEval">
+          <button>Могу объяснить другому</button><button>Сделаю с короткой опорой</button><button>Нужно ещё потренироваться</button>
+        </div>
+        <div class="status hidden" data-status></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <button id="backBtn" class="nav-btn" disabled>← Назад</button>
+      <button id="checkBtn" class="check-btn">Проверить</button>
+      <button id="nextBtn" class="nav-btn next-btn" disabled>Дальше →</button>
+    </footer>
+
+    <div id="memoOverlay" class="overlay hidden">
+      <div class="memo">
+        <h2>Памятка: маршрут образования причастия</h2>
+        <div class="memo-grid">
+          <div class="memo-item"><strong>1. Исходный глагол.</strong><br>Определи, от какого глагола образуется форма.</div>
+          <div class="memo-item"><strong>2. Настоящее время?</strong><br>Оно возможно только у глагола НСВ.</div>
+          <div class="memo-item"><strong>3. Страдательное?</strong><br>Проверь переходность исходного глагола.</div>
+          <div class="memo-item"><strong>4. Действительное настоящее.</strong><br>I → -ущ-/-ющ- · II → -ащ-/-ящ-.</div>
+          <div class="memo-item"><strong>5. Страдательное настоящее.</strong><br>I → -ем- · II → -им-.</div>
+          <div class="memo-item"><strong>6. Действительное прошедшее.</strong><br>Основа на гласный → -вш-; на согласный → -ш-.</div>
+          <div class="memo-item"><strong>7. Страдательное прошедшее.</strong><br>-нн- · -енн-/-ённ- · -т-.</div>
+          <div class="memo-item"><strong>8. Краткая форма.</strong><br>В кратком страдательном причастии прошедшего времени — одна Н.</div>
+        </div>
+        <div class="memo-footer"><button id="closeMemo">Закрыть</button></div>
+      </div>
+    </div>
+  </main></div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
