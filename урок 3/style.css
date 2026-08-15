@@ -189,3 +189,241 @@
   .memo-footer button{height:42px;border:0;border-radius:11px;background:var(--accent);color:#fff;font-weight:800;padding:0 18px;cursor:pointer}
 
   .tiny-note{font-size:14px;color:var(--muted);text-align:center;margin-top:7px}
+
+/* =========================================================
+   Урок 3 — корректировка компоновки для Boardmix
+   ========================================================= */
+
+/* Нижний статус больше не перекрывает рабочий контент */
+.workspace{
+  padding-bottom:74px;
+}
+
+.status{
+  bottom:12px;
+  min-height:42px;
+  padding:0 14px;
+  line-height:1.2;
+}
+
+/* Экран 2: оставляем место между выводом и плашкой результата */
+#ws2 .choice-table{
+  gap:6px 10px;
+}
+
+#ws2 .word-cell,
+#ws2 .choice-group{
+  height:48px;
+}
+
+#s2Conclusion{
+  width:min(100%,900px);
+  margin-top:10px;
+  margin-bottom:60px;
+  padding:11px 16px;
+  font-size:17px;
+  line-height:1.2;
+}
+
+/* Экраны с распределением слов: зоны растут по содержимому */
+.zones-2{
+  height:auto;
+  align-items:start;
+}
+
+.zones-3{
+  height:auto;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  align-items:start;
+}
+
+.drop-zone{
+  height:auto;
+  min-height:160px;
+  overflow:hidden;
+}
+
+#s3Step1 .token-bank{
+  min-height:52px;
+  margin-top:10px;
+  padding:8px 10px;
+}
+
+#s3Step1 .drop-zone .token{
+  font-size:16px;
+  padding:10px 12px;
+}
+
+/* Экраны 4–6: компактные одинаковые плашки суффиксов */
+#ws4 .build-list,
+#ws5 .build-list,
+#ws6 .build-list{
+  width:min(100%,1000px);
+  gap:10px;
+  margin:8px auto 14px;
+}
+
+#ws4 .build-row,
+#ws5 .build-row,
+#ws6 .build-row{
+  grid-template-columns:160px 175px minmax(0,1fr);
+  gap:10px;
+}
+
+#ws4 .source-form,
+#ws4 .middle-form,
+#ws5 .source-form,
+#ws5 .middle-form,
+#ws6 .source-form,
+#ws6 .middle-form{
+  height:50px;
+  font-size:19px;
+}
+
+#ws4 .word-builder,
+#ws5 .word-builder,
+#ws6 .word-builder{
+  height:50px;
+  justify-content:center;
+  padding:0 12px;
+  gap:4px;
+  font-size:20px;
+  white-space:nowrap;
+  overflow:hidden;
+}
+
+/* Сам слот под суффикс */
+#ws4 .suffix-slot,
+#ws5 .suffix-slot,
+#ws6 .suffix-slot{
+  width:72px;
+  min-width:72px;
+  height:36px;
+  min-height:36px;
+  padding:2px;
+  flex:0 0 72px;
+}
+
+/* Плашки в банке — абсолютно одинаковые */
+#ws4 .suffix-bank .token,
+#ws5 .suffix-bank .token,
+#ws6 .suffix-bank .token{
+  width:72px;
+  min-width:72px;
+  max-width:72px;
+  height:38px;
+  min-height:38px;
+  padding:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
+  line-height:1;
+  border-radius:10px;
+}
+
+/* После переноса плашка не раздувает слот и не закрывает части слова */
+#ws4 .word-builder .suffix-slot .token,
+#ws5 .word-builder .suffix-slot .token,
+#ws6 .word-builder .suffix-slot .token{
+  width:62px;
+  min-width:62px;
+  max-width:62px;
+  height:30px;
+  min-height:30px;
+  padding:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:17px;
+  line-height:1;
+  border-radius:8px;
+  box-shadow:none;
+}
+
+#ws4 .suffix-bank,
+#ws5 .suffix-bank,
+#ws6 .suffix-bank{
+  min-height:60px;
+  padding:9px;
+}
+
+/* Экран 6: используем свободное место — карточки крупнее и шире */
+#ws6 .classification-mini{
+  width:min(100%,1020px);
+  gap:12px 14px;
+  margin:24px auto 0;
+}
+
+#ws6 .class-card{
+  min-height:66px;
+  padding:12px 16px;
+  grid-template-columns:minmax(0,1fr) auto auto;
+  gap:9px;
+}
+
+#ws6 .class-card b{
+  font-size:19px;
+}
+
+#ws6 .class-card button{
+  height:40px;
+  min-width:108px;
+  padding:0 12px;
+  font-size:16px;
+}
+
+#ws6 .rule-box{
+  width:min(100%,980px);
+  margin-top:18px;
+}
+
+#ws6 .rule-item{
+  padding:15px;
+  font-size:19px;
+}
+
+/* Экран 7: три мастерские автоматически растут,
+   а пустой банк после переноса не отнимает половину экрана */
+#s7Step1{
+  height:auto;
+  min-height:0;
+}
+
+#s7Step1 .zones-3{
+  margin-bottom:10px;
+}
+
+#s7Step1 .drop-zone{
+  min-height:205px;
+}
+
+#s7Step1 .token-bank{
+  min-height:52px !important;
+  margin-top:0;
+  padding:8px 10px !important;
+}
+
+#s7Step1 .drop-zone .token{
+  width:100%;
+  min-width:0;
+  max-width:100%;
+  padding:11px 12px;
+  font-size:18px;
+  line-height:1.15;
+}
+
+/* Вывод на экране 7 также не сталкивается со статусом */
+#s7Observation{
+  width:min(100%,980px) !important;
+  margin-top:10px !important;
+  margin-bottom:60px !important;
+  padding:12px 16px;
+  font-size:17px;
+  line-height:1.2;
+}
+
+/* Адаптивность уже существующего экрана 8 сохраняем */
+.compress-grid .slot .token{
+  max-width:100%;
+}
