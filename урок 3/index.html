@@ -4,7 +4,29 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 <title>Урок 3. Образование и правописание причастий</title>
-<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="style.css?v=5" />
+<style>
+/* Подсказки для тренировочных экранов 11–14 */
+.drill-hint-control{display:none}
+#app:has(.screen.active.drill-screen) .drill-hint-control{display:block;justify-self:center;position:relative}
+#app:has(.screen.active.drill-screen) .footer{grid-template-columns:180px 240px 170px 180px;justify-content:center}
+#app:has(.screen.active.drill-screen) .check-btn{width:240px;height:58px;min-height:58px;padding:8px 18px;font-size:17px;line-height:1.15;white-space:nowrap}
+.drill-hint-control>summary{list-style:none;width:160px;height:50px;border:2px solid var(--accent);border-radius:14px;background:#fff;color:var(--accent);font-size:17px;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none}
+.drill-hint-control>summary::-webkit-details-marker{display:none}
+.drill-hint-control[open]>summary{background:var(--accent-soft)}
+.drill-hint-panel{position:absolute;z-index:40;left:50%;bottom:70px;transform:translateX(-50%);width:1040px;min-height:160px;border:1px solid #b8cdf0;border-radius:18px;background:#f7fbff;box-shadow:0 14px 36px rgba(25,55,95,.18);padding:14px 18px;text-align:left}
+.drill-hint-content{display:none}
+#app:has(.screen.active[data-drill="activePresent"]) .hint-ap,
+#app:has(.screen.active[data-drill="activePast"]) .hint-apa,
+#app:has(.screen.active[data-drill="passivePresent"]) .hint-pr,
+#app:has(.screen.active[data-drill="passivePast"]) .hint-pp{display:block}
+.drill-hint-title{font-size:18px;font-weight:900;color:#244d93;margin-bottom:10px}
+.drill-hint-formula{display:grid;grid-template-columns:1.15fr .95fr 1.45fr;gap:10px}
+.drill-hint-box{border:1px solid #d2e0f5;border-radius:13px;background:#fff;padding:10px 12px;font-size:14px;line-height:1.35;color:#334155}
+.drill-hint-box b{color:#1f3f78}
+.drill-hint-example{display:block;margin-top:6px;color:#2856a3;font-weight:800}
+.drill-hint-note{margin-top:9px;font-size:13px;line-height:1.35;color:#526174}
+</style>
 </head>
 <body>
 <div id="viewport">
@@ -162,7 +184,7 @@
     </section>
 
     <section class="screen" data-index="5" data-title="Что меняется в прошедшем времени?">
-      <div class="instruction">Собери действительные причастия прошедшего времени.</div>
+      <div class="instruction">Собери действительные причастия прошедшего времени и найди закономерность.</div>
       <div class="workspace" id="ws6">
         <div id="s6Step1">
           <div class="build-list">
@@ -190,7 +212,7 @@
     </section>
 
     <section class="screen" data-index="6" data-title="Три мастерские">
-      <div class="instruction">Сначала распредели глаголы по суффиксам, затем собери формы.</div>
+      <div class="instruction">Сначала распредели глаголы по мастерским, затем собери причастия.</div>
       <div class="workspace" id="ws7">
         <div id="s7Step1" class="workshop-stage">
           <div class="zones-3">
@@ -224,13 +246,13 @@
       </div>
     </section>
 
-    <section class="screen" data-index="7" data-title="Что произойдёт с НН?">
-      <div class="instruction">Преобразуй полные страдательные причастия в краткие.</div>
+    <section class="screen" data-index="7" data-title="Сожми слово">
+      <div class="instruction">Перетащи краткую форму. Затем сравни количество Н.</div>
       <div class="workspace" id="ws8">
         <div class="compress-grid">
-          <div class="pair-label">прочитанный рассказ</div><div class="slot" data-key="s8-1">Перетащи краткую форму</div>
-          <div class="pair-label">решённая задача</div><div class="slot" data-key="s8-2">Перетащи краткую форму</div>
-          <div class="pair-label">проверенная работа</div><div class="slot" data-key="s8-3">Перетащи краткую форму</div>
+          <div class="pair-label">прочитанный рассказ</div><div class="slot" data-key="s8-1">рассказ ______</div>
+          <div class="pair-label">решённая задача</div><div class="slot" data-key="s8-2">задача ______</div>
+          <div class="pair-label">проверенная работа</div><div class="slot" data-key="s8-3">работа ______</div>
         </div>
         <div class="token-bank" data-bank="s8">
           <div class="token" draggable="true" data-answer="s8-3">проверена</div>
@@ -268,32 +290,19 @@
             <div class="repair-fix word-option" data-answer="т"><b>открыть → откры…ый</b><div class="wo-buttons"><button data-value="енн">енн</button><button data-value="т">т</button></div></div>
             <div class="repair-fix word-option" data-answer="нн"><b>прочитать → прочита…ый</b><div class="wo-buttons"><button data-value="н">н</button><button data-value="нн">нн</button></div></div>
           </div>
-          <div id="s9Reasons" class="rule-box hidden" style="width:970px;margin-top:10px"><div class="rule-item">решить — СВ → нет действительного причастия настоящего времени</div><div class="rule-item">улыбаться — непереходный → нет страдательного причастия</div></div>
+          <div id="s9Reasons" class="rule-box hidden" style="margin-top:11px;width:1000px"><div class="rule-item">решить → СВ → действ. причастие настоящего времени не образуется</div><div class="rule-item">улыбаться → непереходный → страдательное причастие не образуется</div></div>
         </div>
         <div class="status hidden" data-status></div>
       </div>
     </section>
 
     <section class="screen" data-index="9" data-title="Маршрут без подсказок">
-      <div class="instruction">Пройди весь маршрут сам. Правила на этом экране не показываются.</div>
+      <div class="instruction">Три задания. Таблиц на экране больше нет.</div>
       <div class="workspace" id="ws10">
         <div class="ticket-grid">
-          <div class="ticket word-option" data-answer="ящ">
-            <h3>Карточка А</h3><div class="prompt">клеить → действительное причастие настоящего времени</div>
-            <div class="wo-buttons"><button data-value="ущ">-ущ-</button><button data-value="ющ">-ющ-</button><button data-value="ащ">-ащ-</button><button data-value="ящ">-ящ-</button></div>
-            <div class="ticket-result">кле…ий</div>
-          </div>
-          <div class="ticket word-option" data-answer="ем">
-            <h3>Карточка Б</h3><div class="prompt">проверять → страдательное причастие настоящего времени</div>
-            <div class="wo-buttons"><button data-value="ем">-ем-</button><button data-value="им">-им-</button></div>
-            <div class="ticket-result">проверя…ый</div>
-          </div>
-          <div class="ticket" id="ticketC">
-            <h3>Карточка В</h3><div class="prompt">решить → страдательное причастие прошедшего времени → краткая форма</div>
-            <div class="word-option" data-answer="ённ" style="padding:0;border:0;background:transparent;display:block"><div class="wo-buttons"><button data-value="енн">-енн-</button><button data-value="ённ">-ённ-</button><button data-value="т">-т-</button></div></div>
-            <div class="word-option" data-answer="решён" style="padding:0;border:0;background:transparent;display:block;margin-top:9px"><div class="wo-buttons"><button data-value="решён">решён</button><button data-value="решённ">решённ</button></div></div>
-            <div class="ticket-result">реш…ый → ?</div>
-          </div>
+          <div class="ticket"><h3>А</h3><div class="prompt">клеить → действительное причастие настоящего времени</div><div class="word-option" data-answer="-ящ-"><div class="wo-buttons"><button data-value="-ущ-">-ущ-</button><button data-value="-ющ-">-ющ-</button><button data-value="-ащ-">-ащ-</button><button data-value="-ящ-">-ящ-</button></div></div><div class="ticket-result">кле…ий</div></div>
+          <div class="ticket"><h3>Б</h3><div class="prompt">проверять → страдательное причастие настоящего времени</div><div class="word-option" data-answer="-ем-"><div class="wo-buttons"><button data-value="-ем-">-ем-</button><button data-value="-им-">-им-</button></div></div><div class="ticket-result">проверя…ый</div></div>
+          <div class="ticket"><h3>В</h3><div class="prompt">решить → страдательное причастие прошедшего времени → краткая форма</div><div class="word-option" data-answer="ённ"><div class="wo-buttons"><button data-value="енн">енн</button><button data-value="ённ">ённ</button><button data-value="т">т</button></div></div><div class="word-option" data-answer="решён" style="margin-top:8px"><div class="wo-buttons"><button data-value="решённ">решённ</button><button data-value="решён">решён</button></div></div><div class="ticket-result">реш…ый → ?</div></div>
         </div>
         <div class="self-eval" id="selfEval">
           <button>Могу объяснить другому</button><button>Сделаю с короткой опорой</button><button>Нужно ещё потренироваться</button>
@@ -305,6 +314,47 @@
     <footer class="footer">
       <button id="backBtn" class="nav-btn" disabled>← Назад</button>
       <button id="checkBtn" class="check-btn">Проверить</button>
+    <details class="drill-hint-control" id="drillHintControl">
+      <summary>Подсказка</summary>
+      <div class="drill-hint-panel">
+        <div class="drill-hint-content hint-ap">
+          <div class="drill-hint-title">Действительное причастие настоящего времени</div>
+          <div class="drill-hint-formula">
+            <div class="drill-hint-box"><b>Условие и основа</b><br>НСВ → форма 3-го лица мн. ч. → основа настоящего времени.<span class="drill-hint-example">читать → читают → чита-</span></div>
+            <div class="drill-hint-box"><b>Спряжение</b><br>I: -ут/-ют<br>II: -ат/-ят<span class="drill-hint-example">читают → I спр.</span></div>
+            <div class="drill-hint-box"><b>Суффикс</b><br>I → -ущ-/-ющ-<br>II → -ащ-/-ящ-<span class="drill-hint-example">чита- + -ющ- → читающий</span></div>
+          </div>
+          <div class="drill-hint-note"><b>Исключения:</b> I спр. — брить, стелить; II спр. — гнать, держать, дышать, слышать, смотреть, видеть, ненавидеть, обидеть, зависеть, терпеть, вертеть.</div>
+        </div>
+        <div class="drill-hint-content hint-apa">
+          <div class="drill-hint-title">Действительное причастие прошедшего времени</div>
+          <div class="drill-hint-formula">
+            <div class="drill-hint-box"><b>Основа</b><br>Поставь глагол в прошедшее время и выдели основу прошедшего времени.<span class="drill-hint-example">прочитал → прочита-<br>нёс → нёс-</span></div>
+            <div class="drill-hint-box"><b>Выбор суффикса</b><br>Основа на гласный → -вш-<br>Основа на согласный → -ш-.</div>
+            <div class="drill-hint-box"><b>Сборка</b><span class="drill-hint-example">прочита- + -вш- → прочитавший<br>нёс- + -ш- → нёсший</span></div>
+          </div>
+          <div class="drill-hint-note">Если основа инфинитива и прошедшего времени различается, ориентируйся на форму прошедшего времени: <b>нести → нёс → нёсший</b>.</div>
+        </div>
+        <div class="drill-hint-content hint-pr">
+          <div class="drill-hint-title">Страдательное причастие настоящего времени</div>
+          <div class="drill-hint-formula">
+            <div class="drill-hint-box"><b>Условия и основа</b><br>НСВ + переходный глагол → основа настоящего времени.<span class="drill-hint-example">проверяем → проверя-<br>храним → хран-</span></div>
+            <div class="drill-hint-box"><b>Спряжение</b><br>I спр. → -ем-<br>II спр. → -им-.</div>
+            <div class="drill-hint-box"><b>Сборка</b><span class="drill-hint-example">проверя- + -ем- → проверяемый<br>хран- + -им- → хранимый</span></div>
+          </div>
+          <div class="drill-hint-note">Даже у формально подходящего глагола страдательное причастие настоящего времени образуется не всегда. Если формы нет — выбери «Не образуется».</div>
+        </div>
+        <div class="drill-hint-content hint-pp">
+          <div class="drill-hint-title">Страдательное причастие прошедшего времени</div>
+          <div class="drill-hint-formula">
+            <div class="drill-hint-box"><b>Проверь и найди основу</b><br>Обычно нужен переходный глагол. Выдели основу.<span class="drill-hint-example">прочитать → прочита-<br>решить → реш-<br>закрыть → закры-</span></div>
+            <div class="drill-hint-box"><b>Суффиксы</b><br>-нн- · -енн-/-ённ- · -т-<span class="drill-hint-example">-ать → -анный<br>-ять → -янный</span></div>
+            <div class="drill-hint-box"><b>Сборка</b><span class="drill-hint-example">прочита- + -нн- → прочитанный<br>реш- + -ённ- → решённый<br>закры- + -т- → закрытый</span></div>
+          </div>
+          <div class="drill-hint-note">Страдательное причастие прошедшего времени образуется не от каждого переходного глагола. Если нормативной формы нет — выбери «Не образуется».</div>
+        </div>
+      </div>
+    </details>
       <button id="nextBtn" class="nav-btn next-btn" disabled>Дальше →</button>
     </footer>
 
@@ -317,15 +367,14 @@
           <div class="memo-item"><strong>3. Страдательное?</strong><br>Проверь переходность исходного глагола.</div>
           <div class="memo-item"><strong>4. Действительное настоящее.</strong><br>I → -ущ-/-ющ- · II → -ащ-/-ящ-.</div>
           <div class="memo-item"><strong>5. Страдательное настоящее.</strong><br>I → -ем- · II → -им-.</div>
-          <div class="memo-item"><strong>6. Действительное прошедшее.</strong><br>Основа на гласный → -вш-; на согласный → -ш-.</div>
+          <div class="memo-item"><strong>6. Действительное прошедшее.</strong><br>Основа на гласный → -вш- · на согласный → -ш-.</div>
           <div class="memo-item"><strong>7. Страдательное прошедшее.</strong><br>-нн- · -енн-/-ённ- · -т-.</div>
-          <div class="memo-item"><strong>8. Краткая форма.</strong><br>В кратком страдательном причастии прошедшего времени — одна Н.</div>
+          <div class="memo-item"><strong>8. Краткое страдательное прошедшего.</strong><br>В краткой форме пишется одна Н.</div>
         </div>
         <div class="memo-footer"><button id="closeMemo">Закрыть</button></div>
       </div>
     </div>
   </main></div>
-</div>
-<script src="script.js"></script>
+<script src="script.js?v=6"></script>
 </body>
 </html>
