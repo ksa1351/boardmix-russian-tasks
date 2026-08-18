@@ -1,27 +1,248 @@
-const P=s=>s.split('|').map(x=>{const[a,b='',note='']=x.split('=');return{verb:a,answer:b||null,noForm:!b,note}});
-const data={
-'ap':P('читать=читающий|гнать=гонящий|брить=бреющий|строить=строящий|держать=держащий|писать=пишущий|дышать=дышащий|лечить=лечащий|слышать=слышащий|рисовать=рисующий|смотреть=смотрящий|клеить=клеящий|видеть=видящий|сеять=сеющий|ненавидеть=ненавидящий|любить=любящий|обидеть=|таять=тающий|вертеть=вертящий|хранить=хранящий|зависеть=зависящий|бороться=борющийся|терпеть=терпящий|колоть=колющий|стелить=стелющий|говорить=говорящий|полоть=полющий|лететь=летящий|молоть=мелющий|сидеть=сидящий'),
-'apa':P('читать=читавший|нести=нёсший|сделать=сделавший|принести=принёсший|решить=решивший|унести=унёсший|построить=построивший|расти=росший|написать=написавший|вырасти=выросший|открыть=открывший|ползти=ползший|услышать=услышавший|выползти=выползший|потерять=потерявший|печь=пёкший|нарисовать=нарисовавший|испечь=испёкший|проверить=проверивший|беречь=берёгший|заметить=заметивший|сберечь=сберёгший|прочитать=прочитавший|стеречь=стерёгший|рассказать=рассказавший|мочь=могший|улыбнуться=улыбнувшийся|замёрзнуть=замёрзший|увидеть=увидевший|погибнуть=погибший'),
-'pr':P('читать=читаемый|брить=|гнать=гонимый|проверять=проверяемый|держать=|уважать=уважаемый|дышать=|хранить=хранимый|слышать=слышимый|решать=решаемый|смотреть=|обсуждать=обсуждаемый|видеть=видимый|изучать=изучаемый|ненавидеть=ненавидимый|выполнять=выполняемый|обидеть=|создавать=создаваемый|вертеть=вертимый=Редкая нормативная форма; употребляется нечасто.|любить=любимый|зависеть=|носить=носимый|терпеть=терпимый|вести=ведомый|стелить=стелимый=Редкая нормативная форма; употребляется нечасто.|строить=строимый|управлять=управляемый|бежать=|улыбаться=|спать='),
-'pp':P('прочитать=прочитанный|брить=бритый|гнать=|посеять=посеянный|держать=держанный=Редкая нормативная форма; употребляется нечасто.|построить=построенный|дышать=|решить=решённый|слышать=слышанный|принести=принесённый|смотреть=|закрыть=закрытый|видеть=виденный|сжать=сжатый|ненавидеть=|написать=написанный|обидеть=обиженный|открыть=открытый|вертеть=верченный=Редкая нормативная форма; употребляется нечасто.|увидеть=увиденный|зависеть=|испечь=испечённый|терпеть=|разбить=разбитый|стелить=стеленный=Редкая нормативная форма; употребляется нечасто.|подмести=подметённый|потерять=потерянный|улыбаться=|бежать=|спать=')};
-const ids={'active-present':'ap','active-past':'apa','passive-present':'pr','passive-past':'pp'};
-const titles={'active-present':'Действительные причастия настоящего времени','active-past':'Действительные причастия прошедшего времени','passive-present':'Страдательные причастия настоящего времени','passive-past':'Страдательные причастия прошедшего времени'};
-const captions={'active-present':'действительное причастие настоящего времени','active-past':'действительное причастие прошедшего времени','passive-present':'страдательное причастие настоящего времени','passive-past':'страдательное причастие прошедшего времени'};
-const order=['active-present','active-past','passive-present','passive-past'];
-const hints={
-'active-present':{title:'Подсказка: действительное причастие настоящего времени',steps:[['Проверьте вид глагола','Причастие настоящего времени образуется только от глагола несовершенного вида.'],['Поставьте глагол в форму 3-го лица множественного числа','Пример: читать → читают.'],['Выделите основу настоящего времени','Основа настоящего времени: читают → чита-.'],['Определите спряжение глагола','I спр.: -ут, -ют. II спр.: -ат, -ят. Пример: читают → I спряжение.'],['Присоедините суффикс причастия','I спр. → -ущ-/-ющ-. II спр. → -ащ-/-ящ-. Пример: чита- + -ющ- = читающий.']],example:['читать (НСВ)','читают<br>(3-е л., мн. ч.)','чита-<br>(основа наст. вр.)','I спряжение<br>(-ут/-ют)','читающий<br>(действит. прич. наст. вр.)'],foot:'<b>Исключения по спряжению:</b> I спряжение: <i>брить, стелить</i>. II спряжение: <i>гнать, держать, дышать, слышать, смотреть, видеть, ненавидеть, обидеть, зависеть, терпеть, вертеть</i>.'},
-'active-past':{title:'Подсказка: действительное причастие прошедшего времени',steps:[['Образуйте форму прошедшего времени','Пример: прочитать → прочитал; нести → нёс.'],['Выделите основу прошедшего времени','Примеры: прочитал → прочита-; нёс → нёс-.'],['Посмотрите, чем заканчивается основа','Основа на гласный → -вш-. Основа на согласный → -ш-.'],['Выберите суффикс причастия','Примеры: прочита- + -вш-; нёс- + -ш-.'],['Запишите готовую форму','Примеры: прочитавший; нёсший.']],example:['прочитать','прочитал<br>(прош. вр.)','прочита-<br>(основа прош. вр.)','-вш-','прочитавший<br>(действит. прич. прош. вр.)'],foot:'<b>Напоминание:</b> если инфинитив и прошедшее время дают разные основы, ориентируйтесь на форму прошедшего времени: <i>нести → нёс → нёсший</i>.'},
-'passive-present':{title:'Подсказка: страдательное причастие настоящего времени',steps:[['Проверьте вид глагола','Страдательное причастие настоящего времени образуется только от глагола несовершенного вида.'],['Проверьте переходность','Форма образуется только от переходного глагола.'],['Выделите основу настоящего времени','Примеры: проверяем → проверя-; храним → хран-.'],['Определите спряжение глагола','I спр.: проверяем. II спр.: храним.'],['Присоедините суффикс причастия','I спр. → -ем-. II спр. → -им-. Примеры: проверя- + -ем- = проверяемый; хран- + -им- = хранимый.']],example:['проверять<br>(НСВ, перех.)','проверяем<br>(наст. вр.)','проверя-<br>(основа наст. вр.)','I спряжение','проверяемый<br>(страдат. прич. наст. вр.)'],foot:'<b>Важно:</b> даже у подходящего глагола страдательное причастие настоящего времени образуется не всегда. Если формы нет, нажмите <i>«Не образуется»</i>.'},
-'passive-past':{title:'Подсказка: страдательное причастие прошедшего времени',steps:[['Проверьте переходность глагола','Страдательное причастие прошедшего времени обычно образуется от переходного глагола.'],['Определите основу слова','Примеры основ: прочита-, посея-, реши-, закры-.'],['Проверьте -нн-','Часто: -ать → -анный, -ять → -янный. Примеры: прочитать → прочитанный; посеять → посеянный.'],['Проверьте -енн-/-ённ-','Примеры: решить → решённый; построить → построенный.'],['Проверьте -т-','Примеры: закрыть → закрытый; сжать → сжатый. Если формы нет, нажмите «Не образуется».']],example:['решить<br>(переходный)','реши-<br>(основа)','-ённ-','решённый','страдат. прич.<br>прош. вр.'],foot:'<b>Важно:</b> страдательное причастие прошедшего времени образуется не от каждого переходного глагола. В спорных случаях в тренажёре используется ответ <i>«Не образуется»</i>.'}}
-const states=Object.fromEntries(order.map(k=>[k,newState(k)]));let current=order[0];
-function newState(k){return{idx:0,attempts:Array(data[ids[k]].length).fill(0),checks:0,first:0,next:false,no:false,done:false,hint:false,draft:'',fb:'',fbClass:'empty'}}
-function norm(s){return(s||'').trim().toLowerCase().replace(/ё/g,'е').replace(/\s+/g,' ')}
-function esc(s){return(s||'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;')}
-function scale(){const a=document.getElementById('app'),w=document.getElementById('wrap'),k=Math.min(innerWidth/1280,innerHeight/720);a.style.transform=`scale(${k})`;w.style.width=1280*k+'px';w.style.height=720*k+'px'}addEventListener('resize',scale);scale();
-document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{current=b.dataset.id;render()});
-function hintHTML(k){const h=hints[k],s=states[k];return`<div class="hint ${s.hint?'open':''}"><div class="hint-title"><span>${h.title}</span><span>${s.hint?'▴':'▾'}</span></div><div class="hint-grid">${h.steps.map((x,i)=>`<div class="hint-step"><div class="step-no">${i+1}</div><div class="step-title">${x[0]}</div><div class="step-text">${x[1]}</div></div>`).join('')}</div><div class="example"><b>Пример</b><div class="example-row">${h.example.map(x=>`<div class="example-item">${x}</div>`).join('')}</div></div><div class="exceptions">${h.foot}</div></div>`}
-function render(){document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.id===current));document.getElementById('title').textContent=titles[current];const bi=order.indexOf(current)+1;document.getElementById('blockProgress').textContent=`Блок ${bi} из 4`;document.getElementById('fill').style.width=bi*25+'%';document.getElementById('allStatus').textContent=order.every(k=>states[k].done)?'Все 4 блока завершены.':'';renderBlock(current)}
-function renderBlock(k){const s=states[k],arr=data[ids[k]],host=document.getElementById('drill');if(s.done){const r=arr.map((x,i)=>[x.verb,s.attempts[i]]).filter(x=>x[1]>1);host.innerHTML=`<div class="summary"><h2>${titles[k]} · блок завершён</h2><div class="sumgrid"><div class="sum"><b>30</b><span>слов выполнено</span></div><div class="sum"><b>${s.first}</b><span>с первой попытки</span></div><div class="sum"><b>${s.checks}</b><span>всего проверок</span></div></div><div class="difficult">${r.length?'<b>Больше одной попытки:</b> '+r.map(x=>x[0]+' — '+x[1]).join(' · '):'Все слова выполнены с первой попытки.'}</div><button class="restart" id="restart">Пройти блок ещё раз</button></div>`;document.getElementById('restart').onclick=()=>{const h=s.hint;states[k]=newState(k);states[k].hint=h;render()};return}const x=arr[s.idx];host.innerHTML=`<div class="head"><div class="counter">Глагол ${s.idx+1} из 30</div><div class="stat">С первой попытки: ${s.first}</div><div class="stat">Проверок: ${s.checks}</div></div><div class="wordbar"><i style="width:${(s.idx+1)/30*100}%"></i></div><div class="card"><div class="caption">Образуйте ${captions[k]} от глагола:</div><div class="verb">${x.verb}</div><div class="answer"><input id="inp" value="${esc(s.draft)}" placeholder="Введите причастие" ${s.next?'disabled':''}><button class="check" id="check">Проверить</button><button class="hint-btn ${s.hint?'active':''}" id="hint">Подсказка</button></div><button class="noform ${s.no?'active':''}" id="no" ${s.next?'disabled':''}>Не образуется</button><div class="feedback ${s.fbClass}" id="fb">${s.fb||'.'}</div><button class="next ${s.next?'':'hidden'}" id="next">${s.idx===29?'Завершить блок':'Следующий глагол →'}</button>${hintHTML(k)}</div>`;const inp=document.getElementById('inp');inp.oninput=()=>{s.draft=inp.value;if(s.no)s.no=false};inp.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();check(k)}};document.getElementById('check').onclick=()=>check(k);document.getElementById('hint').onclick=()=>{s.hint=!s.hint;renderBlock(k)};document.getElementById('no').onclick=()=>{if(!s.next){s.no=!s.no;renderBlock(k)}};document.getElementById('next').onclick=()=>next(k);if(!s.next)setTimeout(()=>inp.focus(),0)}
-function check(k){const s=states[k],x=data[ids[k]][s.idx];if(s.next)return;const v=norm(s.draft),no=s.no||v==='не образуется';if(!v&&!no){s.fb='Введите причастие или нажмите «Не образуется».';s.fbClass='bad';return renderBlock(k)}s.attempts[s.idx]++;s.checks++;const ok=x.noForm?no:(!no&&norm(x.answer)===v);if(ok){if(s.attempts[s.idx]===1)s.first++;s.next=true;s.fb=x.noForm?'Верно: такая форма не образуется.':`Верно: ${x.answer}.`;s.fbClass=x.note?'rare':'good';if(x.note)s.fb+=' '+x.note}else{s.fb=x.noForm?'Пока неверно. Проверьте условия образования: возможно, форма не образуется.':'Пока неверно. Вернитесь к основе и суффиксу нужного типа причастия.';s.fbClass='bad'}renderBlock(k)}
-function next(k){const s=states[k];if(!s.next)return;s.next=false;s.no=false;s.draft='';s.fb='';s.fbClass='empty';if(s.idx===29)s.done=true;else s.idx++;render()}
+const data = {
+  "active-present": [
+    ["читать","читающий"], ["гнать","гонящий"], ["брить","бреющий"], ["строить","строящий"], ["держать","держащий"],
+    ["писать","пишущий"], ["дышать","дышащий"], ["лечить","лечащий"], ["слышать","слышащий"], ["рисовать","рисующий"],
+    ["смотреть","смотрящий"], ["клеить","клеящий"], ["видеть","видящий"], ["сеять","сеющий"], ["ненавидеть","ненавидящий"],
+    ["любить","любящий"], ["обидеть",null], ["таять","тающий"], ["вертеть","вертящий"], ["хранить","хранящий"],
+    ["зависеть","зависящий"], ["бороться","борющийся"], ["терпеть","терпящий"], ["колоть","колющий"], ["стелить","стелющий"],
+    ["говорить","говорящий"], ["полоть","полющий"], ["лететь","летящий"], ["молоть","мелющий"], ["сидеть","сидящий"]
+  ].map(([verb,answer])=>({verb,answer,noForm:answer===null})),
+  "active-past": [
+    ["читать","читавший"], ["нести","нёсший"], ["сделать","сделавший"], ["принести","принёсший"], ["решить","решивший"],
+    ["унести","унёсший"], ["построить","построивший"], ["расти","росший"], ["написать","написавший"], ["вырасти","выросший"],
+    ["открыть","открывший"], ["ползти","ползший"], ["услышать","услышавший"], ["выползти","выползший"], ["потерять","потерявший"],
+    ["печь","пёкший"], ["нарисовать","нарисовавший"], ["испечь","испёкший"], ["проверить","проверивший"], ["беречь","берёгший"],
+    ["заметить","заметивший"], ["сберечь","сберёгший"], ["прочитать","прочитавший"], ["стеречь","стерёгший"], ["рассказать","рассказавший"],
+    ["мочь","могший"], ["улыбнуться","улыбнувшийся"], ["замёрзнуть","замёрзший"], ["увидеть","увидевший"], ["погибнуть","погибший"]
+  ].map(([verb,answer])=>({verb,answer,noForm:false})),
+  "passive-present": [
+    ["читать","читаемый"], ["брить",null], ["гнать","гонимый"], ["проверять","проверяемый"], ["держать",null],
+    ["уважать","уважаемый"], ["дышать",null], ["хранить","хранимый"], ["слышать","слышимый"], ["решать","решаемый"],
+    ["смотреть",null], ["обсуждать","обсуждаемый"], ["видеть","видимый"], ["изучать","изучаемый"], ["ненавидеть","ненавидимый"],
+    ["выполнять","выполняемый"], ["обидеть",null], ["создавать","создаваемый"], ["вертеть","вертимый","Редкая нормативная форма; употребляется нечасто."], ["любить","любимый"],
+    ["зависеть",null], ["носить","носимый"], ["терпеть","терпимый"], ["вести","ведомый"], ["стелить","стелимый","Редкая нормативная форма; употребляется нечасто."],
+    ["строить","строимый"], ["управлять","управляемый"], ["бежать",null], ["улыбаться",null], ["спать",null]
+  ].map(([verb,answer,note])=>({verb,answer,note:note||"",noForm:answer===null})),
+  "passive-past": [
+    ["прочитать","прочитанный"], ["брить","бритый"], ["гнать",null], ["посеять","посеянный"], ["держать","держанный","Редкая нормативная форма; употребляется нечасто."],
+    ["построить","построенный"], ["дышать",null], ["решить","решённый"], ["слышать","слышанный"], ["принести","принесённый"],
+    ["смотреть",null], ["закрыть","закрытый"], ["видеть","виденный"], ["сжать","сжатый"], ["ненавидеть",null],
+    ["написать","написанный"], ["обидеть","обиженный"], ["открыть","открытый"], ["вертеть","верченный","Редкая нормативная форма; употребляется нечасто."], ["увидеть","увиденный"],
+    ["зависеть",null], ["испечь","испечённый"], ["терпеть",null], ["разбить","разбитый"], ["стелить","стеленный","Редкая нормативная форма; употребляется нечасто."],
+    ["подмести","подметённый"], ["потерять","потерянный"], ["улыбаться",null], ["бежать",null], ["спать",null]
+  ].map(([verb,answer,note])=>({verb,answer,note:note||"",noForm:answer===null}))
+};
+
+const hintContent = {
+  "active-present": {
+    title: "Действительное причастие настоящего времени",
+    formula: [
+      ["Основа","НСВ → 3-е л. мн. ч. → основа настоящего времени","читать → читают → чита-"],
+      ["Спряжение","I: -ут/-ют → -ущ-/-ющ-<br>II: -ат/-ят → -ащ-/-ящ-","читают → I спр."],
+      ["Сборка","основа + суффикс причастия","чита- + -ющ- = читающий"]
+    ],
+    note: "<b>Искл.:</b> I — брить, стелить; II — гнать, держать, дышать, слышать, смотреть, видеть, ненавидеть, обидеть, зависеть, терпеть, вертеть."
+  },
+  "active-past": {
+    title: "Действительное причастие прошедшего времени",
+    formula: [
+      ["Основа","Форма прошедшего времени → основа прошедшего времени","прочитал → прочита-; нёс → нёс-"],
+      ["Суффикс","основа на гласный → -вш-<br>основа на согласный → -ш-","прочита- → -вш-; нёс- → -ш-"],
+      ["Сборка","основа + суффикс причастия","прочита- + -вш- = прочитавший<br>нёс- + -ш- = нёсший"]
+    ],
+    note: "Если основы различаются, ориентируйся на прошедшее время: <b>нести → нёс → нёсший</b>."
+  },
+  "passive-present": {
+    title: "Страдательное причастие настоящего времени",
+    formula: [
+      ["Основа","НСВ + переходный → основа настоящего времени","проверяем → проверя-; храним → хран-"],
+      ["Спряжение","I спр. → -ем-<br>II спр. → -им-","проверяем → I; храним → II"],
+      ["Сборка","основа + суффикс причастия","проверя- + -ем- = проверяемый<br>хран- + -им- = хранимый"]
+    ],
+    note: "Если нормативной формы нет, выбирай <b>«Не образуется»</b>."
+  },
+  "passive-past": {
+    title: "Страдательное причастие прошедшего времени",
+    formula: [
+      ["Основа","Обычно переходный глагол → выдели основу","прочитать → прочита-; решить → реш-; закрыть → закры-"],
+      ["Суффикс","-нн- · -енн-/-ённ- · -т-","-ать → -анный; -ять → -янный"],
+      ["Сборка","основа + нужный суффикс","прочита- + -нн- = прочитанный<br>реш- + -ённ- = решённый<br>закры- + -т- = закрытый"]
+    ],
+    note: "Если нормативной формы нет, выбирай <b>«Не образуется»</b>."
+  }
+};
+
+const taskCaption = {
+  "active-present":"действительное причастие настоящего времени",
+  "active-past":"действительное причастие прошедшего времени",
+  "passive-present":"страдательное причастие настоящего времени",
+  "passive-past":"страдательное причастие прошедшего времени"
+};
+
+const blockOrder = ["active-present","active-past","passive-present","passive-past"];
+const blockTitles = {
+  "active-present":"Действительные причастия настоящего времени",
+  "active-past":"Действительные причастия прошедшего времени",
+  "passive-present":"Страдательные причастия настоящего времени",
+  "passive-past":"Страдательные причастия прошедшего времени"
+};
+
+const state = Object.fromEntries(blockOrder.map(id=>[id,makeState(id)]));
+function makeState(id){
+  return {idx:0,attempts:Array(data[id].length).fill(0),checks:0,first:0,next:false,noFormSelected:false,done:false,hintOpen:false,draft:'',feedbackText:'',feedbackClass:'empty'};
+}
+let current = blockOrder[0];
+
+const titleEl = document.getElementById('title');
+const blockProgressEl = document.getElementById('blockProgress');
+const fillEl = document.getElementById('fill');
+const drillEl = document.getElementById('drill');
+const statusEl = document.getElementById('allStatus');
+
+function norm(s){ return (s||"").trim().toLowerCase().replace(/ё/g,'е').replace(/\s+/g,' '); }
+
+function scaleApp(){
+  const app = document.getElementById('app');
+  const wrap = document.getElementById('wrap');
+  const vw = window.innerWidth, vh = window.innerHeight;
+  const scale = Math.min(vw/1280, vh/720);
+  app.style.transform = `scale(${scale})`;
+  wrap.style.width = `${1280*scale}px`;
+  wrap.style.height = `${720*scale}px`;
+}
+window.addEventListener('resize', scaleApp);
+scaleApp();
+
+document.querySelectorAll('.tab').forEach(btn=>{
+  btn.addEventListener('click', ()=>{ current = btn.dataset.id; render(); });
+});
+
+function render(){
+  document.querySelectorAll('.tab').forEach(btn=>btn.classList.toggle('active', btn.dataset.id===current));
+  titleEl.textContent = blockTitles[current];
+  const blockIndex = blockOrder.indexOf(current)+1;
+  blockProgressEl.textContent = `Блок ${blockIndex} из 4`;
+  fillEl.style.width = `${blockIndex/4*100}%`;
+  statusEl.textContent = blockOrder.every(id=>state[id].done) ? 'Все 4 блока завершены.' : '';
+  statusEl.className = blockOrder.every(id=>state[id].done) ? 'done' : '';
+  renderBlock(current);
+}
+
+function renderHint(id){
+  const conf = hintContent[id];
+  const open = state[id].hintOpen;
+  const boxes = conf.formula.map((x,i)=>`
+    <div class="hint-formula-box">
+      <div class="hint-formula-title"><span>${i+1}</span>${x[0]}</div>
+      <div class="hint-formula-rule">${x[1]}</div>
+      <div class="hint-formula-example">${x[2]}</div>
+    </div>`).join('');
+  return `
+    <div class="hint ${open?'open':''}" id="hintBox">
+      <div class="hint-title"><span>Подсказка: ${conf.title}</span><span>${open?'▴':'▾'}</span></div>
+      <div class="hint-formula-grid">${boxes}</div>
+      <div class="hint-note">${conf.note}</div>
+    </div>`;
+}
+
+function renderBlock(id){
+  const s = state[id];
+  const arr = data[id];
+  if(s.done){
+    const repeated = arr.map((item,i)=>({verb:item.verb, tries:s.attempts[i]})).filter(x=>x.tries>1);
+    drillEl.innerHTML = `
+      <div class="summary">
+        <h2>${blockTitles[id]} · блок завершён</h2>
+        <div class="sumgrid">
+          <div class="sum"><b>${arr.length}</b><span>слов выполнено</span></div>
+          <div class="sum"><b>${s.first}</b><span>с первой попытки</span></div>
+          <div class="sum"><b>${s.checks}</b><span>всего проверок</span></div>
+        </div>
+        <div class="difficult">${repeated.length ? '<b>Слова, потребовавшие больше одной попытки:</b> ' + repeated.map(x=>`${x.verb} — ${x.tries}`).join(' · ') : 'Все слова выполнены с первой попытки.'}</div>
+        <button class="restart" id="restartBtn">Пройти блок ещё раз</button>
+      </div>`;
+    document.getElementById('restartBtn').onclick = ()=>{
+      const hintWasOpen = state[id].hintOpen;
+      state[id] = makeState(id);
+      state[id].hintOpen = hintWasOpen;
+      render();
+    };
+    return;
+  }
+
+  const item = arr[s.idx];
+  drillEl.innerHTML = `
+    <div class="head">
+      <div class="counter">Глагол ${s.idx+1} из ${arr.length}</div>
+      <div class="stat">С первой попытки: ${s.first}</div>
+      <div class="stat">Проверок: ${s.checks}</div>
+    </div>
+    <div class="wordbar"><i style="width:${(s.idx+1)/arr.length*100}%"></i></div>
+    <div class="card">
+      <div class="caption">Образуйте ${taskCaption[id]} от глагола:</div>
+      <div class="verb">${item.verb}</div>
+      <div class="answer">
+        <input id="answerInput" autocomplete="off" spellcheck="false" placeholder="Введите причастие" value="${escapeHtml(s.draft)}" ${s.next?'disabled':''}>
+        <button class="check" id="checkBtn">Проверить</button>
+        <button class="hint-btn ${s.hintOpen?'active':''}" id="hintBtn">Подсказка</button>
+      </div>
+      <button class="noform ${s.noFormSelected?'active':''}" id="noFormBtn" ${s.next?'disabled':''}>Не образуется</button>
+      <div class="feedback ${s.feedbackClass || 'empty'}" id="feedback">${s.feedbackText || '.'}</div>
+      <button class="next ${s.next?'':'hidden'}" id="nextBtn">${s.idx===arr.length-1?'Завершить блок':'Следующий глагол →'}</button>
+      ${renderHint(id)}
+    </div>`;
+
+  const input = document.getElementById('answerInput');
+  const checkBtn = document.getElementById('checkBtn');
+  const hintBtn = document.getElementById('hintBtn');
+  const noFormBtn = document.getElementById('noFormBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  function setFeedback(text, cls){
+    s.feedbackText = text;
+    s.feedbackClass = cls;
+  }
+
+  function handleCheck(){
+    if(s.next) return;
+    const entered = norm(s.draft);
+    const noChosen = s.noFormSelected || entered === 'не образуется';
+    if(!entered && !noChosen){ setFeedback('Введите причастие или нажмите «Не образуется».', 'bad'); return renderBlock(id); }
+    s.attempts[s.idx]++;
+    s.checks++;
+    const ok = item.noForm ? noChosen : (!noChosen && norm(item.answer) === entered);
+    if(ok){
+      if(s.attempts[s.idx]===1) s.first++;
+      s.next = true;
+      let text = item.noForm ? 'Верно: такая форма не образуется.' : `Верно: ${item.answer}.`;
+      let cls = 'good';
+      if(item.note){ text += ' ' + item.note; cls = 'rare'; }
+      setFeedback(text, cls);
+    } else {
+      setFeedback(item.noForm ? 'Пока неверно. Проверьте условия образования: возможно, форма не образуется.' : 'Пока неверно. Вернитесь к основе и суффиксу нужного типа причастия.', 'bad');
+    }
+    renderBlock(id);
+  }
+
+  function handleNext(){
+    if(!s.next) return;
+    s.next = false; s.noFormSelected = false; s.draft=''; s.feedbackText=''; s.feedbackClass='empty';
+    if(s.idx===arr.length-1) s.done = true;
+    else s.idx++;
+    render();
+  }
+
+  checkBtn.onclick = handleCheck;
+  hintBtn.onclick = ()=>{ s.hintOpen = !s.hintOpen; renderBlock(id); };
+  noFormBtn.onclick = ()=>{ if(s.next) return; s.noFormSelected = !s.noFormSelected; renderBlock(id); };
+  nextBtn.onclick = handleNext;
+  input.addEventListener('input', ()=>{ s.draft = input.value; if(s.noFormSelected) s.noFormSelected = false; });
+  input.addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); handleCheck(); } });
+  if(!s.next) setTimeout(()=>input.focus(),0);
+}
+
+function escapeHtml(s){
+  return (s||'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
+}
+
 render();
