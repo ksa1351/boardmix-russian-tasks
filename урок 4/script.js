@@ -32,6 +32,30 @@ const screens = [
     hint: 'Поставь глагол в настоящее время и найди основу: делают → делая, говорят → говоря, смотрят → смотря, возвращаются → возвращаясь.'
   },
   {
+    title: 'Практика НСВ: 15 новых глаголов',
+    instruction: 'Выбери нормативное деепричастие для каждого глагола.',
+    type: 'formationSet',
+    items: [
+      ['работать',['работая','работающий','сработав'],'работая'],
+      ['гулять',['гуляющий','гуляя','погуляв'],'гуляя'],
+      ['думать',['подумав','думая','думающий'],'думая'],
+      ['слушать',['слушая','послушав','слушающий'],'слушая'],
+      ['рисовать',['нарисовав','рисовая','рисуя'],'рисуя'],
+      ['танцевать',['станцевав','танцуя','танцевая'],'танцуя'],
+      ['улыбаться',['улыбнувшись','улыбаясь','улыбая'],'улыбаясь'],
+      ['смеяться',['засмеявшись','смея','смеясь'],'смеясь'],
+      ['разговаривать',['разговаривая','разговорив','поговорив'],'разговаривая'],
+      ['помогать',['помогши','помогая','помогающий'],'помогая'],
+      ['идти',['шедши','идя','пойдя'],'идя'],
+      ['стоять',['постояв','стоя','стоящий'],'стоя'],
+      ['играть',['сыграв','играющий','играя'],'играя'],
+      ['учиться',['научившись','учась','учащийся'],'учась'],
+      ['готовить',['приготовив','готовя','готовящий'],'готовя']
+    ],
+    ruleNote: '<b>НСВ:</b> добавочное действие происходит одновременно с основным; вопрос — <b>«что делая?»</b>.',
+    hint: 'Сначала проверь вид: действие должно быть незавершённым или повторяющимся. Затем ищи форму на -а- / -я- с сохранением -сь.'
+  },
+  {
     title: 'Образуем деепричастия совершенного вида',
     instruction: 'Подбери форму со значением добавочного завершённого действия.',
     type: 'formation',
@@ -56,6 +80,30 @@ const screens = [
     ],
     ruleNote: '<b>Проверка:</b> форма СВ отвечает на вопрос <b>«что сделав?»</b>; у отдельных глаголов встречаются особые формы: принести → принеся.',
     hint: 'Сначала проверь значение завершённости. Для большинства форм нужны -в- / -вши-, но у глагола «принести» нормативная форма — «принеся».'
+  },
+  {
+    title: 'Практика СВ: 15 новых глаголов',
+    instruction: 'Выбери нормативное деепричастие завершённого действия.',
+    type: 'formationSet',
+    items: [
+      ['сделать',['делая','сделав','сделая'],'сделав'],
+      ['написать',['написая','написав','пиша'],'написав'],
+      ['увидеть',['видя','увидя','увидев'],'увидев'],
+      ['войти',['войдя','вошедший','входя'],'войдя'],
+      ['выйти',['выходя','выйдя','вышев'],'выйдя'],
+      ['прийти',['приходя','придя','пришев'],'придя'],
+      ['уйти',['уходя','ушев','уйдя'],'уйдя'],
+      ['сесть',['садясь','сев','севшися'],'сев'],
+      ['встать',['вставая','встав','встая'],'встав'],
+      ['сказать',['говоря','сказая','сказав'],'сказав'],
+      ['подумать',['думая','подумав','подумя'],'подумав'],
+      ['засмеяться',['смеясь','засмеяв','засмеявшись'],'засмеявшись'],
+      ['закончить',['заканчивая','закончив','закончая'],'закончив'],
+      ['проверить',['проверяя','проверя','проверив'],'проверив'],
+      ['найти',['находя','найдя','нашев'],'найдя']
+    ],
+    ruleNote: '<b>СВ:</b> добавочное действие завершено; вопрос — <b>«что сделав?»</b>. У ряда глаголов используются формы на -я: войдя, придя, найдя.',
+    hint: 'Проверь завершённость действия. Помимо обычных форм на -в- / -вши-, запомни нормативные формы: войдя, выйдя, придя, уйдя, найдя.'
   },
   {
     title: 'Деепричастие образуется не всегда',
@@ -259,7 +307,7 @@ function fitApp(){
 
 function render(){
   const s = screens[current], st = state[current];
-  const isSeries = s.type === 'punctSet' || s.type === 'mixedSet';
+  const isSeries = s.type === 'punctSet' || s.type === 'mixedSet' || s.type === 'formationSet';
   const ds = isSeries ? getDrillState(st,st.drillIndex) : null;
   $('#screenTitle').textContent = s.title;
   $('#instruction').textContent = s.instruction;
@@ -274,6 +322,7 @@ function render(){
   ws.innerHTML = '';
   if(s.type === 'ruleIntro') renderRuleIntro(ws);
   if(s.type === 'formation') renderFormation(ws,s,st);
+  if(s.type === 'formationSet') renderFormationSet(ws,s.items[st.drillIndex],ds,{index:st.drillIndex,total:s.items.length},s);
   if(s.type === 'classify') renderClassify(ws,s,st);
   if(s.type === 'punct') renderPunct(ws,s,st);
   if(s.type === 'punctSet') renderPunct(ws,s.items[st.drillIndex],ds,{index:st.drillIndex,total:s.items.length});
@@ -302,7 +351,7 @@ function renderRuleIntro(ws){
 }
 
 function getDrillState(st,index){
-  if(!st.drillStates[index])st.drillStates[index]={checked:false,passed:false,gaps:new Set(),selectedType:null,tokens:new Set()};
+  if(!st.drillStates[index])st.drillStates[index]={checked:false,passed:false,gaps:new Set(),selectedType:null,tokens:new Set(),choice:null};
   const ds=st.drillStates[index];
   if(!ds.tokens)ds.tokens=new Set();
   return ds;
@@ -322,6 +371,13 @@ function renderFormation(ws,s,st){
     }); list.append(el);
   }); ws.append(list);
   if(s.ruleNote){const note=document.createElement('div');note.className='formation-rule-note';note.innerHTML=s.ruleNote;ws.append(note);}
+}
+
+function renderFormationSet(ws,item,st,meta,s){
+  const wrap=document.createElement('div');wrap.className='formation-drill';
+  wrap.innerHTML=`<div class="punct-label">Глагол ${meta.index+1} из ${meta.total}</div><div class="formation-focus"><div class="formation-verb">${item[0]}</div><div class="formation-arrow">→</div><div class="formation-options"></div></div>`;
+  item[1].forEach(value=>{const b=document.createElement('button');b.type='button';b.className='option';b.textContent=value;if(st.choice===value)b.classList.add('selected');if(st.checked){b.classList.toggle('correct',value===item[2]);b.classList.toggle('incorrect',st.choice===value&&value!==item[2]);}b.onclick=()=>{st.checked=false;st.passed=false;st.choice=value;render();};$('.formation-options',wrap).append(b);});
+  const note=document.createElement('div');note.className='formation-series-rule';note.innerHTML=s.ruleNote;wrap.append(note);ws.append(wrap);
 }
 
 function renderClassify(ws,s,st){
@@ -455,6 +511,10 @@ function addStatus(ws,st,goodMessage=null){
 }
 function check(){
   const s=screens[current],st=state[current];
+  if(s.type==='formationSet'){
+    const ds=getDrillState(st,st.drillIndex),item=s.items[st.drillIndex];
+    ds.checked=true;ds.passed=ds.choice===item[2];render();return;
+  }
   if(s.type==='punctSet'){
     const ds=getDrillState(st,st.drillIndex),item=s.items[st.drillIndex];
     ds.checked=true;ds.passed=arraysEqual([...ds.gaps],item.expected);render();return;
@@ -470,10 +530,10 @@ function check(){
 }
 
 $('#checkBtn').onclick=check;
-$('#backBtn').onclick=()=>{const s=screens[current],st=state[current],isSeries=s.type==='punctSet'||s.type==='mixedSet';if(isSeries&&st.drillIndex>0)st.drillIndex--;else if(current>0)current--;render();};
+$('#backBtn').onclick=()=>{const s=screens[current],st=state[current],isSeries=s.type==='punctSet'||s.type==='mixedSet'||s.type==='formationSet';if(isSeries&&st.drillIndex>0)st.drillIndex--;else if(current>0)current--;render();};
 $('#nextBtn').onclick=()=>{
   const s=screens[current],st=state[current];
-  if(s.type==='punctSet'||s.type==='mixedSet'){
+  if(s.type==='punctSet'||s.type==='mixedSet'||s.type==='formationSet'){
     const ds=getDrillState(st,st.drillIndex);if(!ds.passed)return;
     if(st.drillIndex<s.items.length-1){st.drillIndex++;render();return;}
     st.passed=true;
