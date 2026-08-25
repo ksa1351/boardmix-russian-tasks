@@ -19,6 +19,19 @@ const screens = [
     hint: 'Деепричастия несовершенного вида обычно образуются от основы настоящего времени с помощью суффиксов -а- / -я-: читают → читая, сидят → сидя.'
   },
   {
+    title: 'Закрепляем формы несовершенного вида',
+    instruction: 'Выбери ещё четыре нормативные формы деепричастий.',
+    type: 'formation',
+    rows: [
+      ['делать', ['делая', 'делав', 'сделав'], 'делая'],
+      ['говорить', ['говорив', 'говоря', 'говорящий'], 'говоря'],
+      ['смотреть', ['смотрев', 'смотря', 'посмотрев'], 'смотря'],
+      ['возвращаться', ['вернувшись', 'возвращаясь', 'возвращающийся'], 'возвращаясь']
+    ],
+    ruleNote: '<b>Проверка:</b> форма НСВ отвечает на вопрос <b>«что делая?»</b> и называет одновременное добавочное действие.',
+    hint: 'Поставь глагол в настоящее время и найди основу: делают → делая, говорят → говоря, смотрят → смотря, возвращаются → возвращаясь.'
+  },
+  {
     title: 'Образуем деепричастия совершенного вида',
     instruction: 'Подбери форму со значением добавочного завершённого действия.',
     type: 'formation',
@@ -30,6 +43,19 @@ const screens = [
     ],
     ruleNote: '<b>СВ:</b> основа инфинитива или прошедшего времени + <b>-в-, -вши-, -ши-</b>; постфикс -сь сохраняется.',
     hint: 'Для совершенного вида чаще нужны суффиксы -в-, -вши-, -ши-. У возвратных глаголов сохраняется -сь: умыться → умывшись.'
+  },
+  {
+    title: 'Закрепляем формы совершенного вида',
+    instruction: 'Выбери нормативную форму завершённого добавочного действия.',
+    type: 'formation',
+    rows: [
+      ['встретить', ['встречая', 'встретив', 'встреченный'], 'встретив'],
+      ['закрыть', ['закрывая', 'закрыв', 'закрытый'], 'закрыв'],
+      ['принести', ['принеся', 'принесши', 'принося'], 'принеся'],
+      ['вернуться', ['возвращаясь', 'вернувшись', 'вернувшийся'], 'вернувшись']
+    ],
+    ruleNote: '<b>Проверка:</b> форма СВ отвечает на вопрос <b>«что сделав?»</b>; у отдельных глаголов встречаются особые формы: принести → принеся.',
+    hint: 'Сначала проверь значение завершённости. Для большинства форм нужны -в- / -вши-, но у глагола «принести» нормативная форма — «принеся».'
   },
   {
     title: 'Деепричастие образуется не всегда',
@@ -170,6 +196,24 @@ const screens = [
     hint: 'Найди деепричастие и все зависимые от него слова. Весь оборот отделяется от основной части предложения одной или двумя запятыми — в зависимости от места.'
   },
   {
+    title: 'Проверочная работа: смешанные случаи',
+    instruction: 'Поставь знаки, определи конструкцию, а без запятых — выдели её границы.',
+    type: 'mixedSet',
+    items: [
+      {words:['Утомлённый','долгой','дорогой','он','сразу','уснул'],expected:[2],kind:'participle',note:'Причастный оборот относится к личному местоимению «он» и обособляется.'},
+      {words:['Освещённая','солнцем','поляна','сияла'],expected:[],kind:'participle',boundary:[0,1],note:'Причастный оборот стоит перед существительным «поляна»: запятых нет, границы — «освещённая солнцем».'},
+      {words:['Поляна','освещённая','солнцем','сияла'],expected:[0,2],kind:'participle',note:'Причастный оборот после существительного «поляна» обособляется с двух сторон.'},
+      {words:['Улыбаясь','девочка','вошла','в','класс'],expected:[0],kind:'singleGerund',note:'Одиночное деепричастие «улыбаясь» называет добавочное действие и обособляется.'},
+      {words:['Дети','читали','лёжа'],expected:[],kind:'adverb',boundary:[2],note:'«Лёжа» обозначает образ действия, близко к наречию; запятая не нужна.'},
+      {words:['Закончив','сложную','задачу','Матвей','проверил','решение'],expected:[2],kind:'gerund',note:'Деепричастный оборот в начале предложения отделяется одной запятой.'},
+      {words:['Матвей','сдал','работу','проверив','все','ответы'],expected:[2],kind:'gerund',note:'Деепричастный оборот после основной части отделяется одной запятой.'},
+      {words:['Посаженные','весной','деревья','быстро','прижились'],expected:[],kind:'participle',boundary:[0,1],note:'Оборот перед существительным не обособляется; границы — «посаженные весной».'},
+      {words:['Он','увлечённый','чтением','не','услышал','звонка'],expected:[0,2],kind:'participle',note:'Оборот относится к личному местоимению «он», поэтому обособляется.'},
+      {words:['Ребята','смеясь','выбежали','во','двор'],expected:[0,1],kind:'singleGerund',note:'Одиночное деепричастие внутри предложения обособляется с двух сторон.'}
+    ],
+    hint: 'Работай по шагам: 1) найди конструкцию и её границы; 2) определи её вид; 3) примени правило обособления; 4) если запятых нет, выдели слова конструкции.'
+  },
+  {
     title: 'Выделяем причастие и причастный оборот',
     instruction: 'Выбери режим, затем нажми на все слова нужной конструкции.',
     type: 'select',
@@ -215,15 +259,16 @@ function fitApp(){
 
 function render(){
   const s = screens[current], st = state[current];
-  const ds = s.type === 'punctSet' ? getDrillState(st,st.drillIndex) : null;
+  const isSeries = s.type === 'punctSet' || s.type === 'mixedSet';
+  const ds = isSeries ? getDrillState(st,st.drillIndex) : null;
   $('#screenTitle').textContent = s.title;
   $('#instruction').textContent = s.instruction;
-  $('#progressText').textContent = s.type === 'punctSet' ? `${current+1} / ${screens.length} · ${st.drillIndex+1} / ${s.items.length}` : `${current+1} / ${screens.length}`;
+  $('#progressText').textContent = isSeries ? `${current+1} / ${screens.length} · ${st.drillIndex+1} / ${s.items.length}` : `${current+1} / ${screens.length}`;
   $('#progressFill').style.width = `${(current+1)/screens.length*100}%`;
   $('#checkBtn').textContent = s.type === 'ruleIntro' ? 'Правило понятно' : 'Проверить';
   $('#backBtn').disabled = current === 0 && st.drillIndex === 0;
-  $('#nextBtn').disabled = s.type === 'punctSet' ? !ds.passed : !st.passed;
-  $('#nextBtn').textContent = current === screens.length-1 ? 'Сначала ↻' : s.type === 'punctSet' && st.drillIndex < s.items.length-1 ? 'Следующий →' : 'Дальше →';
+  $('#nextBtn').disabled = isSeries ? !ds.passed : !st.passed;
+  $('#nextBtn').textContent = current === screens.length-1 ? 'Сначала ↻' : isSeries && st.drillIndex < s.items.length-1 ? 'Следующий →' : 'Дальше →';
   const ws = $('#workspace');
   ws.className = 'workspace fadein';
   ws.innerHTML = '';
@@ -232,13 +277,14 @@ function render(){
   if(s.type === 'classify') renderClassify(ws,s,st);
   if(s.type === 'punct') renderPunct(ws,s,st);
   if(s.type === 'punctSet') renderPunct(ws,s.items[st.drillIndex],ds,{index:st.drillIndex,total:s.items.length});
+  if(s.type === 'mixedSet') renderMixed(ws,s.items[st.drillIndex],ds,{index:st.drillIndex,total:s.items.length});
   if(s.type === 'algorithm') renderAlgorithm(ws,s,st);
   if(s.type === 'select') renderSelect(ws,s,st);
   if(s.type === 'summary') renderSummary(ws,s,st);
-  const goodMessage = s.type === 'punctSet'
+  const goodMessage = isSeries
     ? (s.items[st.drillIndex].note || (st.drillIndex === s.items.length-1 ? 'Верно! Серия завершена.' : 'Верно! Переходи к следующему примеру.'))
     : null;
-  addStatus(ws, s.type === 'punctSet' ? ds : st, goodMessage);
+  addStatus(ws, isSeries ? ds : st, goodMessage);
 }
 
 function renderRuleIntro(ws){
@@ -256,8 +302,10 @@ function renderRuleIntro(ws){
 }
 
 function getDrillState(st,index){
-  if(!st.drillStates[index])st.drillStates[index]={checked:false,passed:false,gaps:new Set()};
-  return st.drillStates[index];
+  if(!st.drillStates[index])st.drillStates[index]={checked:false,passed:false,gaps:new Set(),selectedType:null,tokens:new Set()};
+  const ds=st.drillStates[index];
+  if(!ds.tokens)ds.tokens=new Set();
+  return ds;
 }
 
 function renderFormation(ws,s,st){
@@ -304,6 +352,33 @@ function renderPunct(ws,s,st,meta=null){
     }
   });const p=document.createElement('span');p.className='period';p.textContent='.';line.append(p);wrap.append(line);
   const tip=document.createElement('div');tip.className='punct-tip';tip.innerHTML='<span class="legend-dot"></span>Точка между словами — место, где можно поставить запятую.';wrap.append(tip);ws.append(wrap);
+}
+
+function renderMixed(ws,item,st,meta){
+  const kinds=[['participle','Причастный оборот'],['gerund','Деепричастный оборот'],['singleGerund','Одиночное деепричастие'],['adverb','Наречное значение']];
+  const wrap=document.createElement('div');wrap.className='mixed-wrap';
+  wrap.innerHTML=`<div class="punct-label">Проверка · ${meta.index+1} из ${meta.total}</div>`;
+  const line=document.createElement('div');line.className='mixed-sentence';
+  item.words.forEach((word,i)=>{
+    const w=document.createElement('button');w.type='button';w.className='mixed-word';w.textContent=word;
+    const needsBoundary=item.expected.length===0;
+    w.disabled=!needsBoundary;
+    if(st.tokens.has(i))w.classList.add('selected');
+    if(st.checked&&needsBoundary){const expected=item.boundary.includes(i),selected=st.tokens.has(i);if(expected&&selected)w.classList.add('correct');if(expected!==selected&&(expected||selected))w.classList.add('incorrect');}
+    w.onclick=()=>{st.checked=false;st.passed=false;st.tokens.has(i)?st.tokens.delete(i):st.tokens.add(i);render();};line.append(w);
+    if(i<item.words.length-1){
+      const g=document.createElement('button');g.type='button';g.className='gap';g.setAttribute('aria-label',`Запятая после слова «${word}»`);
+      if(st.gaps.has(i))g.classList.add('active');
+      if(st.checked){const expected=item.expected.includes(i);if(expected&&st.gaps.has(i))g.classList.add('correct');if(expected!==st.gaps.has(i))g.classList.add('incorrect');}
+      g.onclick=()=>{st.checked=false;st.passed=false;st.gaps.has(i)?st.gaps.delete(i):st.gaps.add(i);render();};line.append(g);
+    }
+  });const period=document.createElement('span');period.className='period';period.textContent='.';line.append(period);wrap.append(line);
+  const task=document.createElement('div');task.className='mixed-task';
+  task.innerHTML='<b>Что перед тобой?</b><div class="mixed-kinds"></div>';
+  kinds.forEach(([value,label])=>{const b=document.createElement('button');b.type='button';b.className='mixed-kind';b.textContent=label;if(st.selectedType===value)b.classList.add('selected');if(st.checked){b.classList.toggle('correct',value===item.kind);b.classList.toggle('incorrect',st.selectedType===value&&value!==item.kind);}b.onclick=()=>{st.checked=false;st.passed=false;st.selectedType=value;render();};$('.mixed-kinds',task).append(b);});wrap.append(task);
+  const note=document.createElement('div');note.className='mixed-boundary';
+  note.innerHTML=item.expected.length===0?'<b>Запятые не нужны.</b> Нажми на слова конструкции, чтобы показать её границы.':'Сначала расставь запятые, затем выбери вид обособляемой конструкции.';
+  wrap.append(note);ws.append(wrap);
 }
 
 function renderAlgorithm(ws,s,st){
@@ -384,16 +459,21 @@ function check(){
     const ds=getDrillState(st,st.drillIndex),item=s.items[st.drillIndex];
     ds.checked=true;ds.passed=arraysEqual([...ds.gaps],item.expected);render();return;
   }
+  if(s.type==='mixedSet'){
+    const ds=getDrillState(st,st.drillIndex),item=s.items[st.drillIndex];
+    const boundaryOk=item.expected.length>0||arraysEqual([...ds.tokens],item.boundary);
+    ds.checked=true;ds.passed=arraysEqual([...ds.gaps],item.expected)&&ds.selectedType===item.kind&&boundaryOk;render();return;
+  }
   st.checked=true;
   if(!isComplete(s,st)){st.passed=false;render();const box=$('.status');if(box)box.textContent='Сначала выполни все части задания.';return;}
   st.passed=isCorrect(s,st);render();
 }
 
 $('#checkBtn').onclick=check;
-$('#backBtn').onclick=()=>{const s=screens[current],st=state[current];if(s.type==='punctSet'&&st.drillIndex>0)st.drillIndex--;else if(current>0)current--;render();};
+$('#backBtn').onclick=()=>{const s=screens[current],st=state[current],isSeries=s.type==='punctSet'||s.type==='mixedSet';if(isSeries&&st.drillIndex>0)st.drillIndex--;else if(current>0)current--;render();};
 $('#nextBtn').onclick=()=>{
   const s=screens[current],st=state[current];
-  if(s.type==='punctSet'){
+  if(s.type==='punctSet'||s.type==='mixedSet'){
     const ds=getDrillState(st,st.drillIndex);if(!ds.passed)return;
     if(st.drillIndex<s.items.length-1){st.drillIndex++;render();return;}
     st.passed=true;
