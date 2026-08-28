@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#2856a3">
+  <title>Урок 5. Синтаксический разбор</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="viewport"><div id="scaled-wrap">
+    <main id="app" aria-label="Тренажёр по синтаксическому разбору">
+      <header class="topbar">
+        <div class="title-wrap">
+          <div class="eyebrow">Урок 5 · Синтаксический разбор</div>
+          <h1 id="screenTitle"></h1>
+        </div>
+        <div class="progress"><span id="progressText"></span><div class="progress-line"><div class="progress-fill" id="progressFill"></div></div></div>
+      </header>
+      <section class="screen">
+        <div class="instruction" id="instruction"></div>
+        <div class="workspace" id="workspace"></div>
+      </section>
+      <footer class="footer">
+        <button class="nav-btn" id="backBtn" type="button">← Назад</button>
+        <div class="center-actions">
+          <button class="hint-btn" id="hintBtn" type="button">Подсказка</button>
+          <button class="check-btn" id="checkBtn" type="button">Проверить</button>
+        </div>
+        <button class="nav-btn next-btn" id="nextBtn" type="button" disabled>Дальше →</button>
+      </footer>
+      <div class="overlay hidden" id="hintOverlay" role="dialog" aria-modal="true" aria-labelledby="hintTitle">
+        <div class="memo"><div class="memo-icon">?</div><div><h2 id="hintTitle">Подсказка</h2><p id="hintText"></p><button id="closeHint" type="button">Понятно</button></div></div>
+      </div>
+    </main>
+  </div></div>
+  <script src="script.js"></script>
+</body>
+</html>
+
