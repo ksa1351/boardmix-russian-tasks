@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#2856a3">
+  <title>8 класс. Связная речь: повествование, рассуждение, диалог</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="viewport"><div id="scaled-wrap">
+    <main id="app" aria-label="Интерактивный урок русского языка для 8 класса">
+      <header class="topbar">
+        <div class="title-wrap">
+          <div class="eyebrow">8 класс · 60 минут · индивидуальное занятие</div>
+          <h1 id="screenTitle">Связная речь: повествование, рассуждение, диалог</h1>
+        </div>
+        <div class="progress">
+          <span id="progressText">Этап 1 из 7</span>
+          <div class="progress-line"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="timer-row"><span id="timerDisplay">07:00</span><button id="timerBtn" type="button">▶</button></div>
+        </div>
+      </header>
+
+      <section class="screen">
+        <div class="instruction" id="instruction"></div>
+        <div class="workspace" id="workspace"></div>
+      </section>
+
+      <footer class="footer">
+        <button class="nav-btn" id="backBtn" type="button">← Назад</button>
+        <div class="center-actions">
+          <button class="hint-btn" id="hintBtn" type="button">Подсказка</button>
+          <button class="check-btn" id="checkBtn" type="button">Проверить</button>
+        </div>
+        <button class="nav-btn next-btn" id="nextBtn" type="button" disabled>Дальше →</button>
+      </footer>
+
+      <div class="overlay hidden" id="hintOverlay" role="dialog" aria-modal="true" aria-labelledby="hintTitle">
+        <div class="memo">
+          <div class="memo-icon">?</div>
+          <div>
+            <h2 id="hintTitle">Подсказка</h2>
+            <p id="hintText"></p>
+            <div class="hint-actions">
+              <button id="moreHint" type="button">Показать алгоритм</button>
+              <button id="closeHint" type="button">Понятно</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div></div>
+  <script src="script.js"></script>
+</body>
+</html>
