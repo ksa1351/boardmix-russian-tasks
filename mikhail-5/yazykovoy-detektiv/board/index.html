@@ -80,7 +80,7 @@ function checkLive(){
   msg='Правильно отмечено членов предложения: '+matches+' из '+right.length+'. Проверьте спорные слова и объясните разбор.';
  }else if(q.type==='phonetic'){
   const f=s.fields;
-  const norm=x=>String(x||'').replace(/[\\s\\[\\]‘’']/g,'').toLowerCase();
+  const norm=x=>String(x||'').replace(/\s|\[|\]|[‘’']/g,'').toLowerCase();
   const tr=norm(f.studentTrans)===norm(q.transcript);
   const letters=String(f.studentLetters||'')===String(q.word.length);
   const sounds=String(f.studentSounds||'')===String(q.word==='ёлка'?5:3);
@@ -124,6 +124,6 @@ $('next').addEventListener('click',rememberFields,true);
 $('prev').addEventListener('click',rememberFields,true);
 $('backSetup').addEventListener('click',rememberFields,true);
 const originalStart=start;
-start=function(){Object.keys(liveState).forEach(k=>delete liveState[k]);originalStart();};
+$('start').onclick=()=>{Object.keys(liveState).forEach(k=>delete liveState[k]);originalStart();};
 
 </script></body></html>
