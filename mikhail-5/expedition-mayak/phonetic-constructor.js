@@ -61,7 +61,7 @@ function paint(){
   const i=step-1,p=s.letters[i],unit=d.units[i],used=lettersUsed(i);
   html+='<h4>2. Буква '+step+' из '+d.units.length+'</h4><p class="ph-help">Выбери следующую букву, а затем разложи её на '+(unit[1].length>1?'отдельные звуки.':'звук или отметь, что звука нет.')+'</p>';
   const unused=s.bank.filter(b=>!used.includes(b.id)||b.id===p.letterIndex);
-  html+=choices('Выбери букву',unused.map(x=>x.value),p.letterIndex===null?'':s.bank.find(x=>x.id===p.letterIndex)?.value||'','data-letter',i);
+  html+='<div class="ph-field"><span class="ph-label">Выбери букву</span><div class="ph-choices">'+unused.map(b=>'<button type="button" class="ph-option '+(p.letterIndex===b.id?'selected':'')+'" data-letter-index="'+b.id+'">'+safe(b.value)+'</button>').join('')+'</div></div>';
   p.phonemes.forEach((ph,j)=>{
    html+='<div class="ph-sound"><div class="ph-sound-title">'+(unit[1].length>1?'Звук '+(j+1)+' из '+unit[1].length:'Звук этой буквы')+'</div>';
    html+=choices('Какой звук произносится?',s.choices[i][j],ph.sound,'data-sound',j);
@@ -88,9 +88,10 @@ function events(){
  $$('[data-word]').forEach(b=>b.onclick=()=>{active=Number(b.dataset.word);paint()});
  $$('[data-step]').forEach(b=>b.onclick=()=>{state().step=Number(b.dataset.step);state().checked=false;paint()});
  $$('[data-accent]').forEach(b=>b.onclick=()=>{state().accent=b.dataset.accent;state().checked=false;paint()});
- $$('[data-letter]').forEach(b=>b.onclick=()=>{
- const s=state(),idx=s.step-1,value=b.dataset.letter,used=lettersUsed(idx),candidate=s.bank.find(x=>x.value===value&&!used.includes(x.id));
- s.letters[idx].letterIndex=candidate?.id??s.letters[idx].letterIndex;s.checked=false;paint()
+ $('[data-letter-index]').forEach(b=>b.onclick=()=>{
+ const s=state(),idx=s.step-1,id=Number(b.dataset.letterIndex),used=lettersUsed(idx);
+ if(!used.includes(id))s.letters[idx].letterIndex=id;
+ s.checked=false;paint();
  });
  const fields=[['data-sound','sound'],['data-kind','kind'],['data-stress','stress'],['data-voice','voice'],['data-hard','hard']];
  for(const [selector,key] of fields)$$('['+selector+']').forEach(b=>b.onclick=()=>{const s=state(),ph=s.letters[s.step-1].phonemes[Number(b.dataset.idx)];ph[key]=b.getAttribute(selector);s.checked=false;paint()});
