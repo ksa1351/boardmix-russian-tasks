@@ -13,7 +13,7 @@ const words=[
 ];
 const markers=[['корень','⌒','Корень'],['суффикс','∧','Суффикс'],['окончание','□','Окончание']];
 let currentWord=0;
-const wordStates=words.map(w=>({marks:w.parts.map(()=>''),base:'',checked:false}));
+const wordStates=words.map(()=>({ranges:[],start:null,end:null,base:'',checked:false,message:''}));
 const nounTemplates=[
  {title:'в долине',context:'В долине блестела река.',answer:{part:'имя существительное',meaning:'предмет',question:'в чём?',initial:'долина',proper:'нарицательное',animate:'неодушевлённое',gender:'женский',decl:'1-е',number:'единственное',case:'предложный',member:'обстоятельство'},choices:{question:['в чём?','где?','какая?','чем?'],initial:['долина','долине','долину','долины']}},
  {title:'капли',context:'Между высокими соснами поблёскивали капли росы.',answer:{part:'имя существительное',meaning:'предмет',question:'что?',initial:'капля',proper:'нарицательное',animate:'неодушевлённое',gender:'женский',decl:'1-е',number:'множественное',case:'именительный',member:'подлежащее'},choices:{question:['что?','чего?','чему?','чем?'],initial:['капля','капли','каплю','капель']}}
@@ -38,22 +38,78 @@ function nounFields(){
  return list.map(([id,name,options])=>({id,name,options,answer:spec.answer[id]}));
 }
 
+const symbolFor={'корень':'⌒','суффикс':'∧','окончание':'□'};
+function expectedRanges(word){
+ let n=0;return word.parts.map(([part,kind])=>{const item={start:n,end:n+part.length-1,kind};n+=part.length;return item});
+}
+function coverage(state,length){
+ const cover=Array(length).fill(0);
+ state.ranges.forEach(r=>{for(let i=r.start;i<=r.end;i++)if(i>=0&&i<length)cover[i]++});
+ return cover;
+}
+function allMarked(word,state){
+ return state.ranges.length>0&&coverage(state,word.word.length).every(v=>v===1);
+}
+function selectionView(state){
+ if(state.start===null)return 'Нажми на первую букву морфемы.';
+ if(state.end===null)return 'Теперь нажми на последнюю букву морфемы (или повторно на эту же букву).';
+ return 'Теперь выбери обозначение морфемы.';
+}
 function renderMorphemic(){
- const w=words[currentWord],state=wordStates[currentWord],ready=state.marks.every(Boolean)&&!!state.base;
+ const w=words[currentWord],state=wordStates[currentWord],ready=allMarked(w,state)&&!!state.base.trim();
  const nav=words.map((item,i)=>'<button type="button" class="mc-wordtab '+(i===currentWord?'active':'')+'" data-mc-word="'+i+'">'+escapeHTML(item.word)+'</button>').join('');
- const bar=markers.map(([key,sym,label])=>'<span class="mc-legend-item"><b class="mc-symbol '+key+'">'+sym+'</b> '+label+'</span>').join('');
- const parts=w.parts.map(([segment],i)=>'<div class="mc-segment"><span class="mc-selected-mark '+state.marks[i]+'">'+(state.marks[i]?' '+({'корень':'⌒','суффикс':'∧','окончание':'□'}[state.marks[i]]):'···')+'</span><button type="button" class="mc-piece" data-mc-part="'+i+'">'+escapeHTML(segment)+'</button><div class="mc-piece-choices">'+markers.map(([key,sym,label])=>'<button type="button" class="mc-mini '+(state.marks[i]===key?'active':'')+'" data-mc-mark="'+key+'" data-mc-at="'+i+'" title="'+label+'">'+sym+'</button>').join('')+'</div></div>').join('');
- morMount.innerHTML='<div class="mc-shell"><div class="mc-top"><strong>Собери слово по составу</strong><span>'+nav+'</span></div><p class="mc-muted">Выбери обозначение для каждой части слова. Затем составь основу без окончания.</p><div class="mc-legend">'+bar+'</div><div class="mc-word">'+parts+'</div><div class="mc-base"><label>Основа слова <input id="mcBase" type="text" placeholder="Запиши основу" value="'+escapeHTML(state.base)+'" autocomplete="off" spellcheck="false"></label><span class="mc-muted">Без окончания</span></div><div class="mc-actions">'+(ready?'<button class="btn" id="mcCheck">Проверить разбор</button>':'<span id="mcProgress" class="mc-muted">Отметь все части и запиши основу.</span>')+'<button type="button" class="btn secondary" id="mcReset">Начать заново</button></div>'+(state.checked?renderMorphemicFeedback(w,state):'')+'</div>';
- morMount.querySelectorAll('[data-mc-word]').forEach(b=>b.onclick=()=>{currentWord=Number(b.dataset.mcWord);renderMorphemic()});
- morMount.querySelectorAll('[data-mc-mark]').forEach(b=>b.onclick=()=>{const k=+b.dataset.mcAt;state.marks[k]=b.dataset.mcMark;state.checked=false;renderMorphemic()});
- morMount.querySelector('#mcBase').oninput=e=>{state.base=e.target.value;state.checked=false;const readyNow=state.marks.every(Boolean)&&!!state.base.trim();if(readyNow&&!morMount.querySelector('#mcCheck'))renderMorphemic();else if(!readyNow&&morMount.querySelector('#mcCheck'))renderMorphemic()};
- morMount.querySelector('#mcReset').onclick=()=>{state.marks=state.marks.map(()=>'');state.base='';state.checked=false;renderMorphemic()};
+ const activeRanges=state.ranges;
+ const selectedEnd=state.end===null?state.start:state.end;
+ const selectedStart=state.start===null?null:Math.min(state.start,selectedEnd);
+ const selectedLast=state.start===null?null:Math.max(state.start,selectedEnd);
+ const letters=[...w.word].map((letter,i)=>{
+  const mark=activeRanges.find(r=>i>=r.start&&i<=r.end);
+  const isSelected=state.start!==null&&i>=selectedStart&&i<=selectedLast;
+  const first=mark&&i===mark.start;
+  const last=mark&&i===mark.end;
+  const marker=mark&&first?'<span class="mc-glyph '+mark.kind+'">'+symbolFor[mark.kind]+'</span>':'<span class="mc-glyph">&nbsp;</span>';
+  return '<button type="button" class="mc-letter '+(mark?'mc-in-'+mark.kind:'')+' '+(first?'mc-first ':'')+(last?'mc-last ':'')+(isSelected?'mc-pending ':'')+'" data-mc-letter="'+i+'" aria-label="Буква '+escapeHTML(letter)+', позиция '+(i+1)+'">'+marker+'<span>'+escapeHTML(letter)+'</span></button>';
+ }).join('');
+ const existing=activeRanges.map((r,i)=>'<div class="mc-range-line"><span>'+escapeHTML([...w.word].slice(r.start,r.end+1).join(''))+'</span><strong>'+escapeHTML(r.kind)+'</strong><button type="button" class="btn secondary" data-remove-range="'+i+'" aria-label="Удалить выделение">Удалить</button></div>').join('');
+ const choices=state.start!==null&&state.end!==null?'<div class="mc-choice-panel"><strong>Выбери знак для выделенного участка</strong><div class="mc-mark-actions">'+markers.map(([key,sym,label])=>'<button type="button" class="mc-mark-btn" data-assign-mark="'+key+'"><span class="mc-symbol">'+sym+'</span>'+label+'</button>').join('')+'</div></div>':'';
+ morMount.innerHTML='<div class="mc-shell"><div class="mc-top"><strong>Разбор слова по составу</strong><span>'+nav+'</span></div><p class="mc-muted">Нажми на начало морфемы, затем на её конец и выбери знак. Если морфема состоит из одной буквы, нажми на неё два раза.</p><div class="mc-word mc-unsegmented" aria-label="Слово '+escapeHTML(w.word)+'">'+letters+'</div><p class="mc-muted" role="status">'+selectionView(state)+'</p>'+choices+'<div class="mc-ranges">'+(existing||'<span class="mc-muted">Обозначения пока не добавлены.</span>')+'</div><div class="mc-base"><label>Основа слова <input id="mcBase" type="text" placeholder="Запиши основу" value="'+escapeHTML(state.base)+'" autocomplete="off" spellcheck="false"></label><span class="mc-muted">Основа — всё слово без окончания.</span></div><div class="mc-actions">'+(ready?'<button type="button" class="btn" id="mcCheck">Проверить разбор</button>':'<span class="mc-muted" id="mcProgress">Отметь все буквы и запиши основу.</span>')+'<button type="button" class="btn secondary" id="mcUndo">Отменить выбор</button><button type="button" class="btn secondary" id="mcReset">Начать заново</button></div>'+(state.checked?renderMorphemicFeedback(w,state):'')+'</div>';
+ morMount.querySelectorAll('[data-mc-word]').forEach(b=>b.onclick=()=>{currentWord=+b.dataset.mcWord;renderMorphemic()});
+ morMount.querySelectorAll('[data-mc-letter]').forEach(b=>b.onclick=()=>{
+  const index=+b.dataset.mcLetter;
+  state.checked=false;
+  if(state.start===null){state.start=index;state.end=null}
+  else if(state.end===null){state.end=index}
+  else{state.start=index;state.end=null}
+  renderMorphemic();
+ });
+ morMount.querySelectorAll('[data-assign-mark]').forEach(b=>b.onclick=()=>{
+  const start=Math.min(state.start,state.end),end=Math.max(state.start,state.end);
+  const overlaps=state.ranges.some(r=>!(end<r.start||start>r.end));
+  if(overlaps){state.message='Участок пересекается с уже выделенной морфемой. Сначала удали прежнее выделение.';return}
+  state.ranges.push({start,end,kind:b.dataset.assignMark});
+  state.ranges.sort((a,b)=>a.start-b.start);
+  state.start=null;state.end=null;state.message='';state.checked=false;renderMorphemic();
+ });
+ morMount.querySelectorAll('[data-remove-range]').forEach(b=>b.onclick=()=>{state.ranges.splice(+b.dataset.removeRange,1);state.checked=false;renderMorphemic()});
+ morMount.querySelector('#mcBase').oninput=e=>{
+  state.base=e.target.value;state.checked=false;
+  const nowReady=allMarked(w,state)&&!!state.base.trim();
+  const button=morMount.querySelector('#mcCheck');
+  if(nowReady!==!!button)renderMorphemic();
+ };
+ morMount.querySelector('#mcUndo').onclick=()=>{state.start=null;state.end=null;state.checked=false;renderMorphemic()};
+ morMount.querySelector('#mcReset').onclick=()=>{wordStates[currentWord]={ranges:[],start:null,end:null,base:'',checked:false,message:''};renderMorphemic()};
  const check=morMount.querySelector('#mcCheck');if(check)check.onclick=()=>{state.checked=true;renderMorphemic()};
 }
-function renderMorphemicFeedback(w,s){
- const errors=w.parts.map((part,i)=>s.marks[i]===part[1]?null:'часть '+(i+1)).filter(Boolean);
- if(s.base.replace(/\s/g,'').toLowerCase()!==w.base)errors.push('основа');
- return '<div class="mc-feedback"><strong>'+(errors.length?'Есть неточности.':'Верно!')+'</strong><span>'+(errors.length?'Проверь: '+errors.join(', ')+'.':'Основа: '+w.base+'. Все части слова определены правильно.')+'</span></div>';
+function renderMorphemicFeedback(word,state){
+ const expected=expectedRanges(word);
+ const errors=[];
+ for(const r of expected){
+  if(!state.ranges.some(actual=>actual.start===r.start&&actual.end===r.end&&actual.kind===r.kind))errors.push('границы или обозначение морфемы');
+ }
+ if(state.ranges.length!==expected.length)errors.push('количество выделенных морфем');
+ if(state.base.replace(/\s/g,'').toLowerCase()!==word.base)errors.push('основа слова');
+ return '<div class="mc-feedback"><strong>'+(errors.length?'Проверь разбор.':'Верно!')+'</strong><span>'+(errors.length?'Есть неточности: '+[...new Set(errors)].join(', ')+'.':'Все морфемы и основа выделены правильно.')+'</span></div>';
 }
 function renderNoun(){
  const spec=nounTemplates[nounIndex],s=nounStates[nounIndex],values=s.values,fields=nounFields(),complete=fields.every(f=>!!values[f.id]);
