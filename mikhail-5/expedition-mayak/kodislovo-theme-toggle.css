@@ -126,3 +126,5 @@ html:not([data-theme="light"]) .lesson-theme-switch button{background:#1f2a57;co
 html:not([data-theme="light"]) .lesson-theme-switch button[aria-pressed="true"]{background:#495bc0;border-color:#9aa8ff;color:#fff}
 .hero:has(.lesson-theme-switch){display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
 @media(max-width:650px){.lesson-theme-switch{width:100%;margin-left:0}.lesson-theme-switch button{flex:1}}
+
+.meaning-duo{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch;gap:16px}.meaning-duo>label{display:grid;grid-template-rows:minmax(3.5em,auto) 112px;gap:10px;min-width:0}.meaning-duo>label .question{align-self:start;margin:0;line-height:1.5}.meaning-duo>label textarea{width:100%;height:112px;min-height:112px;margin:0;box-sizing:border-box}@media(max-width:800px){.meaning-duo{grid-template-columns:1fr}.meaning-duo>label{grid-template-rows:auto 112px}}
