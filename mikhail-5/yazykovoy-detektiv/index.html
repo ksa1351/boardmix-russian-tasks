@@ -27,4 +27,4 @@ function results(){reporting=true;chapterNav();$('unit').textContent='ИТОГО
 // Restore footer controls after navigating from report
 const originalRender=render;render=function(){['check','next','report'].forEach(id=>$(id).style.display='');$('prev').onclick=()=>{save();index=Math.max(0,index-1);render()};originalRender()};
 render();
-</script></body></html>
+</script><script src="./advanced.js?v=20261029"></script></body></html>
