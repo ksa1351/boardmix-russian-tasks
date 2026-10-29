@@ -44,15 +44,13 @@ function renderMorphemicFeedback(w,s){
 }
 function renderNoun(){
  const values=nounState.values,complete=nounFields.every(f=>!!values[f.id]);
- const fields=nounFields.map((f,i)=>{
-  const choices='<option value="">— выбери —</option>'+f.options.map(opt=>'<option value="'+escapeHTML(opt)+'" '+(values[f.id]===opt?'selected':'')+'>'+escapeHTML(opt)+'</option>').join('');
-  return '<label class="nc-field"><span class="nc-num">'+(i+1)+'.</span><span class="nc-name">'+f.name+'</span><select data-nc-field="'+f.id+'">'+choices+'</select>'+(f.note?'<small>'+f.note+'</small>':'')+'</label>';
- }).join('');
- nounMount.innerHTML='<div class="nc-shell"><div class="nc-head"><strong>В долине</strong><span>Имя существительное · разбор по плану</span></div><div class="nc-block"><h4>Часть речи и начальная форма</h4><div class="nc-fields">'+fields.slice(0,fields.indexOf('</label>',fields.indexOf('data-nc-field="initial"'))+8)+'</div></div><div class="nc-fields" id="ncFields"></div><div class="mc-actions">'+(complete?'<button type="button" class="btn" id="ncCheck">Проверить морфологический разбор</button>':'<span class="mc-muted" id="ncProgress">Заполнено '+Object.values(values).filter(Boolean).length+' из '+nounFields.length+' признаков.</span>')+'<button type="button" class="btn secondary" id="ncReset">Начать заново</button></div>'+(nounState.checked?renderNounFeedback():'')+'</div>';
- // Rebuild grouped fields as structured DOM for reliable editing.
- const groupDefs=[['Часть речи и начальная форма',nounFields.slice(0,4)],['Постоянные признаки',nounFields.slice(4,8)],['Непостоянные признаки и роль в предложении',nounFields.slice(8)]];
- const sections=groupDefs.map(([title,group])=>'<div class="nc-block"><h4>'+title+'</h4><div class="nc-fields">'+group.map(f=>'<label class="nc-field"><span class="nc-name">'+f.name+'</span><select data-nc-field="'+f.id+'"><option value="">— выбери —</option>'+f.options.map(opt=>'<option value="'+escapeHTML(opt)+'" '+(values[f.id]===opt?'selected':'')+'>'+escapeHTML(opt)+'</option>').join('')+'</select>'+(f.note?'<small>'+f.note+'</small>':'')+'</label>').join('')+'</div></div>').join('');
- const shell=nounMount.querySelector('.nc-shell');const first=shell.querySelector('.nc-block');first.remove();shell.querySelector('#ncFields').outerHTML=sections;
+ const groups=[
+  ['Часть речи и начальная форма',nounFields.slice(0,4)],
+  ['Постоянные признаки',nounFields.slice(4,8)],
+  ['Непостоянные признаки и роль в предложении',nounFields.slice(8)]
+ ];
+ const sections=groups.map(([title,fields])=>'<div class="nc-block"><h4>'+title+'</h4><div class="nc-fields">'+fields.map(f=>'<label class="nc-field"><span class="nc-name">'+f.name+'</span><select data-nc-field="'+f.id+'"><option value="">— выбери —</option>'+f.options.map(opt=>'<option value="'+escapeHTML(opt)+'" '+(values[f.id]===opt?'selected':'')+'>'+escapeHTML(opt)+'</option>').join('')+'</select>'+(f.note?'<small>'+f.note+'</small>':'')+'</label>').join('')+'</div></div>').join('');
+ nounMount.innerHTML='<div class="nc-shell"><div class="nc-head"><strong>В долине</strong><span>Морфологический разбор по плану 5 класса</span></div>'+sections+'<div class="mc-actions">'+(complete?'<button type="button" class="btn" id="ncCheck">Проверить морфологический разбор</button>':'<span class="mc-muted" id="ncProgress">Заполнено '+Object.values(values).filter(Boolean).length+' из '+nounFields.length+' признаков.</span>')+'<button type="button" class="btn secondary" id="ncReset">Начать заново</button></div>'+(nounState.checked?renderNounFeedback():'')+'</div>';
  nounMount.querySelectorAll('[data-nc-field]').forEach(e=>e.onchange=()=>{nounState.values[e.dataset.ncField]=e.value;nounState.checked=false;renderNoun()});
  nounMount.querySelector('#ncReset').onclick=()=>{nounState.values={};nounState.checked=false;renderNoun()};
  const check=nounMount.querySelector('#ncCheck');if(check)check.onclick=()=>{nounState.checked=true;renderNoun()};
