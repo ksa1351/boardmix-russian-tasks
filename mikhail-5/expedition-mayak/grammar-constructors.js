@@ -6,25 +6,38 @@ const nounMount=document.getElementById('nounConstructor');
 if(!morMount||!nounMount)return;
 const words=[
  {word:'лесной',parts:[['лес','корень'],['н','суффикс'],['ой','окончание']],base:'лесн'},
- {word:'тропинка',parts:[['троп','корень'],['инк','суффикс'],['а','окончание']],base:'тропинк'}
+ {word:'тропинка',parts:[['троп','корень'],['инк','суффикс'],['а','окончание']],base:'тропинк'},
+ {word:'берёзы',parts:[['берёз','корень'],['ы','окончание']],base:'берёз'},
+ {word:'высокими',parts:[['высок','корень'],['ими','окончание']],base:'высок'},
+ {word:'маяка',parts:[['маяк','корень'],['а','окончание']],base:'маяк'}
 ];
 const markers=[['корень','⌒','Корень'],['суффикс','∧','Суффикс'],['окончание','□','Окончание']];
 let currentWord=0;
 const wordStates=words.map(w=>({marks:w.parts.map(()=>''),base:'',checked:false}));
-const nounFields=[
- {id:'part',name:'Часть речи',options:['имя существительное','имя прилагательное','глагол','наречие'],answer:'имя существительное'},
- {id:'meaning',name:'Что обозначает?',options:['предмет','признак предмета','действие предмета'],answer:'предмет'},
- {id:'question',name:'Вопрос к форме «в долине»',options:['в чём?','где?','какая?','чем?'],answer:'в чём?',note:'Это падежный вопрос. Вопрос «где?» помогает определить роль сочетания в предложении.'},
- {id:'initial',name:'Начальная форма',options:['долина','долине','долину','долины'],answer:'долина'},
- {id:'proper',name:'Собственное или нарицательное?',options:['собственное','нарицательное'],answer:'нарицательное'},
- {id:'animate',name:'Одушевлённость',options:['одушевлённое','неодушевлённое'],answer:'неодушевлённое'},
- {id:'gender',name:'Род',options:['мужской','женский','средний'],answer:'женский'},
- {id:'decl',name:'Склонение',options:['1-е','2-е','3-е'],answer:'1-е'},
- {id:'number',name:'Число',options:['единственное','множественное'],answer:'единственное'},
- {id:'case',name:'Падеж',options:['именительный','родительный','дательный','винительный','творительный','предложный'],answer:'предложный'},
- {id:'member',name:'Член предложения',options:['подлежащее','сказуемое','дополнение','определение','обстоятельство'],answer:'обстоятельство'}
+const nounTemplates=[
+ {title:'в долине',context:'В долине блестела река.',answer:{part:'имя существительное',meaning:'предмет',question:'в чём?',initial:'долина',proper:'нарицательное',animate:'неодушевлённое',gender:'женский',decl:'1-е',number:'единственное',case:'предложный',member:'обстоятельство'},choices:{question:['в чём?','где?','какая?','чем?'],initial:['долина','долине','долину','долины']}},
+ {title:'к маяку',context:'На подъёме к маяку ветер стал сильнее.',answer:{part:'имя существительное',meaning:'предмет',question:'к чему?',initial:'маяк',proper:'нарицательное',animate:'неодушевлённое',gender:'мужской',decl:'2-е',number:'единственное',case:'дательный',member:'обстоятельство'},choices:{question:['к чему?','где?','кому?','чего?'],initial:['маяк','маяку','маяка','маяком']}}
 ];
-const nounState={values:{},checked:false};
+let nounIndex=0;
+const nounStates=nounTemplates.map(()=>({values:{},checked:false}));
+function nounFields(){
+ const spec=nounTemplates[nounIndex];
+ const list=[
+ ['part','Часть речи',['имя существительное','имя прилагательное','глагол','наречие']],
+ ['meaning','Что обозначает?',['предмет','признак предмета','действие предмета']],
+ ['question','Падежный вопрос',spec.choices.question],
+ ['initial','Начальная форма',spec.choices.initial],
+ ['proper','Собственное / нарицательное',['собственное','нарицательное']],
+ ['animate','Одушевлённость',['одушевлённое','неодушевлённое']],
+ ['gender','Род',['мужской','женский','средний']],
+ ['decl','Склонение',['1-е','2-е','3-е']],
+ ['number','Число',['единственное','множественное']],
+ ['case','Падеж',['именительный','родительный','дательный','винительный','творительный','предложный']],
+ ['member','Член предложения',['подлежащее','сказуемое','дополнение','определение','обстоятельство']]
+ ];
+ return list.map(([id,name,options])=>({id,name,options,answer:spec.answer[id]}));
+}
+
 function renderMorphemic(){
  const w=words[currentWord],state=wordStates[currentWord],ready=state.marks.every(Boolean)&&!!state.base;
  const nav=words.map((item,i)=>'<button type="button" class="mc-wordtab '+(i===currentWord?'active':'')+'" data-mc-word="'+i+'">'+escapeHTML(item.word)+'</button>').join('');
@@ -43,21 +56,20 @@ function renderMorphemicFeedback(w,s){
  return '<div class="mc-feedback"><strong>'+(errors.length?'Есть неточности.':'Верно!')+'</strong><span>'+(errors.length?'Проверь: '+errors.join(', ')+'.':'Основа: '+w.base+'. Все части слова определены правильно.')+'</span></div>';
 }
 function renderNoun(){
- const values=nounState.values,complete=nounFields.every(f=>!!values[f.id]);
- const groups=[
-  ['Часть речи и начальная форма',nounFields.slice(0,4)],
-  ['Постоянные признаки',nounFields.slice(4,8)],
-  ['Непостоянные признаки и роль в предложении',nounFields.slice(8)]
- ];
- const sections=groups.map(([title,fields])=>'<div class="nc-block"><h4>'+title+'</h4><div class="nc-fields">'+fields.map(f=>'<label class="nc-field"><span class="nc-name">'+f.name+'</span><select data-nc-field="'+f.id+'"><option value="">— выбери —</option>'+f.options.map(opt=>'<option value="'+escapeHTML(opt)+'" '+(values[f.id]===opt?'selected':'')+'>'+escapeHTML(opt)+'</option>').join('')+'</select>'+(f.note?'<small>'+f.note+'</small>':'')+'</label>').join('')+'</div></div>').join('');
- nounMount.innerHTML='<div class="nc-shell"><div class="nc-head"><strong>В долине</strong><span>Морфологический разбор по плану 5 класса</span></div>'+sections+'<div class="mc-actions">'+(complete?'<button type="button" class="btn" id="ncCheck">Проверить морфологический разбор</button>':'<span class="mc-muted" id="ncProgress">Заполнено '+Object.values(values).filter(Boolean).length+' из '+nounFields.length+' признаков.</span>')+'<button type="button" class="btn secondary" id="ncReset">Начать заново</button></div>'+(nounState.checked?renderNounFeedback():'')+'</div>';
- nounMount.querySelectorAll('[data-nc-field]').forEach(e=>e.onchange=()=>{nounState.values[e.dataset.ncField]=e.value;nounState.checked=false;renderNoun()});
- nounMount.querySelector('#ncReset').onclick=()=>{nounState.values={};nounState.checked=false;renderNoun()};
- const check=nounMount.querySelector('#ncCheck');if(check)check.onclick=()=>{nounState.checked=true;renderNoun()};
+ const spec=nounTemplates[nounIndex],s=nounStates[nounIndex],values=s.values,fields=nounFields(),complete=fields.every(f=>!!values[f.id]);
+ const groups=[['Часть речи и начальная форма',fields.slice(0,4)],['Постоянные признаки',fields.slice(4,8)],['Непостоянные признаки и роль в предложении',fields.slice(8)]];
+ const nav=nounTemplates.map((n,i)=>'<button type="button" class="mc-wordtab '+(nounIndex===i?'active':'')+'" data-noun="'+i+'">'+escapeHTML(n.title)+'</button>').join('');
+ const sections=groups.map(([title,list])=>'<div class="nc-block"><h4>'+title+'</h4><div class="nc-fields">'+list.map(f=>'<label class="nc-field"><span class="nc-name">'+f.name+'</span><select data-nc-field="'+f.id+'"><option value="">— выбери —</option>'+f.options.map(opt=>'<option value="'+escapeHTML(opt)+'" '+(values[f.id]===opt?'selected':'')+'>'+escapeHTML(opt)+'</option>').join('')+'</select></label>').join('')+'</div></div>').join('');
+ nounMount.innerHTML='<div class="nc-shell"><div class="nc-head"><strong>Морфологический разбор</strong><span>'+nav+'</span></div><p class="mc-muted">Предложение: '+escapeHTML(spec.context)+'</p><p class="mc-muted">Разбери существительное «'+escapeHTML(spec.title)+'» по плану 5 класса.</p>'+sections+'<div class="mc-actions">'+(complete?'<button type="button" class="btn" id="ncCheck">Проверить морфологический разбор</button>':'<span class="mc-muted" id="ncProgress">Заполнено '+Object.values(values).filter(Boolean).length+' из '+fields.length+' признаков.</span>')+'<button type="button" class="btn secondary" id="ncReset">Начать заново</button></div>'+(s.checked?renderNounFeedback():'')+'</div>';
+ nounMount.querySelectorAll('[data-noun]').forEach(e=>e.onclick=()=>{nounIndex=Number(e.dataset.noun);renderNoun()});
+ nounMount.querySelectorAll('[data-nc-field]').forEach(e=>e.onchange=()=>{s.values[e.dataset.ncField]=e.value;s.checked=false;renderNoun()});
+ nounMount.querySelector('#ncReset').onclick=()=>{s.values={};s.checked=false;renderNoun()};
+ const check=nounMount.querySelector('#ncCheck');if(check)check.onclick=()=>{s.checked=true;renderNoun()};
 }
 function renderNounFeedback(){
- const wrong=nounFields.filter(f=>nounState.values[f.id]!==f.answer).map(f=>f.name);
- return '<div class="mc-feedback"><strong>'+(wrong.length?'Проверь некоторые признаки.':'Все признаки указаны верно!')+'</strong><span>'+(wrong.length?'Проверь: '+wrong.join(', ')+'.':'«В долине»: существительное, нарицательное, неодушевлённое, ж. р., 1-е скл., ед. ч., П. п.; в предложении — обстоятельство места.')+'</span></div>';
+ const s=nounStates[nounIndex],spec=nounTemplates[nounIndex];
+ const wrong=nounFields().filter(f=>s.values[f.id]!==f.answer).map(f=>f.name);
+ return '<div class="mc-feedback"><strong>'+(wrong.length?'Проверь некоторые признаки.':'Все признаки указаны верно!')+'</strong><span>'+(wrong.length?'Проверь: '+wrong.join(', ')+'.':'Все признаки существительного «'+escapeHTML(spec.title)+'» определены правильно.')+'</span></div>';
 }
 renderMorphemic();renderNoun();
 })();
