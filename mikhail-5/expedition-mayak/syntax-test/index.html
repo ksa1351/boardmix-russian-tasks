@@ -1,40 +1,136 @@
 <!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Синтаксический разбор — тестовая карточка</title><style>
 :root{font-family:Aptos,Calibri,Arial,sans-serif;color:#17374e;background:#edf4f8}*{box-sizing:border-box}body{margin:0}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #e9b85e;outline-offset:2px}.wrap{max-width:1150px;margin:auto;padding:18px}.top{background:#195779;border-radius:18px;padding:20px 26px;color:white}.top h1{margin:0;font-size:clamp(23px,3vw,34px)}.top p{margin:7px 0 0;color:#d7e7ef}.card{background:#fff;border:1px solid #d4e3eb;border-radius:17px;padding:24px;margin:15px 0;box-shadow:0 8px 18px #173b5210}.stage-title{font-size:19px;font-weight:750;margin:0 0 14px}.sub{color:#617c8c;font-size:15px;line-height:1.5}.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:14px 0}.tool{background:#f6fafc;border:2px solid #c0d7e4;border-radius:12px;padding:11px 13px;min-width:115px;color:#1c506e}.tool.active{background:#d7edf7;border-color:#26799f}.tool small{display:block;color:#5a7b8f;font-size:12px}.sample{display:block;height:13px;width:85px;margin:0 auto 7px;border-bottom:3px solid #275f85}.sample.pred{border-bottom:5px double #275f85}.sample.attr{border:0;background:repeat-x left bottom/18px 8px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='8'%3E%3Cpath d='M0 5 Q4 -1 9 5 T18 5' fill='none' stroke='%23275f85' stroke-width='2'/%3E%3C/svg%3E")}.sample.obj{border-bottom:3px dashed #275f85}.sample.adv{border:0;background:repeat-x left bottom/22px 6px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='6'%3E%3Cpath d='M0 4h7 M10 4h2 M15 4h7' fill='none' stroke='%23275f85' stroke-width='2'/%3E%3C/svg%3E")}.sentence-box{position:relative;border:1px solid #d7e8f0;background:#f9fcfe;border-radius:16px;margin-top:22px;padding:72px 12px 24px;min-height:210px;overflow:visible}.sentence{display:flex;flex-wrap:wrap;align-items:flex-end;gap:7px;position:relative;z-index:2}.word{display:flex;flex-direction:column;align-items:center;min-width:105px;gap:8px}.pos{background:#e8f2f7;border:1px solid #b5d2e1;color:#24627f;padding:6px;border-radius:9px;min-width:86px;min-height:35px;font-size:15px;font-weight:750}.pos.chosen{background:#d1eaf4}.word-main{font-size:clamp(29px,4vw,40px);font-weight:680;white-space:nowrap;padding:7px 7px 12px;border:2px solid transparent;border-radius:8px;background:transparent;color:#133c57;min-height:65px;position:relative}.word-main.selected{background:#d8eef8;border-color:#4c9bc0}.word-main.linkMain{background:#e6f4eb;border-color:#50a985}.word-main.linkDep{background:#fff2d6;border-color:#d5a447}.word-main.role-subject:after,.word-main.role-predicate:after,.word-main.role-attribute:after,.word-main.role-object:after,.word-main.role-adverbial:after{content:"";position:absolute;left:8px;right:8px;bottom:8px;height:7px}.word-main.role-subject:after{border-bottom:3px solid #246888}.word-main.role-predicate:after{border-bottom:6px double #246888}.word-main.role-attribute:after{background:repeat-x left bottom/18px 8px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='8'%3E%3Cpath d='M0 5 Q4 -1 9 5 T18 5' fill='none' stroke='%23246888' stroke-width='2'/%3E%3C/svg%3E")}.word-main.role-object:after{border-bottom:3px dashed #246888}.word-main.role-adverbial:after{background:repeat-x left bottom/22px 6px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='6'%3E%3Cpath d='M0 4h7 M10 4h2 M15 4h7' fill='none' stroke='%23246888' stroke-width='2'/%3E%3C/svg%3E")}.role-label{font-size:12px;color:#3d6f86;min-height:17px}.pos-menu{display:none;position:fixed;z-index:99;background:white;border:1px solid #a9cbdc;border-radius:11px;box-shadow:0 10px 40px #17364d30;padding:7px;max-width:min(320px,95vw);grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}.pos-menu.open{display:grid}.pos-menu button{padding:10px;border:0;border-radius:7px;background:#f2f7fa;color:#204c65}.pos-menu button:hover{background:#daedf6}.links{margin-top:14px}.linkrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:10px 12px;background:#eff6fa;border-radius:10px;margin:7px 0}.linkrow b{color:#166182}.btn{border:0;background:#226587;color:#fff;border-radius:10px;padding:12px 17px;font-weight:700}.btn.secondary{color:#205873;background:#e7f1f6}.btn.small{padding:6px 10px}.btn:disabled{opacity:.4}.linkform{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:15px 0}.linkform input{border:1px solid #accbdc;border-radius:10px;padding:12px;max-width:190px}.notice{color:#815c23;font-size:15px;min-height:22px}.char-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}.char-grid label{display:flex;flex-direction:column;gap:6px;font-weight:650}.char-grid select{border:1px solid #bdd6e3;border-radius:10px;background:white;color:#254e66;padding:12px;width:100%}.results{display:none;border-left:4px solid #339c7a;border-radius:10px;background:#edf8f1;padding:17px;line-height:1.6}.results.open{display:block}.checkrow{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.reveal-item{border:1px solid #d3e5ec;border-radius:11px;padding:12px;margin:8px 0}.reveal-item button{background:#e9f3f7;border:none;border-radius:8px;padding:8px 11px;color:#225b7a}.reveal-content{margin-top:10px;color:#214e64}.hint{font-size:13px;color:#648496}.svg-arrows{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:1;overflow:visible}.svg-arrows path{stroke:#337c9d;fill:none;stroke-width:2.5}.svg-arrows text{fill:#216081;font-size:16px;font-weight:750}.arrow-question{font-size:15px;color:#1a6485;background:#e0f1fa;border:1px solid #9fc6db;border-radius:7px;padding:2px 5px;z-index:4;position:absolute;transform:translate(-50%,-50%);white-space:nowrap}.foot{font-size:13px;color:#6c8390;text-align:center;padding:9px}@media(max-width:700px){.card{padding:15px}.sentence-box{padding-top:65px}.sentence{gap:3px}.word{min-width:82px}.pos{min-width:71px}.word-main{font-size:25px;padding:5px 3px 12px}.tool{min-width:90px}.sample{width:60px}}@media print{.top,.toolbar,.foot,.btn,.pos-menu{display:none!important}}
-button[hidden]{display:none!important}#checkGate{display:inline-block;max-width:670px;line-height:1.4}</style></head><body><div class="wrap"><div class="top"><h1>Синтаксический конструктор</h1><p>В долине блестела река.</p></div>
-<section class="card"><h2 class="stage-title">1. Определи части речи и подчеркни члены предложения</h2><p class="sub">Нажми «…» над словом, чтобы определить часть речи. Затем выбери слово (или сочетание с предлогом) и способ подчёркивания.</p><div class="toolbar" id="roleTools"></div><div class="sentence-box" id="sentenceBox"><svg class="svg-arrows" id="arrowSvg" aria-hidden="true"><defs><marker id="arrowHead" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0 0 L7 3 L0 6" style="stroke:#337c9d;fill:none;stroke-width:1.2"/></marker></defs><g id="arrowLayer"></g></svg><div class="sentence" id="sentence"></div></div><div id="posMenu" class="pos-menu" role="menu"></div><p class="hint">Предлог «в» отмечается как отдельная часть речи; сочетание «в долине» подчёркивается целиком.</p></section>
+button[hidden]{display:none!important}#checkGate{display:inline-block;max-width:670px;line-height:1.4}.sentence-nav{padding:16px 20px!important}.sentence-nav button{min-width:45px;padding:10px 14px}.sentence-nav button.on{background:#215e82;color:#fff}.sentence-nav button.finished{border:2px solid #39a27b}.stage-message{color:#53788c;font-size:13px;margin:4px 0 9px}.linkrow .btn{min-width:70px}.word{min-width:88px}.sentence-box{padding-top:90px}.reveal-content{line-height:1.55}@media(max-width:700px){.sentence-box{padding-top:105px}.word{min-width:74px}}</style></head><body><div class="wrap"><div class="top"><h1>Синтаксический конструктор</h1><p id="topSentence">В долине блестела река.</p></div>
+<div class="sentence-nav card"><div class="checkrow"><strong>Выбери предложение для разбора</strong><span id="sentenceCount"></span></div><div id="sentenceNavButtons" class="toolbar"></div></div><section class="card"><h2 class="stage-title">1. Определи части речи и подчеркни члены предложения</h2><p class="sub">Нажми «…» над словом, чтобы определить часть речи. Затем выбери слово (или сочетание с предлогом) и способ подчёркивания.</p><div class="toolbar" id="roleTools"></div><div class="sentence-box" id="sentenceBox"><svg class="svg-arrows" id="arrowSvg" aria-hidden="true"><defs><marker id="arrowHead" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0 0 L7 3 L0 6" style="stroke:#337c9d;fill:none;stroke-width:1.2"/></marker></defs><g id="arrowLayer"></g></svg><div class="sentence" id="sentence"></div></div><div id="posMenu" class="pos-menu" role="menu"></div><p class="hint">Предлог «в» отмечается как отдельная часть речи; сочетание «в долине» подчёркивается целиком.</p></section>
 <section class="card"><h2 class="stage-title">2. Установи связь между словами</h2><p class="sub">Выбери главное слово, затем зависимое. Введи вопрос от главного слова к зависимому. Грамматическую основу стрелкой не соединяем.</p><div class="toolbar"><button class="btn secondary" id="linkMode">Выбрать главное слово</button><span class="notice" id="linkStatus"></span></div><div class="linkform"><span id="linkSelection">Главное и зависимое слова пока не выбраны.</span><label for="question">Вопрос: </label><input id="question" placeholder="где?" autocomplete="off"><button class="btn" id="saveLink">Добавить стрелку</button></div><div class="links" id="linkList"></div></section>
 <section class="card"><h2 class="stage-title">3. Дай характеристику предложения</h2><div class="char-grid" id="characteristics"></div></section>
 <section class="card"><div class="checkrow"><h2 class="stage-title">4. Проверь разбор</h2><button class="btn secondary" id="reset">Начать заново</button></div><div class="toolbar"><button class="btn" id="check" hidden>Проверить разбор</button><span class="hint" id="checkGate" role="status">Заверши все этапы разбора, чтобы появилась проверка.</span><button class="btn secondary" id="clearMarks">Очистить подчёркивания</button></div><div class="results" id="results"></div><h3>Показать образец по шагам</h3><div id="reveals"></div></section><div class="foot">Тестовая карточка · данные сохраняются при работе на этой странице</div></div>
 <script>
-const tokens=[{word:'В',pos:'предлог',role:'adverbial',group:0},{word:'долине',pos:'сущ.',role:'adverbial',group:0},{word:'блестела',pos:'глаг.',role:'predicate',group:1},{word:'река.',pos:'сущ.',role:'subject',group:2}];
-const groups=[{name:'в долине',members:[0,1],role:'adverbial'},{name:'блестела',members:[2],role:'predicate'},{name:'река',members:[3],role:'subject'}];
-const roles=[['subject','Подлежащее'],['predicate','Сказуемое'],['attribute','Определение'],['object','Дополнение'],['adverbial','Обстоятельство']];const posTypes=['сущ.','прил.','глаг.','мест.','нареч.','предлог','союз'];
-const dimensions=[['purpose','По цели высказывания',['повествовательное','вопросительное','побудительное'],'повествовательное'],['tone','По интонации',['невосклицательное','восклицательное'],'невосклицательное'],['bases','По количеству основ',['простое','сложное'],'простое'],['spread','По второстепенным членам',['распространённое','нераспространённое'],'распространённое']];
-let assignedPos={},assignedRole={},chosenTool=null,selectedGroup=null,linkMode=0,linkMain=null,linkDep=null,links=[],charValues={},checks=0;
-const $=id=>document.getElementById(id);const safe=s=>String(s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
-function drawSentence(){let html='';tokens.forEach((t,i)=>{html+=`<div class="word"><button class="pos ${assignedPos[i]?'chosen':''}" data-pos="${i}" aria-label="Часть речи слова ${safe(t.word)}">${assignedPos[i]||'···'}</button><button class="word-main ${assignedRole[t.group]?'role-'+assignedRole[t.group]:''} ${selectedGroup===t.group?'selected':''} ${linkMain===i?'linkMain':''} ${linkDep===i?'linkDep':''}" data-word="${i}" id="word${i}">${safe(t.word)}</button><span class="role-label">${assignedRole[t.group]?roles.find(r=>r[0]===assignedRole[t.group])?.[1]||'':''}</span></div>`});$('sentence').innerHTML=html;document.querySelectorAll('[data-pos]').forEach(b=>b.onclick=()=>openPos(+b.dataset.pos,b));document.querySelectorAll('[data-word]').forEach(b=>b.onclick=()=>pickWord(+b.dataset.word));requestAnimationFrame(drawArrows);updateCheckReady()}
-function openPos(i,b){const m=$('posMenu');m.innerHTML=posTypes.map(p=>`<button type="button" data-p="${p}">${p}</button>`).join('');m.classList.add('open');let rect=b.getBoundingClientRect();m.style.left=Math.max(7,Math.min(rect.left,window.innerWidth-260))+'px';m.style.top=Math.min(rect.bottom+5,window.innerHeight-215)+'px';m.querySelectorAll('[data-p]').forEach(x=>x.onclick=()=>{assignedPos[i]=x.dataset.p;m.classList.remove('open');drawSentence();$('results').classList.remove('open')})}
-function pickWord(i){if(linkMode){if(linkMain===null){linkMain=i;linkMode=2;$('linkStatus').textContent='Теперь выбери зависимое слово.'}else if(i!==linkMain){linkDep=i;linkMode=0;$('linkStatus').textContent='Запиши вопрос и добавь стрелку.'}else $('linkStatus').textContent='Нужно выбрать другое слово.';updateSelection();drawSentence();return}const group=tokens[i].group;selectedGroup=group;if(chosenTool){assignedRole[group]=chosenTool;$('results').classList.remove('open')}drawSentence()}
-function updateSelection(){$('linkSelection').textContent=linkMain===null?'Главное и зависимое слова пока не выбраны.':linkDep===null?`Главное: ${tokens[linkMain].word.replace('.','')}. Выбери зависимое.`:`${tokens[linkMain].word.replace('.','')} → ${tokens[linkDep].word.replace('.','')}`;}
-function drawArrows(){const wrap=$('sentenceBox').getBoundingClientRect(),layer=$('arrowLayer');let html='';document.querySelectorAll('.arrow-question').forEach(n=>n.remove());links.forEach((l,i)=>{const a=$('word'+l.main)?.getBoundingClientRect(),b=$('word'+l.dep)?.getBoundingClientRect();if(!a||!b)return;const x1=a.left+a.width/2-wrap.left,y1=a.top-wrap.top-7,x2=b.left+b.width/2-wrap.left,y2=b.top-wrap.top-7;const curveY=Math.min(y1,y2)-Math.min(45+12*i,72);html+=`<path d="M${x1} ${y1} Q${(x1+x2)/2} ${curveY} ${x2} ${y2}" marker-end="url(#arrowHead)"/>`;const label=document.createElement('span');label.className='arrow-question';label.textContent=l.question;label.style.left=((x1+x2)/2)+'px';label.style.top=(curveY+8)+'px';$('sentenceBox').appendChild(label)});layer.innerHTML=html}
-function roleTools(){const root=$('roleTools');root.innerHTML=roles.map(([id,title])=>`<button class="tool" data-tool="${id}"><span class="sample ${id==='predicate'?'pred':id==='attribute'?'attr':id==='object'?'obj':id==='adverbial'?'adv':''}"></span>${title}</button>`).join('');root.querySelectorAll('button').forEach(b=>b.onclick=()=>{chosenTool=b.dataset.tool;root.querySelectorAll('button').forEach(v=>v.classList.toggle('active',v===b));if(selectedGroup!==null){assignedRole[selectedGroup]=chosenTool;drawSentence()}})}
-function initChar(){$('characteristics').innerHTML=dimensions.map(([id,label,opts])=>`<label>${label}<select data-char="${id}"><option value="">Выбери</option>${opts.map(o=>`<option value="${o}">${o}</option>`).join('')}</select></label>`).join('');document.querySelectorAll('[data-char]').forEach(s=>s.onchange=()=>{charValues[s.dataset.char]=s.value;$('results').classList.remove('open');updateCheckReady()})}
-function renderLinks(){$('linkList').innerHTML=links.map((l,i)=>`<div class="linkrow"><span>${safe(tokens[l.main].word.replace('.',''))} <b>— ${safe(l.question)} →</b> ${safe(tokens[l.dep].word.replace('.',''))}</span><button class="btn small secondary" data-delete="${i}">Удалить</button></div>`).join('');document.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>{links.splice(+b.dataset.delete,1);renderLinks();drawArrows();updateCheckReady()}) ;updateCheckReady()}
-function updateCheckReady(){
- const partCount=tokens.filter((_,i)=>!!assignedPos[i]).length;
- const roleCount=groups.filter((_,i)=>!!assignedRole[i]).length;
- const charCount=dimensions.filter(([id])=>!!charValues[id]).length;
- const hasLink=links.some(l=>l.main!==l.dep&&String(l.question||'').trim().length>0);
- const complete=partCount===tokens.length&&roleCount===groups.length&&charCount===dimensions.length&&hasLink;
- $('check').hidden=!complete;
- $('checkGate').textContent=complete?'Все этапы заполнены. Теперь можно проверить разбор.':'Выполни разбор до конца: части речи '+partCount+'/'+tokens.length+', члены предложения '+roleCount+'/'+groups.length+', характеристика '+charCount+'/'+dimensions.length+', связь с вопросом '+(hasLink?'готова':'не добавлена')+'.';
- if(!complete)$('results').classList.remove('open');
- return complete;
+const DATA=[{"label":"В долине блестела река.","tokens":[["В","предлог",0],["долине","сущ.",0],["блестела","глаг.",1],["река","сущ.",2]],"groups":[["в долине",[0,1],"adverbial"],["блестела",[2],"predicate"],["река",[3],"subject"]],"connections":[[2,[0,1],["где?","в чём?"]]],"subj":3,"pred":2,"teacherReview":false},{"label":"На площадке ребята пишут заметки.","tokens":[["На","предлог",0],["площадке","сущ.",0],["ребята","сущ.",1],["пишут","глаг.",2],["заметки","сущ.",3]],"groups":[["на площадке",[0,1],"adverbial"],["ребята",[2],"subject"],["пишут",[3],"predicate"],["заметки",[4],"object"]],"connections":[[3,[0,1],["где?","на чём?"]],[3,[4],["что?"]]],"subj":2,"pred":3,"teacherReview":false},{"label":"Над городом поднималось яркое солнце.","tokens":[["Над","предлог",0],["городом","сущ.",0],["поднималось","глаг.",1],["яркое","прил.",2],["солнце","сущ.",3]],"groups":[["над городом",[0,1],"adverbial"],["поднималось",[2],"predicate"],["яркое",[3],"attribute"],["солнце",[4],"subject"]],"connections":[[2,[0,1],["где?","над чем?"]],[4,[3],["какое?"]]],"subj":4,"pred":2,"teacherReview":false},{"label":"Около старой берёзы мы увидели маленький гриб.","tokens":[["Около","предлог",0],["старой","прил.",1],["берёзы","сущ.",0],["мы","мест.",2],["увидели","глаг.",3],["маленький","прил.",4],["гриб","сущ.",5]],"groups":[["около берёзы",[0,2],"adverbial"],["старой",[1],"attribute"],["мы",[3],"subject"],["увидели",[4],"predicate"],["маленький",[5],"attribute"],["гриб",[6],"object"]],"connections":[[4,[0,2],["где?","около чего?"]],[2,[1],["какой?","какой именно?"]],[4,[6],["что?"]],[6,[5],["какой?"]]],"subj":3,"pred":4,"teacherReview":false},{"label":"Между высокими соснами поблёскивали капли росы.","tokens":[["Между","предлог",0],["высокими","прил.",1],["соснами","сущ.",0],["поблёскивали","глаг.",2],["капли","сущ.",3],["росы","сущ.",4]],"groups":[["между соснами",[0,2],"adverbial"],["высокими",[1],"attribute"],["поблёскивали",[3],"predicate"],["капли",[4],"subject"],["росы",[5],"attribute"]],"connections":[[3,[0,2],["где?","между чем?"]],[2,[1],["какими?"]],[4,[5],["чего?"]]],"subj":4,"pred":3,"teacherReview":true}];
+const roles=[['subject','Подлежащее'],['predicate','Сказуемое'],['attribute','Определение'],['object','Дополнение'],['adverbial','Обстоятельство']];
+const posTypes=['сущ.','прил.','глаг.','мест.','нареч.','предлог','союз'];
+const dimensionDefs=[['purpose','Цель высказывания',['повествовательное','вопросительное','побудительное'],'повествовательное'],['tone','Интонация',['невосклицательное','восклицательное'],'невосклицательное'],['bases','По количеству основ',['простое','сложное'],'простое'],['spread','Второстепенные члены',['распространённое','нераспространённое'],'распространённое']];
+const $=id=>document.getElementById(id),safe=s=>String(s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+const states=DATA.map(()=>({pos:{},marks:{},tool:null,selected:null,main:null,dep:null,mode:0,links:[],chars:{},showResult:false,opened:{}}));
+let current=0;
+const conf=()=>DATA[current],state=()=>states[current];
+const groups=()=>conf().groups, tokens=()=>conf().tokens;
+function completed(){
+ const d=conf(),s=state();
+ return d.tokens.every((t,i)=>!!s.pos[i])&&d.groups.every((g,i)=>!!s.marks[i])&&dimensionDefs.every(([key])=>!!s.chars[key])&&s.links.length>0;
 }
-function check(){if(!updateCheckReady())return;const pos=tokens.filter((t,i)=>assignedPos[i]===t.pos).length;const role=groups.filter((g,i)=>assignedRole[i]===g.role).length;const ch=dimensions.filter(d=>charValues[d[0]]===d[3]).length;const expected=links.some(l=>l.main===2&&(l.dep===0||l.dep===1)&&['где?','в чём?'].includes(l.question.trim().toLowerCase()));const other=links.filter(l=>!(l.main===2&&(l.dep===0||l.dep===1)&&['где?','в чём?'].includes(l.question.trim().toLowerCase())));let msg=`<strong>Результаты проверки</strong><div>Части речи: ${pos} из ${tokens.length}. Подчёркивание: ${role} из ${groups.length}. Характеристика: ${ch} из ${dimensions.length}.</div><div>Связь «блестела — в долине»: ${expected?'верно':'проверь направление и вопрос'}. ${other.length?'Другие связи обсудите с учителем.':''}</div><div>Исправь неточности до открытия образца.</div>`;$('results').innerHTML=msg;$('results').classList.add('open');updateCheckReady()}
-const revealData=[['Грамматическая основа','река — подлежащее; блестела — сказуемое.'],['Части речи','в — предлог; долине — существительное; блестела — глагол; река — существительное.'],['Второстепенные члены','в долине — обстоятельство места. Подчёркивается штрихпунктирной линией под обоими словами.'],['Связь слов','блестела (где?) в долине. Стрелка направлена от «блестела» к сочетанию «в долине».'],['Характеристика','Повествовательное, невосклицательное, простое, двусоставное, распространённое, неосложнённое.']];
-function makeReveals(){$('reveals').innerHTML=revealData.map(([title],i)=>`<div class="reveal-item"><button data-reveal="${i}">${i+1}. ${title} — показать</button><div class="reveal-content" id="reveal${i}" hidden></div></div>`).join('');document.querySelectorAll('[data-reveal]').forEach(b=>b.onclick=()=>{const i=+b.dataset.reveal,el=$('reveal'+i);el.hidden=!el.hidden;el.textContent=revealData[i][1];b.textContent=(i+1)+'. '+revealData[i][0]+(el.hidden?' — показать':' — скрыть')})}
-$('linkMode').onclick=()=>{linkMode=1;linkMain=null;linkDep=null;$('linkStatus').textContent='Выбери главное слово.';updateSelection();drawSentence()};$('saveLink').onclick=()=>{const q=$('question').value.trim().toLowerCase();if(linkMain===null||linkDep===null||!q){$('linkStatus').textContent='Выбери оба слова и введи вопрос.';return}if((linkMain===2&&linkDep===3)||(linkMain===3&&linkDep===2)){$('linkStatus').textContent='Подлежащее и сказуемое — грамматическая основа, стрелка здесь не нужна.';return}links.push({main:linkMain,dep:linkDep,question:q});linkMain=null;linkDep=null;linkMode=0;$('question').value='';$('linkStatus').textContent='Связь сохранена.';updateSelection();renderLinks();drawSentence()};
-$('check').onclick=check;$('clearMarks').onclick=()=>{assignedRole={};selectedGroup=null;drawSentence();$('results').classList.remove('open')};$('reset').onclick=()=>{assignedPos={};assignedRole={};chosenTool=null;selectedGroup=null;linkMode=0;linkMain=null;linkDep=null;links=[];charValues={};$('question').value='';$('linkStatus').textContent='';$('results').classList.remove('open');roleTools();initChar();makeReveals();renderLinks();updateSelection();drawSentence()};
-window.addEventListener('resize',()=>requestAnimationFrame(drawArrows));window.addEventListener('scroll',()=>{$('posMenu').classList.remove('open')},{passive:true});document.addEventListener('click',e=>{if(!e.target.closest('.pos,.pos-menu'))$('posMenu').classList.remove('open')});roleTools();initChar();makeReveals();renderLinks();updateSelection();drawSentence();
+function ready(){
+ const d=conf(),s=state(),p=d.tokens.filter((_,i)=>s.pos[i]).length,r=d.groups.filter((_,i)=>s.marks[i]).length,c=dimensionDefs.filter(([k])=>s.chars[k]).length;
+ $('check').hidden=!completed();
+ $('checkGate').textContent=completed()?'Все этапы заполнены. Можно проверить разбор.':'Части речи '+p+'/'+d.tokens.length+' · члены предложения '+r+'/'+d.groups.length+' · характеристика '+c+'/4 · связь '+(s.links.length?'есть':'не добавлена');
+ if(!completed()){$('results').classList.remove('open');s.showResult=false}
+}
+function drawNav(){
+ $('sentenceNavButtons').innerHTML=DATA.map((d,i)=>'<button class="btn secondary '+(i===current?'on ':'')+(completedFor(i)?'finished':'')+'" data-sentence="'+i+'">'+(i+1)+'</button>').join('');
+ $('sentenceCount').textContent=(current+1)+' из '+DATA.length;
+ document.querySelectorAll('[data-sentence]').forEach(b=>b.onclick=()=>{current=Number(b.dataset.sentence);renderAll()});
+}
+function completedFor(i){let s=states[i],d=DATA[i];return d.tokens.every((_,j)=>s.pos[j])&&d.groups.every((_,j)=>s.marks[j])&&dimensionDefs.every(([k])=>s.chars[k])&&s.links.length>0}
+function drawSentence(){
+ const s=state(),d=conf();
+ $('sentence').innerHTML=d.tokens.map((t,i)=>{
+   const g=t[2],mark=s.marks[g]||'';
+   return '<div class="word"><button class="pos '+(s.pos[i]?'chosen':'')+'" data-pos="'+i+'" aria-label="Часть речи слова '+safe(t[0])+'">'+(s.pos[i]||'···')+'</button><button class="word-main '+(mark?'role-'+mark:'')+' '+(s.selected===g?'selected':'')+' '+(s.main===i?'linkMain':'')+' '+(s.dep===i?'linkDep':'')+'" data-word="'+i+'" id="word'+i+'">'+safe(t[0])+'</button><span class="role-label">'+(mark?roles.find(r=>r[0]===mark)[1]:'')+'</span></div>';
+ }).join('')+'<span style="font-size:30px;padding-bottom:35px">.</span>';
+ document.querySelectorAll('[data-pos]').forEach(btn=>btn.onclick=()=>openPos(+btn.dataset.pos,btn));
+ document.querySelectorAll('[data-word]').forEach(btn=>btn.onclick=()=>selectWord(+btn.dataset.word));
+ requestAnimationFrame(drawArrows);
+ ready();drawNav();
+}
+function openPos(i,btn){
+ const menu=$('posMenu');menu.innerHTML=posTypes.map(p=>'<button data-part="'+safe(p)+'">'+safe(p)+'</button>').join('');
+ const r=btn.getBoundingClientRect();menu.style.left=Math.max(8,Math.min(r.left,window.innerWidth-270))+'px';menu.style.top=Math.max(8,Math.min(r.bottom+5,window.innerHeight-225))+'px';menu.classList.add('open');
+ menu.querySelectorAll('[data-part]').forEach(opt=>opt.onclick=()=>{state().pos[i]=opt.dataset.part;menu.classList.remove('open');drawSentence()});
+}
+function selectWord(i){
+ const s=state(),d=conf();
+ if(s.mode){
+   if(s.main===null){s.main=i;s.mode=2;$('linkStatus').textContent='Теперь выбери зависимое слово.'}
+   else if(i!==s.main){s.dep=i;s.mode=0;$('linkStatus').textContent='Введи вопрос и добавь стрелку.'}
+   else $('linkStatus').textContent='Выбери другое слово.';
+   drawSentence();displaySelection();return;
+ }
+ s.selected=d.tokens[i][2];if(s.tool)s.marks[s.selected]=s.tool;drawSentence();
+}
+function makeTools(){
+ $('roleTools').innerHTML=roles.map(([id,label])=>'<button class="tool '+(state().tool===id?'active':'')+'" data-tool="'+id+'"><span class="sample '+({predicate:'pred',attribute:'attr',object:'obj',adverbial:'adv'}[id]||'')+'"></span>'+label+'</button>').join('');
+ $('roleTools').querySelectorAll('[data-tool]').forEach(btn=>btn.onclick=()=>{
+  const s=state();s.tool=btn.dataset.tool;
+  if(s.selected!==null)s.marks[s.selected]=s.tool;
+  makeTools();drawSentence();
+ });
+}
+function drawArrows(){
+ const box=$('sentenceBox'),wrap=box.getBoundingClientRect();let svg='';
+ box.querySelectorAll('.arrow-question').forEach(x=>x.remove());
+ state().links.forEach((l,i)=>{
+  const a=$('word'+l.main)?.getBoundingClientRect(),b=$('word'+l.dep)?.getBoundingClientRect();if(!a||!b)return;
+  const x1=a.left+a.width/2-wrap.left,y1=a.top-wrap.top-7,x2=b.left+b.width/2-wrap.left,y2=b.top-wrap.top-7,yy=Math.min(y1,y2)-Math.min(48+i*11,76);
+  svg+='<path d="M'+x1+' '+y1+' Q'+((x1+x2)/2)+' '+yy+' '+x2+' '+y2+'" marker-end="url(#arrowHead)"/>';
+  const label=document.createElement('span');label.className='arrow-question';label.textContent=l.question;label.style.left=(x1+x2)/2+'px';label.style.top=yy+9+'px';box.appendChild(label);
+ });
+ $('arrowLayer').innerHTML=svg;
+}
+function displaySelection(){
+ const s=state(),ts=tokens();
+ $('linkSelection').textContent=s.main===null?'Главное и зависимое слова пока не выбраны.':s.dep===null?'Главное: '+ts[s.main][0]+'. Выбери зависимое.':ts[s.main][0]+' → '+ts[s.dep][0];
+}
+function drawLinks(){
+ $('linkList').innerHTML=state().links.map((l,i)=>'<div class="linkrow">'+safe(tokens()[l.main][0])+' — <b>'+safe(l.question)+' →</b> '+safe(tokens()[l.dep][0])+' <button class="btn small secondary" data-delete="'+i+'">Удалить</button></div>').join('');
+ document.querySelectorAll('[data-delete]').forEach(btn=>btn.onclick=()=>{state().links.splice(+btn.dataset.delete,1);drawLinks();drawArrows();ready();drawNav()});
+}
+function makeChars(){
+ $('characteristics').innerHTML=dimensionDefs.map(([id,label,opts])=>'<label>'+label+'<select data-char="'+id+'"><option value="">Выбери</option>'+opts.map(v=>'<option value="'+v+'" '+(state().chars[id]===v?'selected':'')+'>'+v+'</option>').join('')+'</select></label>').join('');
+ document.querySelectorAll('[data-char]').forEach(el=>el.onchange=()=>{state().chars[el.dataset.char]=el.value;ready();drawNav()});
+}
+const labels=['Грамматическая основа','Части речи','Второстепенные члены','Связи слов','Характеристика'];
+function revealValue(i){
+ const d=conf(),ts=d.tokens,gr=d.groups;
+ if(i===0)return ts[d.subj][0]+' — подлежащее; '+ts[d.pred][0]+' — сказуемое.';
+ if(i===1)return ts.map(t=>t[0]+' — '+t[1]).join('; ')+'.';
+ if(i===2)return gr.filter(g=>!['subject','predicate'].includes(g[2])).map(g=>g[0]+' — '+roles.find(r=>r[0]===g[2])[1].toLowerCase()).join('; ')+'.';
+ if(i===3)return d.connections.map(([main,deps,qs])=>ts[main][0]+' ('+qs[0]+') '+ts[deps[deps.length-1]][0]).join('; ')+'. Грамматическая основа не является словосочетанием.';
+ return 'Повествовательное, невосклицательное, простое, двусоставное, распространённое.'+(d.teacherReview?' «Росы» — несогласованное определение; обсуди с учителем.':'');
+}
+function makeReveals(){
+ $('reveals').innerHTML=labels.map((title,i)=>'<div class="reveal-item"><button data-reveal="'+i+'">'+(i+1)+'. '+title+' — '+(state().opened[i]?'скрыть':'показать')+'</button><div class="reveal-content" id="rev'+i+'" '+(state().opened[i]?'':'hidden')+'>'+safe(revealValue(i))+'</div></div>').join('');
+ document.querySelectorAll('[data-reveal]').forEach(b=>b.onclick=()=>{const n=Number(b.dataset.reveal);state().opened[n]=!state().opened[n];makeReveals()});
+}
+function normalizeQuestion(q){return String(q||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/ё/g,'е')}
+function check(){
+ if(!completed())return;
+ const d=conf(),s=state();const p=d.tokens.filter((t,i)=>s.pos[i]===t[1]).length;
+ const rolesCorrect=d.groups.filter((g,i)=>s.marks[i]===g[2]).length;
+ const c=dimensionDefs.filter(([id,_,__,expected])=>s.chars[id]===expected).length;
+ const matched=d.connections.filter(([main,deps,qs])=>s.links.some(l=>l.main===main&&deps.includes(l.dep)&&qs.some(q=>normalizeQuestion(q)===normalizeQuestion(l.question)))).length;
+ const extra=s.links.length-matched;
+ $('results').innerHTML='<strong>Результаты проверки</strong><div>Части речи: '+p+'/'+d.tokens.length+'. Подчёркивания: '+rolesCorrect+'/'+d.groups.length+'. Характеристика: '+c+'/'+dimensionDefs.length+'.</div><div>Верных связей: '+matched+'/'+d.connections.length+(extra>0?'. Дополнительных связей: '+extra+' — обсудите с учителем.':'.')+'</div>'+(d.teacherReview?'<div>В последнем предложении «капли росы» — случай повышенной сложности, проверь разбор с учителем.</div>':'')+'<div>Ошибки можно исправить до открытия образца.</div>';
+ $('results').classList.add('open');
+}
+function renderAll(){
+ $('sentenceBox').scrollTop=0;
+ $('linkStatus').textContent='';
+ $('question').value='';$('posMenu').classList.remove('open');
+ $('results').classList.remove('open');
+ $('topSentence').textContent=conf().label;
+ makeTools();drawSentence();makeChars();drawLinks();displaySelection();makeReveals();ready();drawNav();
+}
+$('linkMode').onclick=()=>{const s=state();s.mode=1;s.main=null;s.dep=null;$('linkStatus').textContent='Выбери главное слово.';drawSentence();displaySelection()};
+$('saveLink').onclick=()=>{
+ const s=state(),d=conf(),q=$('question').value.trim();
+ if(s.main===null||s.dep===null||!q){$('linkStatus').textContent='Выбери два слова и напиши вопрос.';return}
+ if((s.main===d.subj&&s.dep===d.pred)||(s.main===d.pred&&s.dep===d.subj)){$('linkStatus').textContent='Подлежащее и сказуемое не связываем стрелкой.';return}
+ s.links.push({main:s.main,dep:s.dep,question:q});s.main=null;s.dep=null;s.mode=0;$('question').value='';$('linkStatus').textContent='Связь добавлена.';drawSentence();drawLinks();displaySelection();ready();drawNav();
+};
+$('clearMarks').onclick=()=>{state().marks={};state().selected=null;drawSentence()};
+$('reset').onclick=()=>{states[current]={pos:{},marks:{},tool:null,selected:null,main:null,dep:null,mode:0,links:[],chars:{},opened:{}};renderAll()};
+$('check').onclick=check;
+window.addEventListener('resize',()=>requestAnimationFrame(drawArrows));
+document.addEventListener('click',e=>{if(!e.target.closest('.pos,.pos-menu'))$('posMenu').classList.remove('open')});
+renderAll();
 </script></body></html>
