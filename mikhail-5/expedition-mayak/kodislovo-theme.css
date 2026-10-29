@@ -1,0 +1,130 @@
+
+/* Код и слово — palette sourced from kodislovo.rf/assets/css/ui.css */
+:root {
+  --kd-bg:#0b1020; --kd-bg-deep:#070a14; --kd-card:#121a33;
+  --kd-field:#0b1228; --kd-text:#e9ecff; --kd-muted:#b8c0ff;
+  --kd-line:#27305a; --kd-indigo:#3a4aa0; --kd-indigo-light:#4a5bc0;
+  --kd-btn:#2b3a7a; --kd-btn-soft:#1f2a57; --kd-ok:#35d07f;
+  --kd-error:#ff8693; --kd-focus:#a7b7ff;
+  color-scheme:dark;
+  background:var(--kd-bg-deep);
+  color:var(--kd-text);
+}
+html {background:var(--kd-bg-deep)}
+body {
+  background:linear-gradient(180deg,#070a14 0%,#0b1020 30%,#070a14 100%);
+  color:var(--kd-text);font-family:Aptos,Calibri,Arial,sans-serif;
+}
+.hero,.top {
+  background:linear-gradient(115deg,#1f2a57,#2b3a7a 65%,#3a4aa0);
+  border:1px solid #4a5797;
+  box-shadow:0 12px 34px #0004;
+  color:var(--kd-text);
+}
+.hero h1,.top h1,.hero p,.top p{color:#f0f2ff}
+.page,.panel,.card,.meaning-section,.meaning-card,.explain-section,
+.category-box,.ph-wrap,.ph-sound,.mc-shell,.nc-shell,.nc-block,.mc-word,
+.ph-sound,.ph-preview,.mc-choice-panel,.mc-ranges,.mc-range-line,
+.ph-trans,.ph-word,.character-form,.sentence-box,.open-note,.word,.option {
+ color:var(--kd-text);
+ background:var(--kd-card);
+ border-color:var(--kd-line);
+ box-shadow:none;
+}
+.page{box-shadow:0 12px 36px #0003}
+.panel,.meaning-section,.card{background:#121a33}
+h1,h2,h3,h4,.question,.student-instruction,.stage-title,
+.mc-top strong,.nc-head strong,.nc-block h4,.ph-header strong,
+.ph-sound-title,.explain-section-head strong {color:var(--kd-text)}
+p,.hint,.sub,.note,.mc-muted,.ph-help,.student-instruction,
+.mc-legend-item,.ph-label,.nc-name,.meaning-section .question,
+.counter,.status,.ph-status,.mc-selected-mark,.mc-base label,
+.explain-feedback,.footer,.foot {color:var(--kd-muted)}
+.tabs button,.btn,.chip,.ph-option,.ph-step,.mc-wordtab,.mc-mini,
+.mc-mark-btn,.category-head,.meaning-card summary,.pos,.tool,
+.word-main,.pos-menu button,.option,.linkrow .btn {
+  background:var(--kd-btn-soft);color:var(--kd-text);border-color:#384575;
+  box-shadow:none;
+}
+.btn,.tabs button.active,.ph-step.now,.mc-wordtab.active,.btn:not(.secondary) {
+  background:var(--kd-btn);color:#f4f5ff;border-color:var(--kd-indigo);
+}
+.btn:hover,.tabs button:hover,.chip:hover,.ph-option:hover,
+.mc-mini:hover,.mc-mark-btn:hover,.mc-wordtab:hover,.ph-step:hover,
+.category-head:hover,.meaning-card summary:hover {background:#334383;border-color:#6675c5;color:#fff}
+.btn.secondary,.tabs button:not(.active) {background:var(--kd-btn-soft);color:#e3e7ff}
+.tabs button.active{border-color:#7180df}
+.chip.active,.ph-option.selected,.ph-step.done,.mc-mini.active,
+.mc-wordtab.active,.mc-mark-btn.active,.token-btn.active {
+ background:#34488d;color:#fff;border-color:#879aff;
+}
+.category-head,.explain-section-head,.ending-heading,.meaning-card[open] summary,
+.mc-choice-panel,.ph-header,.nc-head,.ph-trans,.ph-preview {
+  background:#1b254a;color:var(--kd-text);border-color:var(--kd-line);
+}
+.category-head small,.category-empty,.explain-empty,
+.meaning-num,.meaning-chevron,.mc-legend-item,.nc-head span,.ph-header span {
+ color:var(--kd-muted);
+}
+.category-words,.meaning-answer,.meaning-duo,.mc-base,.nc-fields {color:var(--kd-text)}
+.explain-table th,.explain-table td,.ending-row,.ending-heading,
+.ph-sound,.mc-range-line,.reveal-item {border-color:var(--kd-line)}
+.explain-table th {background:#1b254a;color:var(--kd-muted)}
+.explain-table td {background:#121a33}
+input,select,textarea,.textinput,.ending-row input,.explain-table input,
+.mc-base input,.nc-field select,.ph-count input,.blank input,
+.meaning-answer textarea,.meaning-duo textarea,.ph-count input,
+.pos-menu,.word-main,.mc-letter {
+  color:var(--kd-text);background:var(--kd-field);border-color:#3b4874;
+}
+input::placeholder,textarea::placeholder{color:#a5abd2;opacity:.9}
+input:focus,textarea:focus,select:focus,button:focus-visible {
+ outline:2px solid var(--kd-focus);outline-offset:2px;border-color:#7885dc
+}
+.blank input.good,.explain-input.ok,.ending-letter.good {
+ background:#17372f;color:#d3ffed;border-color:#35d07f
+}
+.blank input.bad,.explain-input.retry,.ending-letter.bad {
+ background:#402531;color:#ffe1e3;border-color:#ff8795
+}
+.answer,.feedback,.ph-feedback,.mc-feedback,.results {
+ background:#17382e;color:#dfffee;border-color:#35d07f
+}
+.answer strong,.feedback strong,.ph-feedback strong,.mc-feedback strong{color:#b1ffd1}
+.warn,.notice{color:#ffd297}
+.meaning-card{background:#121a33}
+.meaning-card summary{background:#1b254a;color:#f1f2ff}
+.meaning-card[open] summary,.meaning-card summary:hover{background:#26366e}
+.meaning-num{background:#31417f;color:#f3f5ff}
+.meaning-card .meaning-chevron{color:#afbcff}
+.mc-unsegmented,.mc-word,.ph-choices,.ph-count{background:#121a33}
+.mc-letter{border-color:transparent}
+.mc-letter.mc-in-корень{background:#233f66;border-bottom-color:#85baf5}
+.mc-letter.mc-in-суффикс{background:#1d4b3f;border-bottom-color:#35d07f}
+.mc-letter.mc-in-окончание{background:#493927;border-bottom-color:#f5c168}
+.mc-letter.mc-pending{background:#34488d}
+.mc-glyph,.mc-symbol,.mc-selected-mark{color:#b6c7ff}
+.mc-piece,.mc-range-line span,.mc-wordtab,.ph-option,.ph-trans strong{color:#f0f2ff}
+.mc-mini,.mc-mark-btn{background:#202c57;color:#f0f2ff}
+.nc-block{background:#0e1730}
+.nc-field select{background:#0b1228}
+.ending-row label,.explain-word,.mc-base label,.explain-section-head{color:var(--kd-text)}
+.ending-row input{background:#0b1228}
+.ph-sound{background:#0e1730}
+.ph-preview,.ph-trans{background:#1b254a}
+.ph-step.done{border-color:#35d07f}
+.category-box,.explain-section{overflow:hidden}
+#syntaxConstructorFrame{background:transparent!important}
+a{color:#adbaff}
+a:hover{color:#d2daff}
+@media (max-width:700px){
+  .page{border-radius:14px}
+  .hero{padding:20px}
+  .tabs button{min-height:44px}
+}
+@media print {
+  :root {color-scheme:light}
+  html,body,.page,.card,.panel,.meaning-section,.meaning-card,.nc-block,.ph-wrap,
+  .mc-shell{background:white!important;color:#111!important}
+  input,textarea,select{background:#fff!important;color:#111!important}
+}
