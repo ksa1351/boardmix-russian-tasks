@@ -16,7 +16,7 @@ let currentWord=0;
 const wordStates=words.map(w=>({marks:w.parts.map(()=>''),base:'',checked:false}));
 const nounTemplates=[
  {title:'в долине',context:'В долине блестела река.',answer:{part:'имя существительное',meaning:'предмет',question:'в чём?',initial:'долина',proper:'нарицательное',animate:'неодушевлённое',gender:'женский',decl:'1-е',number:'единственное',case:'предложный',member:'обстоятельство'},choices:{question:['в чём?','где?','какая?','чем?'],initial:['долина','долине','долину','долины']}},
- {title:'к маяку',context:'На подъёме к маяку ветер стал сильнее.',answer:{part:'имя существительное',meaning:'предмет',question:'к чему?',initial:'маяк',proper:'нарицательное',animate:'неодушевлённое',gender:'мужской',decl:'2-е',number:'единственное',case:'дательный',member:'обстоятельство'},choices:{question:['к чему?','где?','кому?','чего?'],initial:['маяк','маяку','маяка','маяком']}}
+ {title:'капли',context:'Между высокими соснами поблёскивали капли росы.',answer:{part:'имя существительное',meaning:'предмет',question:'что?',initial:'капля',proper:'нарицательное',animate:'неодушевлённое',gender:'женский',decl:'1-е',number:'множественное',case:'именительный',member:'подлежащее'},choices:{question:['что?','чего?','чему?','чем?'],initial:['капля','капли','каплю','капель']}}
 ];
 let nounIndex=0;
 const nounStates=nounTemplates.map(()=>({values:{},checked:false}));
