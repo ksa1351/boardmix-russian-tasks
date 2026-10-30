@@ -35,7 +35,7 @@ function drawSentence(){
  const s=state(),d=conf();
  $('sentence').innerHTML=d.tokens.map((t,i)=>{
    const g=t[2],mark=s.marks[g]||'';
-   return '<div class="word"><button class="pos '+(s.pos[i]?'chosen':'')+'" data-pos="'+i+'" aria-label="Часть речи слова '+safe(t[0])+'">'+(s.pos[i]||'···')+'</button><button class="word-main '+(mark?'role-'+mark:'')+' '+(s.selected===g?'selected':'')+' '+(s.main===i?'linkMain':'')+' '+(s.dep===i?'linkDep':'')+'" data-word="'+i+'" id="word'+i+'">'+safe(t[0])+'</button><span class="role-label">'+(mark?roles.find(r=>r[0]===mark)[1]:'')+'</span></div>';
+   return '<div class="word"><button class="pos '+(s.pos[i]?'chosen':'')+'" data-pos="'+i+'" aria-label="Часть речи слова '+safe(t[0])+'">'+(s.pos[i]||'···')+'</button><button class="word-main '+(mark?'role-'+mark:'')+' '+(s.selected===g?'selected':'')+' '+(s.main!==null&&d.tokens[s.main][2]===g?'linkMain':'')+' '+(s.dep!==null&&d.tokens[s.dep][2]===g?'linkDep':'')+'" data-word="'+i+'" id="word'+i+'">'+safe(t[0])+'</button><span class="role-label">'+(mark?roles.find(r=>r[0]===mark)[1]:'')+'</span></div>';
  }).join('')+'<span style="font-size:30px;padding-bottom:35px">.</span>';
  document.querySelectorAll('[data-pos]').forEach(btn=>btn.onclick=()=>openPos(+btn.dataset.pos,btn));
  document.querySelectorAll('[data-word]').forEach(btn=>btn.onclick=()=>selectWord(+btn.dataset.word));
